@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="">
 <head>
@@ -274,16 +273,30 @@
         function startApp() {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
+                    // A user is signed in (either returning or just signed in anonymously).
                     console.log("Authentication successful. User ID:", user.uid);
                     userId = user.uid;
-                    if (dataListenerUnsubscribe) dataListenerUnsubscribe();
+                    
+                    // FIX: Re-enable the save button and set its text on successful auth
+                    dom.saveButton.disabled = false;
+                    dom.saveButton.querySelector('span').textContent = 'Save Information';
+                    
+                    // Detach any old listener before attaching a new one.
+                    if (dataListenerUnsubscribe) {
+                        dataListenerUnsubscribe();
+                    }
                     loadHistory();
+
                 } else {
+                    // No user is signed in. This will be triggered on first load.
                     console.log("No user found. Attempting anonymous sign-in...");
+                    dom.saveButton.querySelector('span').textContent = 'Connecting...';
                     signInAnonymously(auth).catch((error) => {
                         console.error("Anonymous sign-in failed:", error);
+                        dom.saveButton.querySelector('span').textContent = 'Auth Failed';
                         showToast('Authentication failed. Please check Firebase settings.', 'error');
                     });
+                    // After successful sign-in, onAuthStateChanged will fire again and run the `if (user)` block.
                 }
             });
         }
@@ -476,7 +489,7 @@
             const btnContainer=document.createElement('div');btnContainer.className='flex flex-wrap gap-2 pt-3 border-t border-[var(--border-color)]';
             const btns={preview:createButton('Preview','btn-secondary'),edit:createButton('Edit','btn-secondary edit-btn'),del:createButton('Delete','btn-secondary delete-btn'),ai:createButton('✨ AI Assistant','btn-secondary'),save:createButton('Save','btn-primary save-changes-btn hidden'),cancel:createButton('Cancel','btn-secondary cancel-btn hidden')};
             btnContainer.append(btns.preview,btns.edit,btns.del,btns.ai,btns.save,btns.cancel);
-            
+        
             const imgContainer=document.createElement('div');imgContainer.className='hidden mt-4';
             if(data.imageData){imgContainer.innerHTML=`<img src="${data.imageData}" alt="Passport Preview" class="w-full h-auto rounded-md shadow border border-[var(--border-color)]">`;btns.preview.onclick=()=>{const isHidden=imgContainer.classList.toggle('hidden');btns.preview.textContent=isHidden?'Show Preview':'Hide Preview';};}else{btns.preview.disabled=true;btns.preview.textContent='No Preview';}
             
