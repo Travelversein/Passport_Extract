@@ -1,1137 +1,586 @@
-<html lang="en" class="dark"><head><script>(function(firebaseConfig, initialAuthToken, appId) {
-        window.__firebase_config = firebaseConfig;
-        window.__initial_auth_token = initialAuthToken;
-        window.__app_id = appId;
-            })("\n{\n  \"apiKey\": \"AIzaSyCqyCcs2R2e7AegGjvFAwG98wlamtbHvZY\",\n  \"authDomain\": \"bard-frontend.firebaseapp.com\",\n  \"projectId\": \"bard-frontend\",\n  \"storageBucket\": \"bard-frontend.firebasestorage.app\",\n  \"messagingSenderId\": \"175205271074\",\n  \"appId\": \"1:175205271074:web:2b7bd4d34d33bf38e6ec7b\"\n}\n","eyJhbGciOiJSUzI1NiIsImtpZCI6IjliMTEzMzgxNDVkZDk3ZmQ4YjgyMjgyYmRmNDg1ZDBiYjJiZmQwN2EiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay1mYnN2Y0BiYXJkLWZyb250ZW5kLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQiLCJ1aWQiOiIwNTUxMTU1NzkyMTk0ODI0NTk5MiIsImlzcyI6ImZpcmViYXNlLWFkbWluc2RrLWZic3ZjQGJhcmQtZnJvbnRlbmQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJjbGFpbXMiOnsiYXBwSWQiOiJjXzMyZjJmZGM2M2E5YzhhMmFfaW5kZXguaHRtbC02MjEifSwiZXhwIjoxNzU3NDIxOTQxLCJpYXQiOjE3NTc0MTgzNDEsImFsZyI6IlJTMjU2In0.nsXpe_HNjnwPsqwO--gcD8jbAtEYPDNFRjY3_sSyn9HOnyPY_Zw2uAD9nUPAJTu3hQ_0Km97jqhhI65K4j9kJxndmsFkJ0Dmjuwy2pHnOqLpecUov9kRLwUz7RuucPxwdBCPiVyKJgSplTC1HW8qIJAslom-04CUVD-SglhMD3FAnRG0ae9q89M3p6SVqfLbONWdn3MhpclNJc77mmnO09f8RX_EvrBuT33a2KcVp32InjVPr0QxED04li31l5IV29BEensjDhKY2LnVDcZ4ooVcCHuTse_FjZswU0zg7QbieWj8Hl4nIvN_FWdSp4b4frlWFjDEBmed9WIWmY-rxg","c_32f2fdc63a9c8a2a_index.html-621")</script><script>'use strict';var h=typeof Object.defineProperties=="function"?Object.defineProperty:function(a,b,d){if(a==Array.prototype||a==Object.prototype)return a;a[b]=d.value;return a};function l(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var d=a[b];if(d&&d.Math==Math)return d}throw Error("Cannot find global object");}var n=l(this);
-function p(a,b){if(b)a:{var d=n;a=a.split(".");for(var c=0;c<a.length-1;c++){var e=a[c];if(!(e in d))break a;d=d[e]}a=a[a.length-1];c=d[a];b=b(c);b!=c&&b!=null&&h(d,a,{configurable:!0,writable:!0,value:b})}}function r(a){function b(c){return a.next(c)}function d(c){return a.throw(c)}return new Promise(function(c,e){function f(g){g.done?c(g.value):Promise.resolve(g.value).then(b,d).then(f,e)}f(a.next())})}function t(a){return r(a())}
-p("Object.values",function(a){return a?a:function(b){var d=[],c;for(c in b)Object.prototype.hasOwnProperty.call(b,c)&&d.push(b[c]);return d}});p("Array.prototype.includes",function(a){return a?a:function(b,d){var c=this;c instanceof String&&(c=String(c));var e=c.length;d=d||0;for(d<0&&(d=Math.max(d+e,0));d<e;d++){var f=c[d];if(f===b||Object.is(f,b))return!0}return!1}});/*
+Certainly. Here is the complete `index.html` file, including the most recent code changes you requested for the date format.
 
- MIT License
-
- Copyright (c) 2017-2023 W.Y.
-
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated documentation files (the "Software"), to deal
- in the Software without restriction, including without limitation the rights
- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- copies of the Software, and to permit persons to whom the Software is
- furnished to do so, subject to the following conditions:
-
- The above copyright notice and this permission notice shall be included in
- all copies or substantial portions of the Software.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- SOFTWARE.
-
-*/
-function u(a,b){const d=a.style;b.backgroundColor&&(d.backgroundColor=b.backgroundColor);b.width&&(d.width=`${b.width}px`);b.height&&(d.height=`${b.height}px`);const c=b.style;c!=null&&Object.keys(c).forEach(e=>{d[e]=c[e]})};var v=(()=>{let a=0;return()=>{a+=1;return`u${`0000${(Math.random()*1679616<<0).toString(36)}`.slice(-4)}${a}`}})();function w(a){const b=[];for(let d=0,c=a.length;d<c;d++)b.push(a[d]);return b}let x=null;function y(a={}){return x?x:a.l?x=a.l:x=w(window.getComputedStyle(document.documentElement))}function z(a,b){return(a=(a.ownerDocument.defaultView||window).getComputedStyle(a).getPropertyValue(b))?parseFloat(a.replace("px","")):0}
-function A(a,b={}){var d;if(!(d=b.width)){d=z(a,"border-left-width");var c=z(a,"border-right-width");d=a.clientWidth+d+c}(b=b.height)||(b=z(a,"border-top-width"),c=z(a,"border-bottom-width"),b=a.clientHeight+b+c);return{width:d,height:b}}function B(a){return new Promise((b,d)=>{const c=new Image;c.onload=()=>{c.decode().then(()=>{requestAnimationFrame(()=>b(c))})};c.onerror=d;c.crossOrigin="anonymous";c.decoding="async";c.src=a})}
-function C(a){return t(function*(){return Promise.resolve().then(()=>(new XMLSerializer).serializeToString(a)).then(encodeURIComponent).then(b=>`data:image/svg+xml;charset=utf-8,${b}`)})}
-function D(a,b,d){return t(function*(){const c=document.createElementNS("http://www.w3.org/2000/svg","svg"),e=document.createElementNS("http://www.w3.org/2000/svg","foreignObject");c.setAttribute("width",`${b}`);c.setAttribute("height",`${d}`);c.setAttribute("viewBox",`0 0 ${b} ${d}`);e.setAttribute("width","100%");e.setAttribute("height","100%");e.setAttribute("x","0");e.setAttribute("y","0");e.setAttribute("externalResourcesRequired","true");c.appendChild(e);e.appendChild(a);return C(c)})}
-var E=(a,b)=>{if(a instanceof b)return!0;a=Object.getPrototypeOf(a);return a===null?!1:a.constructor.name===b.name||E(a,b)};function F(a,b){return y(b).map(d=>{const c=a.getPropertyValue(d),e=a.getPropertyPriority(d);return`${d}: ${c}${e?" !important":""};`}).join(" ")}
-function G(a,b,d,c){a=window.getComputedStyle(a,d);var e=a.getPropertyValue("content");if(e!==""&&e!=="none"){var f=v();try{b.className=`${b.className} ${f}`}catch(k){return}e=document.createElement("style");var g=e.appendChild;d=`.${f}:${d}`;a.cssText?(c=a.getPropertyValue("content"),c=`${a.cssText} content: '${c.replace(/'|"/g,"")}';`):c=F(a,c);g.call(e,document.createTextNode(`${d}{${c}}`));b.appendChild(e)}};function H(a){return a.search(/^(data:)/)!==-1}function I(a,b,d){return t(function*(){const c=yield fetch(a,b);if(c.status===404)throw Error(`Resource "${c.url}" not found`);const e=yield c.blob();return new Promise((f,g)=>{const k=new FileReader;k.onerror=g;k.onloadend=()=>{try{f(d({o:c,result:k.result}))}catch(m){g(m)}};k.readAsDataURL(e)})})}const J={};function K(a,b,d){let c=a.replace(/\?.*/,"");d&&(c=a);/ttf|otf|eot|woff2?/i.test(c)&&(c=c.replace(/.*\//,""));return b?`[${b}]${c}`:c}
-function L(a,b,d){return t(function*(){const c=K(a,b,d.C);if(J[c]!=null)return J[c];d.u&&(a+=(/\?/.test(a)?"&":"?")+(new Date).getTime());let e;try{const f=yield I(a,d.i,({o:g,result:k})=>{b||(b=g.headers.get("Content-Type")||"");return k.split(/,/)[1]});e=`data:${b};base64,${f}`}catch(f){e=d.B||""}return J[c]=e})};const M={P:"application/font-woff",R:"application/font-woff",N:"application/font-truetype",v:"application/vnd.ms-fontobject",H:"image/png",F:"image/jpeg",D:"image/jpeg",A:"image/gif",M:"image/tiff",L:"image/svg+xml",O:"image/webp"};function N(a){return(a=/\.([^./]*?)$/g.exec(a))?a[1]:""};function O(a){return t(function*(){const b=a.toDataURL();return b==="data:,"?a.cloneNode(!1):B(b)})}function aa(a,b){return t(function*(){if(a.currentSrc){var d=document.createElement("canvas");const c=d.getContext("2d");d.width=a.clientWidth;d.height=a.clientHeight;c==null||c.drawImage(a,0,0,d.width,d.height);d=d.toDataURL();return B(d)}d=a.poster;d=yield L(d,M[N(d).toLowerCase()]||"",b);return B(d)})}
-function ba(a,b){return t(function*(){try{let d;if(a==null?0:(d=a.contentDocument)==null?0:d.body)return yield P(a.contentDocument.body,b,!0)}catch(d){}return a.cloneNode(!1)})}function ca(a,b){return t(function*(){return E(a,HTMLCanvasElement)?O(a):E(a,HTMLVideoElement)?aa(a,b):E(a,HTMLIFrameElement)?ba(a,b):a.cloneNode(a.tagName!=null&&a.tagName.toUpperCase()==="SVG")})}
-function da(a,b,d){return t(function*(){if(b.tagName!=null&&b.tagName.toUpperCase()==="SVG")return b;let c=[];if(a.tagName!=null&&a.tagName.toUpperCase()==="SLOT"&&a.assignedNodes)c=w(a.assignedNodes());else{let e;if(E(a,HTMLIFrameElement)&&((e=a.contentDocument)==null?0:e.body))c=w(a.contentDocument.body.childNodes);else{let f;c=w(((f=a.shadowRoot)!=null?f:a).childNodes)}}if(c.length===0||E(a,HTMLVideoElement))return b;yield c.reduce((e,f)=>e.then(()=>P(f,d)).then(g=>{g&&b.appendChild(g)}),Promise.resolve());
-return b})}function ea(a,b,d){const c=b.style;if(c){var e=window.getComputedStyle(a);e.cssText?(c.cssText=e.cssText,c.transformOrigin=e.transformOrigin):y(d).forEach(f=>{let g=e.getPropertyValue(f);f==="font-size"&&g.endsWith("px")&&(g=`${Math.floor(parseFloat(g.substring(0,g.length-2)))-.1}px`);E(a,HTMLIFrameElement)&&f==="display"&&g==="inline"&&(g="block");f==="d"&&b.getAttribute("d")&&(g=`path(${b.getAttribute("d")})`);c.setProperty(f,g,e.getPropertyPriority(f))})}}
-function fa(a,b){E(a,HTMLSelectElement)&&(b=Array.from(b.children).find(d=>a.value===d.getAttribute("value")))&&b.setAttribute("selected","")}
-function ha(a,b){return t(function*(){var d=a.querySelectorAll?a.querySelectorAll("use"):[];if(d.length===0)return a;var c={};for(var e=0;e<d.length;e++){var f=d[e].getAttribute("xlink:href");if(f){const g=document.querySelector(f);a.querySelector(f)||!g||c[f]||(c[f]=yield P(g,b,!0))}}d=Object.values(c);if(d.length){c=document.createElementNS("http://www.w3.org/1999/xhtml","svg");c.setAttribute("xmlns","http://www.w3.org/1999/xhtml");c.style.position="absolute";c.style.width="0";c.style.height="0";
-c.style.overflow="hidden";c.style.display="none";e=document.createElementNS("http://www.w3.org/1999/xhtml","defs");c.appendChild(e);for(f=0;f<d.length;f++)e.appendChild(d[f]);a.appendChild(c)}return a})}
-function P(a,b,d){return t(function*(){return d||!b.filter||b.filter(a)?Promise.resolve(a).then(c=>ca(c,b)).then(c=>da(a,c,b)).then(c=>{E(c,Element)&&(ea(a,c,b),G(a,c,":before",b),G(a,c,":after",b),E(a,HTMLTextAreaElement)&&(c.textContent=a.value),E(a,HTMLInputElement)&&c.setAttribute("value",a.value),fa(a,c));return c}).then(c=>ha(c,b)):null})};const Q=/url\((['"]?)([^'"]+?)\1\)/g,ia=/url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g,ja=/src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;function ka(a){const b=[];a.replace(Q,(d,c,e)=>{b.push(e);return d});return b.filter(d=>!H(d))}
-function la(a,b,d,c){return t(function*(){try{const e=d?(new URL(b,d||void 0)).toString():b;let f;f=yield L(e,M[N(b).toLowerCase()]||"",c);return a.replace(new RegExp(`(url\\(['"]?)(${b.replace(/([.*+?^${}()|\[\]\/\\])/g,"\\$1")})(['"]?\\))`,"g"),`$1${f}$3`)}catch(e){}return a})}function ma(a,{I:b}){return b?a.replace(ja,d=>{for(;;){const [c,,e]=ia.exec(d)||[],f=c,g=e;if(!g)return"";if(g===b)return`src: ${f};`}}):a}
-function R(a,b,d){return t(function*(){if(a.search(Q)===-1)return a;const c=ma(a,d);return ka(c).reduce((e,f)=>e.then(g=>la(g,f,b,d)),Promise.resolve(c))})};function S(a,b,d){return t(function*(){var c;const e=(c=b.style)==null?void 0:c.getPropertyValue(a);return e?(c=yield R(e,null,d),b.style.setProperty(a,c,b.style.getPropertyPriority(a)),!0):!1})}function na(a,b){return t(function*(){(yield S("background",a,b))||(yield S("background-image",a,b));(yield S("mask",a,b))||(yield S("-webkit-mask",a,b))||(yield S("mask-image",a,b))||(yield S("-webkit-mask-image",a,b))})}
-function oa(a,b){return t(function*(){const d=E(a,HTMLImageElement);if(d&&!H(a.src)||E(a,SVGImageElement)&&!H(a.href.baseVal)){var c=d?a.src:a.href.baseVal,e=yield L(c,M[N(c).toLowerCase()]||"",b);yield new Promise((f,g)=>{a.onload=f;a.onerror=b.m?(...k)=>{try{f(b.m(...k))}catch(m){g(m)}}:g;a.decode&&(a.decode=f);a.loading==="lazy"&&(a.loading="eager");d?(a.srcset="",a.src=e):a.href.baseVal=e})}})}
-function pa(a,b){return t(function*(){const d=w(a.childNodes).map(c=>T(c,b));yield Promise.all(d).then(()=>a)})}function T(a,b){return t(function*(){E(a,Element)&&(yield na(a,b),yield oa(a,b),yield pa(a,b))})};const U={};function V(a){return t(function*(){var b=U[a];if(b!=null)return b;b=yield(yield fetch(a)).text();b={url:a,cssText:b};return U[a]=b})}function W(a,b){return t(function*(){let d=a.cssText;const c=/url\(["']?([^"')]+)["']?\)/g,e=(d.match(/url\([^)]+\)/g)||[]).map(f=>t(function*(){let g=f.replace(c,"$1");g.startsWith("https://")||(g=(new URL(g,a.url)).href);return I(g,b.i,({result:k})=>{d=d.replace(f,`url(${k})`);return[f,k]})}));return Promise.all(e).then(()=>d)})}
-function X(a){if(a==null)return[];const b=[];a=a.replace(/(\/\*[\s\S]*?\*\/)/gi,"");for(var d=RegExp("((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})","gi");;){var c=d.exec(a);if(c===null)break;b.push(c[0])}a=a.replace(d,"");d=/@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi;for(c=RegExp("((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})","gi");;){let e=d.exec(a);if(e===null)if(e=c.exec(a),e===null)break;else d.lastIndex=c.lastIndex;else c.lastIndex=
-d.lastIndex;b.push(e[0])}return b}
-function qa(a,b){return t(function*(){const d=[],c=[];a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach((f,g)=>{if(f.type===CSSRule.IMPORT_RULE){let k=g+1;f=V(f.href).then(m=>W(m,b)).then(m=>X(m).forEach(q=>{try{e.insertRule(q,q.startsWith("@import")?k+=1:e.cssRules.length)}catch(Ca){}})).catch(()=>{});c.push(f)}})}catch(f){const g=a.find(k=>k.href==null)||document.styleSheets[0];e.href!=null&&c.push(V(e.href).then(k=>W(k,b)).then(k=>X(k).forEach(m=>{g.insertRule(m,g.cssRules.length)})).catch(()=>
-{}))}});return Promise.all(c).then(()=>{a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach(f=>{d.push(f)})}catch(f){}});return d})})}function ra(a){return a.filter(b=>b.type===CSSRule.FONT_FACE_RULE).filter(b=>b.style.getPropertyValue("src").search(Q)!==-1)}function sa(a,b){return t(function*(){if(a.ownerDocument==null)throw Error("Provided element is not within a Document");var d=w(a.ownerDocument.styleSheets);d=yield qa(d,b);return ra(d)})}
-function ta(a){function b(c){(c.style.fontFamily||getComputedStyle(c).fontFamily).split(",").forEach(e=>{d.add(e.trim().replace(/["']/g,""))});Array.from(c.children).forEach(e=>{e instanceof HTMLElement&&b(e)})}const d=new Set;b(a);return d}function ua(a,b){return t(function*(){const d=yield sa(a,b),c=ta(a);return(yield Promise.all(d.filter(e=>c.has(e.style.fontFamily.trim().replace(/["']/g,""))).map(e=>R(e.cssText,e.parentStyleSheet?e.parentStyleSheet.href:null,b)))).join("\n")})}
-function va(a,b){return t(function*(){const d=b.j!=null?b.j:b.K?null:yield ua(a,b);if(d){const c=document.createElement("style");c.appendChild(document.createTextNode(d));a.firstChild?a.insertBefore(c,a.firstChild):a.appendChild(c)}})};function wa(a,b={}){return t(function*(){const {width:d,height:c}=A(a,b),e=yield P(a,b,!0);yield va(e,b);yield T(e,b);u(e,b);return yield D(e,d,c)})}
-function xa(a,b={}){return t(function*(){const {width:d,height:c}=A(a,b);var e=yield wa(a,b);e=yield B(e);const f=document.createElement("canvas"),g=f.getContext("2d"),k=b.G||window.devicePixelRatio||1,m=b.h||d,q=b.g||c;f.width=m*k;f.height=q*k;!b.J&&(f.width>16384||f.height>16384)&&(f.width>16384&&f.height>16384?f.width>f.height?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384):f.width>16384?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=
-16384));f.style.width=`${m}`;f.style.height=`${q}`;b.backgroundColor&&(g.fillStyle=b.backgroundColor,g.fillRect(0,0,f.width,f.height));g.drawImage(e,0,0,f.width,f.height);return f})}function Y(a,b={}){return t(function*(){return(yield xa(a,b)).toDataURL()})};const ya=["gemini.google.com","corp.google.com"];function Z(){return document.body.querySelectorAll('[class*="animate"]').length>0}function za(){return t(function*(){const a=document.body.offsetWidth,b=document.body.offsetHeight,d=document.body.cloneNode(!0);d.querySelectorAll('[class*="animate"]').forEach(c=>{c.classList.remove(...Array.from(c.classList).filter(e=>e.startsWith("animate")))});d.style.width=`${a}px`;d.style.height=`${b}px`;return d})}
-function Aa(a){return t(function*(){let b=document.body;if(Z()){var d=yield za();b=d;document.body.appendChild(d)}d=yield Y(b,{h:b.offsetWidth,g:b.offsetHeight});Z()&&document.body.removeChild(b);window.parent.postMessage({type:"SEND_SCREENSHOT",image:d,topOffset:document.documentElement.scrollTop},a.origin)})}
-function Ba(a){return t(function*(){var b=document.body;b={type:"SEND_SCREENSHOT_FOR_DATA_VISUALIZATION",image:yield Y(b,{h:b.offsetWidth,g:b.offsetHeight}),topOffset:0};window.parent.postMessage(b,a.origin)})}window.addEventListener("message",a=>t(function*(){if(ya.some(d=>a.origin.includes(d))){var b=a.data;b&&(b.type==="MAKE_SCREENSHOT"&&(yield Aa(a)),b.type==="MAKE_SCREENSHOT_FOR_DATA_VISUALIZATION"&&(yield Ba(a)))}}));
-</script><script>(function() {
-  // Ensure this script is executed only once
-  if (window.firebaseAuthBridgeScriptLoaded) {
-    return;
-  }
-  window.firebaseAuthBridgeScriptLoaded = true;
-
-  let nextTokenPromiseId = 0;
-
-  // Stores { resolve, reject } for ongoing token requests
-  const pendingTokenPromises = {};
-
-  // Listen for messages from the Host Application
-  window.addEventListener('message', function(event) {
-
-    const messageData = event.data;
-
-  if (messageData && messageData.type === 'RESOLVE_NEW_FIREBASE_TOKEN') {
-      const { success, token, error, promiseId } = messageData ?? {};
-      if (pendingTokenPromises[promiseId]) {
-        if (success) {
-          pendingTokenPromises[promiseId].resolve(token);
-        } else {
-          pendingTokenPromises[promiseId].reject(new Error(error || 'Token refresh failed from host.'));
-        }
-        delete pendingTokenPromises[promiseId];
-      }
-    }
-  });
-
-  // Expose a function for the Generated App to request a new Firebase token
-  window.requestNewFirebaseToken = function() {
-    const currentPromiseId = nextTokenPromiseId++;
-    const promise = new Promise((resolve, reject) => {
-      pendingTokenPromises[currentPromiseId] = { resolve, reject };
-    });
-    if (window.parent && window.parent !== window) {
-      window.parent.postMessage({
-        type: 'REQUEST_NEW_FIREBASE_TOKEN',
-        promiseId: currentPromiseId
-      }, '*');
-    } else {
-      pendingTokenPromises[currentPromiseId].reject(new Error('No parent window to request token from.'));
-      delete pendingTokenPromises[currentPromiseId];
-    }
-    return promise;
-  };
-})();</script><script>
-let realOriginalGetUserMedia = null;
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-  realOriginalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
-}
-
-(function() {
-  if (navigator.mediaDevices && navigator.mediaDevices.__proto__) {
-    try {
-      Object.defineProperty(navigator.mediaDevices.__proto__, 'getUserMedia', {
-        get: function() {
-          return undefined; // Or throw an error
-        },
-        configurable: false
-      });
-    } catch (error) {
-      console.error("Error defining prototype getter:", error);
-    }
-  }
-})();
-
-(function() {
-  const pendingMediaResolvers = {};
-  let nextMediaPromiseId = 0;
-
-  function requestMediaPermissions(constraints) {
-    const mediaPromiseId = nextMediaPromiseId++;
-    const promise = new Promise((resolve, reject) => {
-      pendingMediaResolvers[mediaPromiseId] = (granted) => {
-        delete pendingMediaResolvers[mediaPromiseId];
-        resolve(granted);
-      };
-    });
-
-    window.parent.postMessage({
-      type: 'requestMediaPermission',
-      constraints: constraints,
-      promiseId: mediaPromiseId,
-    }, '*');
-
-    return promise;
-  }
-
-  let originalGetUserMedia = realOriginalGetUserMedia;
-
-  function interceptGetUserMedia() {
-    if (navigator.mediaDevices) {
-      Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {
-        value: function(constraints) {
-          return requestMediaPermissions(constraints).then((granted) => {
-            if (granted) {
-              if (originalGetUserMedia) {
-                return originalGetUserMedia(constraints);
-              } else {
-                throw new Error("Original getUserMedia not available.");
-              }
-            } else {
-              throw new DOMException('Permission denied', 'NotAllowedError');
-            }
-          });
-        },
-        writable: false,
-        configurable: false
-      });
-    }
-  }
-
-  interceptGetUserMedia();
-
-  const observer = new MutationObserver(function(mutationsList, observer) {
-    for (const mutation of mutationsList) {
-      if (mutation.type === 'reconfigured' && mutation.name === 'getUserMedia' && mutation.object === navigator.mediaDevices) {
-        interceptGetUserMedia();
-      } else if (mutation.type === 'attributes' && mutation.attributeName === 'getUserMedia' && mutation.target === navigator.mediaDevices) {
-        interceptGetUserMedia();
-      } else if (mutation.type === 'childList' && mutation.addedNodes) {
-        mutation.addedNodes.forEach(node => {
-          if (node === navigator.mediaDevices) {
-            interceptGetUserMedia();
-          }
-        });
-      }
-    }
-  });
-
-  function interceptSpeechRecognition() {
-    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
-      return;
-    }
-
-    const OriginalSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    const SpeechRecognitionWrapper = function(...args) {
-      const recognizer = new OriginalSpeechRecognition(...args);
-      const originalStart = recognizer.start.bind(recognizer);
-
-      recognizer.start = function() {
-        requestMediaPermissions({ audio: true }).then(granted => {
-          if (granted) {
-            originalStart();
-          } else {
-            const errorEvent = new SpeechRecognitionErrorEvent('error');
-            errorEvent.error = 'not-allowed'; // This is the standard error for permission denial.
-            recognizer.dispatchEvent(errorEvent);
-          }
-        });
-      };
-
-      return recognizer;
-    };
-
-    SpeechRecognitionWrapper.prototype = OriginalSpeechRecognition.prototype;
-    SpeechRecognitionWrapper.prototype.constructor = SpeechRecognitionWrapper;
-
-    if (window.SpeechRecognition) {
-      window.SpeechRecognition = SpeechRecognitionWrapper;
-    }
-    if (window.webkitSpeechRecognition) {
-      window.webkitSpeechRecognition = SpeechRecognitionWrapper;
-    }
-  }
-
-  interceptSpeechRecognition();
-
-  window.addEventListener('message', function(event) {
-    if (event.data) {
-      if (event.data.type === 'resolveMediaPermission') {
-        const { promiseId, granted } = event.data;
-        if (pendingMediaResolvers[promiseId]) {
-          pendingMediaResolvers[promiseId](granted);
-        }
-      }
-    }
-  });
-
-})();</script><script>((function(modelInformation) {
-  const originalFetch = window.fetch;
-  // TODO: b/421908508 - Move these out of the script and match all generative AI model calls.
-  let googleLlmBaseApiUrls = [
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':streamGenerateContent',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':generateContent',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predict',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predictLongRunning',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageEditModelName + ':generateContent',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predict',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predictLongRunning',
-    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.ttsModelName + ':generateContent',
-  ];
-  modelInformation.deprecatedTextModelNames.forEach((modelName) => {
-    googleLlmBaseApiUrls.push(
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
-      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
-    );
-  });
-
-  const pendingFetchResolvers = {};
-  let nextPromiseId = 0;
-
-  function handleStringInput(input, optionsArgument) {
-    const actualUrl = input;
-    const fetchCallArgs = [actualUrl, optionsArgument];
-    const effectiveOptions = optionsArgument || {};
-    const bodyForApiKeyCheck = effectiveOptions.body;
-    const bodyForPostMessage = effectiveOptions.body;
-    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
-  }
-
-  function handleRequestInput(input, optionsArgument) {
-    const actualUrl = input.url;
-    const fetchCallArgs = [input, optionsArgument];
-    const effectiveOptions = { method: input.method, headers: new Headers(input.headers) };
-    let bodyForApiKeyCheck;
-    let bodyForPostMessage;
-
-    if (optionsArgument) {
-      if (optionsArgument.method) effectiveOptions.method = optionsArgument.method;
-      if (optionsArgument.headers) effectiveOptions.headers = new Headers(optionsArgument.headers);
-      if ('body' in optionsArgument) {
-        bodyForApiKeyCheck = optionsArgument.body;
-        bodyForPostMessage = optionsArgument.body;
-      } else {
-        bodyForApiKeyCheck = undefined;
-        bodyForPostMessage = input.body;
-      }
-    } else {
-      bodyForApiKeyCheck = undefined;
-      bodyForPostMessage = input.body;
-    }
-    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
-  }
-
-  window.fetch = function(input, optionsArgument) {
-    let actualUrl;
-    let fetchCallArgs;
-    let effectiveOptions = {};
-    let bodyForApiKeyCheck;
-    let bodyForPostMessage;
-
-    if (typeof input === 'string') {
-      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleStringInput(input, optionsArgument));
-    } else if (input instanceof Request) {
-      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleRequestInput(input, optionsArgument));
-    } else {
-      return originalFetch.apply(window, [input, optionsArgument]);
-    }
-
-    effectiveOptions.method = effectiveOptions.method || 'GET';
-    if (!effectiveOptions.headers) {
-      effectiveOptions.headers = new Headers();
-    }
-
-
-    if (typeof actualUrl === 'string' && googleLlmBaseApiUrls.some((url) => actualUrl.startsWith(url))) {
-      let apiKeyIsNull = true;
-
-      const regex = new RegExp("models/([^:]+)");
-      const modelNameMatch = actualUrl.match(regex);
-      const modelName = modelNameMatch ? modelNameMatch[1] : 'unspecified';
-
-
-      try {
-        const urlObject = new URL(actualUrl);  // Use URL object for robust parsing
-        const apiKeyParam = urlObject.searchParams.get('key');
-        if (apiKeyParam) {
-          apiKeyIsNull = false;
-        }
-      } catch (e) {
-        // Continue checks even if URL parsing fails
-      }
-
-      if (apiKeyIsNull && effectiveOptions.headers) {
-        const h = new Headers(effectiveOptions.headers);
-        const apiKeyHeaderValue = h.get('X-API-Key') || h.get('x-api-key');
-        if (apiKeyHeaderValue) {
-          apiKeyIsNull = false;
-          return originalFetch.apply(window, fetchCallArgs);
-        }
-      }
-
-      if (apiKeyIsNull && effectiveOptions.method && ['POST', 'PUT', 'PATCH'].includes(effectiveOptions.method.toUpperCase()) && typeof bodyForApiKeyCheck === 'string') {
-        try {
-          const bodyData = JSON.parse(bodyForApiKeyCheck);
-          if (bodyData && bodyData.apiKey) {
-            apiKeyIsNull = false;
-            return originalFetch.apply(window, fetchCallArgs);
-          }
-        } catch (e) {
-          // Ignore JSON parsing errors
-        }
-      }
-
-      if(apiKeyIsNull) {
-        const promiseId = nextPromiseId++;
-        const promise = new Promise((resolve) => {
-          pendingFetchResolvers[promiseId] = (resolvedResponse) => {
-            delete pendingFetchResolvers[promiseId];
-            resolve(resolvedResponse);
-          };
-        });
-
-        let serializedBodyForPostMessage;
-        if (typeof bodyForPostMessage === 'string' || bodyForPostMessage == null) {
-            serializedBodyForPostMessage = bodyForPostMessage;
-        } else if (bodyForPostMessage instanceof ReadableStream) {
-            serializedBodyForPostMessage = null;
-        } else {
-            try {
-                serializedBodyForPostMessage = JSON.stringify(bodyForPostMessage);
-            } catch (e) {
-                serializedBodyForPostMessage = null;
-            }
-        }
-
-        const messageOptions = {
-            method: effectiveOptions.method,
-            headers: Object.fromEntries(new Headers(effectiveOptions.headers).entries()),
-            body: serializedBodyForPostMessage
-        };
-
-        window.parent.postMessage({
-          type: 'requestFetch',
-          url: actualUrl,
-          modelName: modelName,
-          options: messageOptions,
-          promiseId: promiseId,
-        }, '*');
-
-        return promise;
-      }
-      return originalFetch.apply(window, fetchCallArgs);
-    }
-    return originalFetch.apply(window, fetchCallArgs);
-  };
-
-  window.addEventListener('message', function(event) {
-    if (event.data && event.data.type === 'resolveFetch') {
-      const { promiseId, response } = event.data;
-      if (pendingFetchResolvers[promiseId]) {
-        try {
-          const reconstructedResponse = new Response(response.body, {
-            status: response.status,
-            statusText: response.statusText,
-            headers: new Headers(response.headers),
-          });
-          pendingFetchResolvers[promiseId](reconstructedResponse);
-        } catch (error) {
-          pendingFetchResolvers[promiseId](new Response(null, { status: 500, statusText: "Interceptor Response Reconstruction Error" }));
-        }
-      }
-    }
-  });
-
-}))({"textModelName":"gemini-2.5-flash-preview-05-20","imageModelName":"imagen-3.0-generate-002","imageEditModelName":"gemini-2.5-flash-image-preview","videoModelName":"veo-2.0-generate-001","ttsModelName":"gemini-2.5-flash-preview-tts","deprecatedTextModelNames":["gemini-2.0-flash","gemini-2.5-flash-preview-04-17"]})</script><script>(function() {
-  const originalConsoleLog = console.log;
-  const originalConsoleError = console.error;
-
-    /**
-   * Normalizes an error event or a promise rejection reason into a structured error object.
-   * @param {*} errorEventOrReason The error object or reason.
-   * @return {object} Structured error data { message, name, stack }.
-   */
-  function getErrorObject(errorEventOrReason) {
-    if (errorEventOrReason instanceof Error) {
-      return {
-        message: errorEventOrReason.message,
-        name: errorEventOrReason.name,
-        stack: errorEventOrReason.stack,
-      };
-    }
-    // Fallback for non-Error objects.
-    try {
-      return {
-        message: JSON.stringify(errorEventOrReason),
-        name: 'UnknownErrorType',
-        stack: null,
-      };
-    } catch (e) {
-      return {
-        message: String(errorEventOrReason),
-        name: 'UnknownErrorTypeNonStringifiable',
-        stack: null,
-      };
-    }
-  }
-
-  /**
-   * Converts an array of arguments (from log/error) into a single string.
-   * Handles Error objects specially to include their message and stack.
-   * @param {Array<*>} args - Arguments passed to console methods.
-   * @return {string} A string representation of the arguments.
-   */
-  function stringifyArgs(args) {
-    return args
-      .map((arg) => {
-        if (arg instanceof Error) {
-          const {message, stack} = arg;
-          return `Error: ${message}${stack ? ('\nStack: ' + stack) : ''}`;
-        }
-        if (typeof arg === 'object' && arg !== null) {
-          try {
-            return JSON.stringify(arg);
-          } catch (error) {
-            return '[Circular Object]';
-          }
-        } else {
-          return String(arg);
-        }
-      })
-      .join(' ');
-  }
-
-  console.log = function(...args) {
-    const logString = stringifyArgs(args);
-    window.parent.postMessage({ type: 'log', message: logString }, '*');
-    originalConsoleLog.apply(console, args);
-  };
-
-  console.error = function(...args) {
-    let errorData;
-    if (args.length > 0 && args[0] instanceof Error) {
-      const err = args[0];
-      // If the first arg is an Error, capture its details.
-      errorData = {
-        type: 'error',
-        source: 'CONSOLE_ERROR',
-        ...getErrorObject(err),
-        rawArgsString: stringifyArgs(args.slice(1)),
-        timestamp: new Date().toISOString(),
-      };
-    } else {
-      // If not an Error object, treat all args as a general error message.
-      errorData = {
-        type: 'error',
-        source: 'CONSOLE_ERROR',
-        message: stringifyArgs(args),
-        name: 'ConsoleLoggedError',
-        stack: null,
-        timestamp: new Date().toISOString(),
-      };
-    }
-    window.parent.postMessage(errorData, '*');
-    originalConsoleError.apply(console, args);
-  };
-
-  // Listen for global unhandled synchronous errors.
-  window.addEventListener('error', function(event) {
-    const errorDetails = event.error ? getErrorObject(event.error) : {
-      message: event.message,
-      name: 'GlobalError',
-      stack: null,
-      filename: event.filename,
-      lineno: event.lineno,
-      colno: event.colno,
-    };
-
-    window.parent.postMessage({
-      type: 'error',
-      source: 'global',
-      ...errorDetails,
-      message: errorDetails.message || event.message,
-      timestamp: new Date().toISOString(),
-    }, '*');
-  });
-
-  // Listen for unhandled promise rejections (asynchronous errors).
-  window.addEventListener('unhandledrejection', function(event) {
-    const errorDetails = getErrorObject(event.reason);
-
-    window.parent.postMessage({
-      type: 'error',
-      source: 'unhandledrejection',
-      ...errorDetails,
-      message: errorDetails.message || 'Unhandled Promise Rejection',
-      timestamp: new Date().toISOString(),
-    }, '*');
-  });
-
-})();</script>
+```html
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travelverse Passport Extractor</title>
+    <title>Passport Information Extractor</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script>
+        // Set theme on initial load
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     <style>
         :root {
-            /* Travelverse Brand Colors */
-            --brand-color: #0D5A67;
-            --brand-color-light: #E7F5F6;
-            --brand-color-dark: #0A4853;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f7;
+            --bg-tertiary: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --border-color: #d2d2d7;
+            --accent-color: #007aff;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --btn-primary-bg: #007aff;
+            --btn-primary-text: #ffffff;
+            --btn-secondary-bg: #e8e8ea;
+            --btn-secondary-text: #1d1d1f;
         }
-        /* Light Theme (Default) */
-        :root {
-            --bg-primary: #f0f9ff; /* sky-50 */
-            --bg-secondary: #ffffff;
-            --text-primary: #1e293b; /* slate-800 */
-            --text-secondary: #64748b; /* slate-500 */
-            --border-color: #e2e8f0; /* slate-200 */
+
+        .dark {
+            --bg-primary: #1d1d1f;
+            --bg-secondary: #000000;
+            --bg-tertiary: #161617;
+            --text-primary: #f5f5f7;
+            --text-secondary: #86868b;
+            --border-color: #3a3a3c;
+            --accent-color: #0a84ff;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --btn-primary-bg: #0a84ff;
+            --btn-primary-text: #ffffff;
+            --btn-secondary-bg: #2c2c2e;
+            --btn-secondary-text: #f5f5f7;
         }
-        /* Dark Theme */
-        html.dark {
-            --bg-primary: #0f172a; /* slate-900 */
-            --bg-secondary: #1e293b; /* slate-800 */
-            --text-primary: #f1f5f9; /* slate-100 */
-            --text-secondary: #94a3b8; /* slate-400 */
-            --border-color: #334155; /* slate-700 */
-        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-secondary);
             color: var(--text-primary);
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s, color 0.3s;
         }
-        .file-drop-zone {
-            border: 2px dashed #9ca3af;
-            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        
+        .main-panel {
+            background-color: var(--bg-tertiary);
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: background-color 0.3s, border-color 0.3s;
         }
-        .file-drop-zone.drag-over {
-            background-color: var(--brand-color-light);
-            border-color: var(--brand-color);
+
+        h2 { font-size: 1.75rem; font-weight: 600; color: var(--text-primary); }
+        p { color: var(--text-secondary); }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.2s ease, opacity 0.2s ease;
         }
+        .btn:active { transform: scale(0.97); }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary { background-color: var(--btn-primary-bg); color: var(--btn-primary-text); }
+        .btn-primary:hover:not(:disabled) { filter: brightness(1.1); }
+        
+        .btn-secondary { background-color: var(--btn-secondary-bg); color: var(--btn-secondary-text); }
+        .btn-secondary:hover:not(:disabled) { filter: brightness(0.95); }
+        .dark .btn-secondary:hover:not(:disabled) { filter: brightness(1.15); }
+
+        .form-input, .form-select {
+            width: 100%;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: var(--text-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px var(--accent-color-translucent, rgba(0, 122, 255, 0.2));
+        }
+
         .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--brand-color);
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent-color);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
             animation: spin 1s linear infinite;
         }
-        html.dark .loader {
-            border: 4px solid #374151; /* gray-700 */
-            border-top: 4px solid var(--brand-color);
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        #savedRecordsList::-webkit-scrollbar { width: 8px; }
-        #savedRecordsList::-webkit-scrollbar-track { background: #f1f5f9; }
-        #savedRecordsList::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; border: 2px solid #f1f5f9; }
-        #savedRecordsList::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
-        html.dark #savedRecordsList::-webkit-scrollbar-track { background: var(--bg-secondary); }
-        html.dark #savedRecordsList::-webkit-scrollbar-thumb { background-color: #4b5563; border-color: var(--bg-secondary); }
-        html.dark #savedRecordsList::-webkit-scrollbar-thumb:hover { background-color: #6b7280; }
-
-        /* Component background and text colors for theme switching */
-        .themed-bg { background-color: var(--bg-secondary); }
-        .themed-text-primary { color: var(--text-primary); }
-        .themed-text-secondary { color: var(--text-secondary); }
-        .themed-border { border-color: var(--border-color); }
-        .themed-input { background-color: var(--bg-primary); border-color: var(--border-color); color: var(--text-primary); }
-        html.dark .themed-input:focus { background-color: var(--bg-secondary); }
-
-        .text-brand { color: var(--brand-color); }
-        .bg-brand { background-color: var(--brand-color); }
-        .bg-brand-light { background-color: var(--brand-color-light); }
-        .hover\:bg-brand-dark:hover { background-color: var(--brand-color-dark); }
-        .hover\:text-brand-dark:hover { color: var(--brand-color-dark); }
-        .focus\:ring-brand:focus { --tw-ring-color: var(--brand-color); }
-        .focus\:border-brand:focus { border-color: var(--brand-color); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .active-dashboard-filter { background-color: var(--btn-secondary-bg); }
+        
+        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+        .toast-in { animation: slideInRight 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .toast-out { animation: slideOutRight 0.5s cubic-bezier(0.5, 0, 0.75, 0) forwards; }
     </style>
-<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.left-3{left:0.75rem}.top-1\/2{top:50%}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-10{margin-bottom:2.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mt-1{margin-top:0.25rem}.mt-10{margin-top:2.5rem}.mt-2{margin-top:0.5rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-12{height:3rem}.h-24{height:6rem}.h-48{height:12rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-full{height:100%}.h-2{height:0.5rem}.max-h-\[70vh\]{max-height:70vh}.w-10{width:2.5rem}.w-12{width:3rem}.w-24{width:6rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-full{width:100%}.w-2{width:0.5rem}.max-w-2xl{max-width:42rem}.max-w-7xl{max-width:80rem}.max-w-lg{max-width:32rem}.max-w-sm{max-width:24rem}.flex-shrink-0{flex-shrink:0}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.overflow-y-auto{overflow-y:auto}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-red-100{--tw-bg-opacity:1;background-color:rgb(254 226 226 / var(--tw-bg-opacity, 1))}.bg-red-600{--tw-bg-opacity:1;background-color:rgb(220 38 38 / var(--tw-bg-opacity, 1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249 / var(--tw-bg-opacity, 1))}.bg-slate-200{--tw-bg-opacity:1;background-color:rgb(226 232 240 / var(--tw-bg-opacity, 1))}.bg-green-500{--tw-bg-opacity:1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.bg-opacity-60{--tw-bg-opacity:0.6}.p-1{padding:0.25rem}.p-2{padding:0.5rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-4{padding-left:1rem;padding-right:1rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pl-10{padding-left:2.5rem}.pl-14{padding-left:3.5rem}.pr-2{padding-right:0.5rem}.pr-4{padding-right:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.text-red-600{--tw-text-opacity:1;color:rgb(220 38 38 / var(--tw-text-opacity, 1))}.text-red-800{--tw-text-opacity:1;color:rgb(153 27 27 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-green-600{--tw-text-opacity:1;color:rgb(22 163 74 / var(--tw-text-opacity, 1))}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-50{opacity:0.5}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:bg-red-700:hover{--tw-bg-opacity:1;background-color:rgb(185 28 28 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-100:hover{--tw-bg-opacity:1;background-color:rgb(241 245 249 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-300:hover{--tw-bg-opacity:1;background-color:rgb(203 213 225 / var(--tw-bg-opacity, 1))}.hover\:text-slate-600:hover{--tw-text-opacity:1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.disabled\:cursor-not-allowed:disabled{cursor:not-allowed}.disabled\:bg-slate-300:disabled{--tw-bg-opacity:1;background-color:rgb(203 213 225 / var(--tw-bg-opacity, 1))}@media (min-width: 640px){.sm\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.sm\:p-6{padding:1.5rem}.sm\:text-4xl{font-size:2.25rem;line-height:2.5rem}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:col-span-2{grid-column:span 2 / span 2}.lg\:col-span-3{grid-column:span 3 / span 3}.lg\:grid-cols-5{grid-template-columns:repeat(5, minmax(0, 1fr))}.lg\:p-8{padding:2rem}}@media (prefers-color-scheme: dark){.dark\:bg-slate-600{--tw-bg-opacity:1;background-color:rgb(71 85 105 / var(--tw-bg-opacity, 1))}.dark\:bg-slate-700{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.dark\:text-slate-200{--tw-text-opacity:1;color:rgb(226 232 240 / var(--tw-text-opacity, 1))}.dark\:text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.dark\:text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.dark\:hover\:bg-slate-700:hover{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.dark\:hover\:bg-slate-800:hover{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}}</style></head>
+</head>
 <body class="antialiased">
 
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+    <div class="container mx-auto p-4 md:p-8">
         <header class="flex justify-between items-center mb-10">
             <div class="text-left">
-                <h1 class="text-3xl sm:text-4xl font-bold themed-text-primary">Travelverse Passport Extractor</h1>
-                <p class="mt-2 text-md themed-text-secondary max-w-2xl">An intelligent tool to streamline your workflow.</p>
+                <h1 class="text-3xl md:text-4xl font-bold tracking-tighter text-[var(--text-primary)]">Travelverse Passport Extractor</h1>
+                <p class="max-w-2xl mt-2">Upload a passport image to automatically extract and save traveler information.</p>
             </div>
-            <!-- Dark Mode Toggle -->
-            <div>
-                <button id="theme-toggle" class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                    <svg id="theme-toggle-dark-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-                    <svg id="theme-toggle-light-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 14.464A1 1 0 106.465 13.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm-.707-10.607a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+             <div class="flex items-center gap-2">
+                <button id="theme-toggle" type="button" class="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700/50 focus:outline-none transition-colors">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 5.05A1 1 0 003.636 6.464l.707.707a1 1 0 001.414-1.414l-.707-.707zM3 11a1 1 0 100-2H2a1 1 0 100 2h1zm7.536 2.464a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414z"></path></svg>
                 </button>
             </div>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            <!-- Left Column: Uploader and Results -->
-            <div class="lg:col-span-3 flex flex-col gap-8">
-                <div id="uploaderCard" class="themed-bg p-6 rounded-2xl shadow-sm themed-border border">
-                    <div class="flex items-center gap-4 mb-4">
-                         <div class="bg-brand-light text-brand rounded-full h-10 w-10 flex items-center justify-center font-bold text-lg">1</div>
-                         <h2 class="text-xl font-semibold">Upload Passport</h2>
-                    </div>
-                    <p id="authStatus" class="text-sm themed-text-secondary mb-4 pl-14 text-green-600"><div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-green-500"></span><span>Ready to scan</span></div></p>
-                    <div id="dropZone" class="file-drop-zone rounded-xl p-8 cursor-pointer">
-                         <svg class="mx-auto h-12 w-12 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                           <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3v11.25"></path>
-                         </svg>
-                        <p class="mt-4 themed-text-secondary">Drag &amp; drop your file here, or <span class="text-brand font-semibold">click to browse</span></p>
-                        <p class="text-sm text-slate-400 mt-1">Supports: PDF, PNG, JPEG</p>
-                    </div>
-                    <input type="file" id="fileInput" class="hidden" accept="image/png, image/jpeg, application/pdf">
-                    <div id="fileName" class="mt-4 text-center font-medium"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="main-panel p-6">
+                <h2 class="text-2xl font-semibold mb-4">Upload Passport</h2>
+                <div id="upload-container" class="border-2 border-dashed border-[var(--border-color)] rounded-lg p-8 text-center cursor-pointer hover:bg-[var(--bg-secondary)] transition-colors">
+                    <input type="file" id="passport-upload" class="hidden" accept=".pdf,.png,.jpeg,.jpg">
+                    <svg class="mx-auto h-12 w-12 text-[var(--text-secondary)]" stroke="currentColor" fill="none" viewBox="0 0 48 48"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                    <p class="mt-2 text-sm"><span class="font-medium text-[var(--accent-color)]">Click to upload</span> or drag and drop</p>
+                    <p class="text-xs text-[var(--text-secondary)] mt-1">PNG, JPG, JPEG, or PDF</p>
                 </div>
+                
+                 <div id="loading-spinner" class="mt-6 hidden text-center"><div class="loader mx-auto"></div><p class="mt-4">Extracting information, please wait...</p></div>
 
-                <div id="resultsContainer" class="themed-bg p-6 rounded-2xl shadow-sm themed-border border hidden">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="bg-brand-light text-brand rounded-full h-10 w-10 flex items-center justify-center font-bold text-lg">2</div>
-                        <h2 class="text-xl font-semibold">Verify Information</h2>
-                   </div>
-                    <div id="error" class="text-red-800 bg-red-100 p-4 rounded-lg hidden"></div>
-                    <div id="expiryWarning" class="p-4 mb-4 text-sm rounded-lg hidden" role="alert"></div>
-                    <div id="extractionResultWrapper" class="hidden">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <h3 class="text-lg font-semibold mb-3">Scan Preview</h3>
-                                <div id="previewContainer" class="bg-slate-100 dark:bg-slate-700 rounded-lg p-1 border themed-border flex items-center justify-center"></div>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold mb-3">Extracted Data</h3>
-                                <div id="loader" class="flex flex-col items-center justify-center h-full">
-                                    <div class="loader"></div>
-                                    <p class="mt-4 themed-text-secondary">Analyzing document...</p>
-                                </div>
-                                <div id="passportData" class="grid grid-cols-1 gap-4 hidden"></div>
-                            </div>
+                <div id="comparison-view" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 items-start">
+                    <div><img id="image-preview" src="#" alt="Passport Preview" class="w-full rounded-lg shadow-md border border-[var(--border-color)]"></div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Extracted Information</h3>
+                        <div id="extracted-data" class="space-y-3"></div>
+                        <div class="mt-4">
+                            <label for="tags-input" class="block text-sm font-medium mb-1">Tags (comma-separated)</label>
+                            <input type="text" id="tags-input" placeholder="e.g. Family Trip, VIP" class="form-input text-sm">
                         </div>
+                        <button id="save-button" class="btn btn-primary mt-6 w-full" disabled>
+                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3.75H6.912a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338A2.25 2.25 0 0017.088 3.75H15M12 3.75v9" /></svg>
+                            <span id="save-button-text">Save Information</span>
+                        </button>
                     </div>
-                    <button id="saveButton" class="w-full mt-6 bg-brand text-white font-bold py-3 px-4 rounded-lg hover:bg-brand-dark transition-colors disabled:bg-slate-300 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M7.5 2.5a.5.5 0 00-1 0v3.586l-1.293-1.293a.5.5 0 00-.707.707l2 2a.5.5 0 00.707 0l2-2a.5.5 0 00-.707-.707L7.5 6.086V2.5z"></path><path d="M2 7a1 1 0 011-1h14a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V7z"></path></svg>
-                        Save to Database
-                    </button>
                 </div>
             </div>
 
-            <!-- Right Column: Saved Records -->
-            <div class="lg:col-span-2 themed-bg p-6 rounded-2xl shadow-sm themed-border border">
-                <h2 class="text-xl font-semibold mb-4">Saved Records</h2>
-                <div class="mb-4 relative">
-                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m1.35-4.65a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    <input type="text" id="searchInput" placeholder="Search by name or passport..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand themed-input focus:border-brand">
+            <div class="main-panel p-6">
+                <h2 class="text-2xl font-semibold mb-4">Saved Records</h2>
+                <div class="flex items-center space-x-2 md:space-x-4 mb-6 text-center">
+                    <div id="dashboard-total" class="flex-1 p-2 rounded-lg cursor-pointer transition-colors"><p class="text-3xl font-bold" id="total-records">0</p><p class="text-sm">Total</p></div>
+                    <div id="dashboard-expiring-soon" class="flex-1 p-2 rounded-lg cursor-pointer transition-colors"><p class="text-3xl font-bold text-yellow-500" id="expiring-soon">0</p><p class="text-sm">Expiring &lt; 1 Yr</p></div>
+                    <div id="dashboard-expiring-6m" class="flex-1 p-2 rounded-lg cursor-pointer transition-colors"><p class="text-3xl font-bold text-red-500" id="expiring-6m">0</p><p class="text-sm">Expiring &lt; 6 Mo</p></div>
                 </div>
-                <div id="savedRecordsLoader" class="flex items-center justify-center h-48 hidden">
-                    <div class="loader"></div>
-                </div>
-                <div id="savedRecordsList" class="space-y-3 max-h-[70vh] overflow-y-auto pr-2"></div>
-                 <div id="noRecords" class="text-center py-8">
-                    <svg class="mx-auto h-24 w-24 text-slate-300 dark:text-slate-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"></path></svg>
-                    <p class="mt-4 font-semibold themed-text-primary">No Records Found</p>
-                    <p class="themed-text-secondary text-sm mt-1">Upload a passport to get started.</p>
-                 </div>
-            </div>
-        </div>
-        <footer class="text-center mt-10">
-            <p class="text-sm themed-text-secondary">Powered by Travelverse | 
-                <button id="downloadButton" class="text-brand hover:text-brand-dark font-medium">Download Source</button>
-            </p>
-        </footer>
-    </div>
 
-    <!-- Modals -->
-    <div id="editModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4 transition-opacity duration-300">
-        <div class="themed-bg rounded-lg shadow-xl p-6 w-full max-w-lg">
-            <div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold">Edit Information</h3><button id="cancelEdit" class="text-slate-400 hover:text-slate-600 text-2xl font-bold">×</button></div>
-            <form id="editForm"><div id="editFormFields" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div><div class="mt-6 flex justify-end gap-3"><button type="button" id="cancelEditBtn" class="bg-slate-200 dark:bg-slate-600 text-slate-800 dark:text-slate-200 font-bold py-2 px-4 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">Cancel</button><button type="submit" id="saveEditButton" class="bg-brand text-white font-bold py-2 px-4 rounded-lg hover:bg-brand-dark transition-colors">Save Changes</button></div></form>
-        </div>
-    </div>
-    <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center z-50 p-4 transition-opacity duration-300">
-        <div class="themed-bg rounded-lg shadow-xl p-6 w-full max-w-sm text-center">
-            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" stroke="currentColor" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
-            <h3 class="text-lg font-bold mt-4">Delete Record</h3>
-            <p class="text-sm themed-text-secondary mt-2">Are you sure you want to delete this record permanently? This action cannot be undone.</p>
-            <div class="mt-6 flex justify-center gap-3">
-                <button type="button" id="cancelDeleteBtn" class="bg-slate-200 dark:bg-slate-600 text-slate-800 dark:text-slate-200 font-bold py-2 px-4 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">Cancel</button>
-                <button type="submit" id="confirmDeleteButton" class="bg-red-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">Confirm Delete</button>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <div class="relative"><input type="text" id="search-bar" placeholder="Search by name or tag..." class="form-input pl-10"><svg class="w-5 h-5 text-[var(--text-secondary)] absolute left-3 top-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg></div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <select id="sort-by" class="form-select"><option value="createdAt">Sort: Date Added</option><option value="LastName">Sort: Last Name</option><option value="DateofExpiry">Sort: Expiry</option></select>
+                        <select id="filter-expiry" class="form-select">
+                            <option value="all">Filter: All</option>
+                            <option value="1y">Expiring &lt; 1 yr</option>
+                            <option value="6m">Expiring &lt; 6 mo</option>
+                        </select>
+                    </div>
+                </div>
+                 <button id="export-csv" class="btn btn-secondary w-full mb-4"><svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v4.59L7.3 9.24a.75.75 0 00-1.1 1.02l3.25 3.5a.75.75 0 001.1 0l3.25-3.5a.75.75 0 10-1.1-1.02l-1.95 2.1V6.75z" clip-rule="evenodd" /></svg><span>Export All to CSV</span></button>
+                <div id="history-container" class="space-y-4 max-h-[550px] overflow-y-auto pr-2"></div>
             </div>
         </div>
     </div>
+    
+    <div id="delete-modal" class="fixed inset-0 bg-black bg-opacity-60 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-2xl bg-[var(--bg-tertiary)]">
+            <div class="mt-3 text-center">
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
+                <h3 class="text-lg leading-6 font-medium mt-2">Delete Record</h3>
+                <div class="mt-2 px-7 py-3"><p class="text-sm">Are you sure? This action cannot be undone.</p></div>
+                <div class="flex gap-2 items-center px-4 py-3">
+                    <button id="cancel-delete-btn" class="btn btn-secondary w-full">Cancel</button>
+                    <button id="confirm-delete-btn" class="btn btn-primary w-full bg-red-600 hover:bg-red-700">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toast-container" class="fixed top-5 right-5 z-50 space-y-2"></div>
 
+    <footer class="text-center py-8 text-sm text-[var(--text-secondary)]">
+        <p>Intelligent travel system I Powered by Travelverse</p>
+    </footer>
 
-    <!-- Firebase and App Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, query, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // --- Firebase Configuration for Standalone Deployment ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyCtEzszro3KuPP__512HWj_8T16ElZUOAU",
+          authDomain: "passport-technology-8ecfa.firebaseapp.com",
+          projectId: "passport-technology-8ecfa",
+          storageBucket: "passport-technology-8ecfa.firebasestorage.app",
+          messagingSenderId: "834455244022",
+          appId: "1:834455244022:web:ad7ba60cb7e1e38106b0d7",
+          measurementId: "G-2RRTNRFWLF"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let userId = null;
+        let extractedJson = null;
+        let currentImageBase64Url = null;
+        let allPassports = [];
+        let dataListenerUnsubscribe = null; 
+
+        // --- Helper functions for Date Formatting ---
+        function formatDateForDisplay(isoDate) {
+            if (!isoDate || isoDate === "N/A" || !/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return isoDate;
+            const [y, m, d] = isoDate.split('-');
+            return `${d}-${m}-${y}`;
+        }
+
+        function parseDateFromDisplay(displayDate) {
+            if (!displayDate || displayDate === "N/A" || !/^\d{2}-\d{2}-\d{4}$/.test(displayDate)) return displayDate;
+            const [d, m, y] = displayDate.split('-');
+            return `${y}-${m}-${d}`;
+        }
+        
         // --- DOM Elements ---
-        const themeToggle = document.getElementById('theme-toggle');
-        const downloadButton = document.getElementById('downloadButton');
-        const dropZone = document.getElementById('dropZone');
-        const fileInput = document.getElementById('fileInput');
-        const fileNameDisplay = document.getElementById('fileName');
-        const resultsContainer = document.getElementById('resultsContainer');
-        const loader = document.getElementById('loader');
-        const errorDisplay = document.getElementById('error');
-        const expiryWarning = document.getElementById('expiryWarning');
-        const extractionResultWrapper = document.getElementById('extractionResultWrapper');
-        const previewContainer = document.getElementById('previewContainer');
-        const passportDataDisplay = document.getElementById('passportData');
-        const saveButton = document.getElementById('saveButton');
-        const searchInput = document.getElementById('searchInput');
-        const savedRecordsList = document.getElementById('savedRecordsList');
-        const savedRecordsLoader = document.getElementById('savedRecordsLoader');
-        const noRecordsMessage = document.getElementById('noRecords');
-        const uploaderCard = document.getElementById('uploaderCard');
-        const authStatus = document.getElementById('authStatus');
-        const editModal = document.getElementById('editModal');
-        const editForm = document.getElementById('editForm');
-        const editFormFields = document.getElementById('editFormFields');
-        const cancelEdit = document.getElementById('cancelEdit');
-        const cancelEditBtn = document.getElementById('cancelEditBtn');
-        const saveEditButton = document.getElementById('saveEditButton');
-        const deleteModal = document.getElementById('deleteModal');
-        const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
-        const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+        const dom = { 
+            uploadContainer: document.getElementById('upload-container'), passportUpload: document.getElementById('passport-upload'), loadingSpinner: document.getElementById('loading-spinner'), 
+            historyContainer: document.getElementById('history-container'), searchBar: document.getElementById('search-bar'), tagsInput: document.getElementById('tags-input'), 
+            exportCsvButton: document.getElementById('export-csv'), sortByEl: document.getElementById('sort-by'), filterExpiryEl: document.getElementById('filter-expiry'), 
+            deleteModal: document.getElementById('delete-modal'), confirmDeleteBtn: document.getElementById('confirm-delete-btn'), cancelDeleteBtn: document.getElementById('cancel-delete-btn'), 
+            themeToggle: document.getElementById('theme-toggle'), darkIcon: document.getElementById('theme-toggle-dark-icon'), lightIcon: document.getElementById('theme-toggle-light-icon'), 
+            comparisonView: document.getElementById('comparison-view'), imagePreview: document.getElementById('image-preview'), extractedDataEl: document.getElementById('extracted-data'), 
+            saveButton: document.getElementById('save-button'),
+            dashboardTotal: document.getElementById('dashboard-total'),
+            dashboardExpiringSoon: document.getElementById('dashboard-expiring-soon'),
+            dashboardExpiring6m: document.getElementById('dashboard-expiring-6m')
+        };
         
-        // --- App State ---
-        let allRecords = [];
-
-        // --- Dark Mode Logic ---
-        const lightIcon = document.getElementById('theme-toggle-light-icon');
-        const darkIcon = document.getElementById('theme-toggle-dark-icon');
-
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            lightIcon.classList.remove('hidden');
-        } else {
-            document.documentElement.classList.remove('dark');
-            darkIcon.classList.remove('hidden');
-        }
-
-        themeToggle.addEventListener('click', () => {
-            darkIcon.classList.toggle('hidden');
-            lightIcon.classList.toggle('hidden');
-            if (localStorage.getItem('color-theme')) {
-                if (localStorage.getItem('color-theme') === 'light') {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                }
-            } else {
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.setItem('color-theme', 'light');
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.setItem('color-theme', 'dark');
-                }
-            }
-        });
-
-        // --- Firebase Configuration ---
-        let db;
-        let auth;
-        uploaderCard.classList.add('opacity-50', 'pointer-events-none');
-
-        try {
-            const firebaseConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
-            const firebaseConfig = JSON.parse(firebaseConfigStr);
-            if (!firebaseConfig.apiKey) { throw new Error("Firebase config missing."); }
-            const app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-            onAuthStateChanged(auth, async (user) => {
+        // --- Robust Authentication Flow ---
+        function startApp() {
+            onAuthStateChanged(auth, (user) => {
                 if (user) {
-                    authStatus.innerHTML = `<div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-green-500"></span><span>Ready to scan</span></div>`;
-                    authStatus.classList.remove('text-slate-500');
-                    authStatus.classList.add('text-green-600');
-                    uploaderCard.classList.remove('opacity-50', 'pointer-events-none');
-                    listenForPassportData();
+                    console.log("Authentication successful. User ID:", user.uid);
+                    userId = user.uid;
+                    if (dataListenerUnsubscribe) dataListenerUnsubscribe();
+                    loadHistory();
                 } else {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) { await signInWithCustomToken(auth, __initial_auth_token); } 
-                    else { await signInAnonymously(auth); }
+                    console.log("No user found. Attempting anonymous sign-in...");
+                    signInAnonymously(auth).catch((error) => {
+                        console.error("Anonymous sign-in failed:", error);
+                        showToast('Authentication failed. Please check Firebase settings.', 'error');
+                    });
                 }
             });
-        } catch(e) {
-            authStatus.textContent = 'Configuration Error!';
-            authStatus.classList.add('text-red-600', 'font-bold');
-            const configErrorDiv = document.createElement('div');
-            configErrorDiv.className = 'bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-lg mb-4';
-            configErrorDiv.innerHTML = `<p class="font-bold">Configuration Needed</p><p class="text-sm mt-1">Please follow setup instructions to add your Firebase configuration to the HTML file.</p>`;
-            uploaderCard.insertBefore(configErrorDiv, uploaderCard.children[0]);
-            document.getElementById('dropZone').style.display = 'none';
-            document.querySelector('.lg\\:grid-cols-5').children[1].style.display = 'none';
+        }
+        
+        // --- Event Listeners ---
+        dom.uploadContainer.addEventListener('click', () => dom.passportUpload.click());
+        ['dragover', 'dragleave', 'drop'].forEach(evt => dom.uploadContainer.addEventListener(evt, e => { e.preventDefault(); dom.uploadContainer.classList.toggle('bg-[var(--bg-secondary)]', evt === 'dragover'); if (evt === 'drop' && e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); }));
+        dom.passportUpload.onchange = e => { if (e.target.files.length) handleFile(e.target.files[0]); };
+        dom.saveButton.onclick = savePassportData;
+        [dom.searchBar, dom.sortByEl, dom.filterExpiryEl].forEach(el => el.oninput = renderHistoryCards);
+        dom.exportCsvButton.onclick = exportToCSV;
+        dom.cancelDeleteBtn.onclick = () => dom.deleteModal.classList.add('hidden');
+        dom.themeToggle.onclick = () => { localStorage.setItem('theme', document.documentElement.classList.toggle('dark') ? 'dark' : 'light'); updateThemeIcons(); };
+        
+        dom.dashboardTotal.onclick = () => { dom.filterExpiryEl.value = 'all'; dom.searchBar.value = ''; renderHistoryCards(); };
+        dom.dashboardExpiringSoon.onclick = () => { dom.filterExpiryEl.value = '1y'; renderHistoryCards(); };
+        dom.dashboardExpiring6m.onclick = () => { dom.filterExpiryEl.value = '6m'; renderHistoryCards(); };
+        
+        startApp();
+
+        // --- UI & Theme ---
+        function updateThemeIcons() { dom.darkIcon.classList.toggle('hidden', !document.documentElement.classList.contains('dark')); dom.lightIcon.classList.toggle('hidden', document.documentElement.classList.contains('dark')); }
+        updateThemeIcons();
+        
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const colors = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+            toast.className = `p-4 rounded-xl shadow-lg text-white ${colors} toast-in`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.replace('toast-in', 'toast-out'); toast.addEventListener('animationend', () => toast.remove()); }, 3000);
         }
 
-        // --- Handlers & Logic ---
-        downloadButton.addEventListener('click', () => {
-            const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'index.html';
-            a.click();
-            URL.revokeObjectURL(url);
-        });
-        
-        dropZone.addEventListener('click', () => fileInput.click());
-        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
-        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-        dropZone.addEventListener('drop', (e) => { e.preventDefault(); dropZone.classList.remove('drag-over'); if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
-        fileInput.addEventListener('change', (e) => { if (e.target.files.length) handleFile(e.target.files[0]); });
-
+        // --- File Handling and OCR ---
         async function handleFile(file) {
-            if (!file) return;
-            if (!file.type.startsWith('image/') && file.type !== 'application/pdf') { showError('Invalid file type. Please upload a PNG, JPEG, or PDF.'); return; }
-
-            fileNameDisplay.textContent = `Selected: ${file.name}`;
-            resetResults();
-            resultsContainer.classList.remove('hidden');
-            
-            try {
-                previewContainer.innerHTML = ''; 
-                const objectURL = URL.createObjectURL(file);
-                if (file.type === 'application/pdf') {
-                    const canvas = document.createElement('canvas');
-                    canvas.className = 'rounded-md w-full h-auto';
-                    previewContainer.appendChild(canvas);
-                    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
-                    const pdf = await pdfjsLib.getDocument(objectURL).promise;
-                    const page = await pdf.getPage(1);
-                    const viewport = page.getViewport({ scale: 1.5 });
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-                    await page.render({ canvasContext: context, viewport: viewport }).promise;
-                } else {
-                    const previewElement = document.createElement('img');
-                    previewElement.alt = 'Passport Preview';
-                    previewElement.className = 'rounded-md w-full h-auto';
-                    previewElement.src = objectURL;
-                    previewContainer.appendChild(previewElement);
-                }
-                
-                extractionResultWrapper.classList.remove('hidden');
-                loader.classList.remove('hidden');
-                const base64Data = await fileToBase64(file);
-                await processImageWithGemini(base64Data, file.type);
-            } catch (err) { showError('Failed to read or process the file.'); }
-        }
-        
-        function fileToBase64(file) { return new Promise((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result.split(',')[1]); reader.onerror = reject; reader.readAsDataURL(file); }); }
-
-        async function processImageWithGemini(base64ImageData, mimeType) {
-            const apiKey = "AIzaSyCqNgpHwe0AcovOd1HRzGrtG9qd8CvOgqE"; // User's key
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-            const systemPrompt = `You are an expert OCR system. Extract information from the passport image. Return ONLY a valid JSON object with these keys: "givenName", "surname", "passportNumber", "nationality", "dateOfBirth", "sex", "dateOfIssue", "dateOfExpiry", "issuingCountry". For all date fields, YOU MUST use the format DD-MM-YYYY. If a field is not visible, its value should be null. Do not add any commentary or markdown.`;
-            const payload = { systemInstruction: { parts: [{ text: systemPrompt }] }, contents: [{ role: "user", parts: [{ text: "Extract passport info." }, { inlineData: { mimeType: mimeType, data: base64ImageData } }] }], generationConfig: { responseMimeType: "application/json" } };
-            try {
-                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                if (!response.ok) { throw new Error(`API Error: ${response.status}`); }
-                const result = await response.json();
-                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-                if (!text) { throw new Error('No content returned from AI.'); }
-                let cleanedText = text.trim().replace(/^```json|```$/g, '').trim();
-                const extractedData = JSON.parse(cleanedText);
-                displayPassportData(extractedData);
-                saveButton.disabled = false;
-            } catch(e) { showError(`Failed to analyze the document. Reason: ${e.message}`); }
-        }
-
-        const parsePassportDate = (dateString) => {
-            if (!dateString) return null;
-            const parts = dateString.match(/(\d+)/g);
-            if (!parts || parts.length < 3) return new Date(dateString); 
-            const day = parseInt(parts[0], 10);
-            const month = parseInt(parts[1], 10);
-            const year = parseInt(parts[2], 10);
-            if (String(year).length !== 4) return new Date(dateString);
-            return new Date(Date.UTC(year, month - 1, day));
-        };
-        
-        const formatDateForDisplay = (date) => {
-            if (!date || isNaN(date.getTime())) return 'N/A';
-            const day = String(date.getUTCDate()).padStart(2, '0');
-            const month = String(date.getUTCMonth() + 1).padStart(2, '0');
-            const year = date.getUTCFullYear();
-            return `${day}-${month}-${year}`;
-        };
-
-        function displayPassportData(data) {
-            loader.classList.add('hidden');
-            passportDataDisplay.classList.remove('hidden');
-            passportDataDisplay.innerHTML = ''; 
-            
-            const expiryDate = parsePassportDate(data.dateOfExpiry);
-            let expiryStatus = 'ok';
-            if (expiryDate && !isNaN(expiryDate.getTime())) {
-                const today = new Date(); today.setUTCHours(0, 0, 0, 0);
-                const oneYearFromNow = new Date(today); oneYearFromNow.setUTCFullYear(today.getUTCFullYear() + 1);
-                if (expiryDate < today) {
-                    expiryStatus = 'expired';
-                    expiryWarning.innerHTML = `<span class="font-bold">Passport Expired!</span> This passport expired on ${formatDateForDisplay(expiryDate)}.`;
-                    expiryWarning.className = 'p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-red-900/50 dark:text-red-300';
-                    expiryWarning.classList.remove('hidden');
-                } else if (expiryDate < oneYearFromNow) {
-                    expiryStatus = 'warning';
-                    expiryWarning.innerHTML = `<span class="font-bold">Expires Soon!</span> This passport expires in less than a year, on ${formatDateForDisplay(expiryDate)}.`;
-                    expiryWarning.className = 'p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-100 dark:bg-yellow-900/50 dark:text-yellow-300';
-                    expiryWarning.classList.remove('hidden');
-                }
+            resetUI(); 
+            dom.uploadContainer.classList.add('hidden');
+            let base64Data;
+            if (file.type === 'application/pdf') {
+                dom.loadingSpinner.classList.remove('hidden');
+                const pdfData = await file.arrayBuffer(), pdf = await pdfjsLib.getDocument({ data: pdfData }).promise, page = await pdf.getPage(1), viewport = page.getViewport({ scale: 2.0 }), canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
+                canvas.height = viewport.height; canvas.width = viewport.width;
+                await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+                currentImageBase64Url = canvas.toDataURL('image/jpeg'); base64Data = currentImageBase64Url.split(',')[1]; dom.imagePreview.src = currentImageBase64Url;
+            } else {
+                const reader = new FileReader();
+                reader.onload = e => { currentImageBase64Url = e.target.result; dom.imagePreview.src = currentImageBase64Url; base64Data = currentImageBase64Url.split(',')[1]; extractData(base64Data, file.type); };
+                reader.readAsDataURL(file);
             }
-
-            const fields = [ { key: 'givenName', label: 'Given Name' }, { key: 'surname', label: 'Surname' }, { key: 'passportNumber', label: 'Passport No.' }, { key: 'nationality', label: 'Nationality' }, { key: 'dateOfBirth', label: 'Date of Birth' }, { key: 'sex', label: 'Sex' }, { key: 'dateOfIssue', label: 'Date of Issue' }, { key: 'dateOfExpiry', label: 'Expiry Date' }, { key: 'issuingCountry', label: 'Issuing Country' } ];
-            fields.forEach(field => {
-                const div = document.createElement('div');
-                div.innerHTML = `<label for="edit-${field.key}" class="block text-sm font-medium themed-text-secondary mb-1">${field.label}</label>`;
-                const input = document.createElement('input');
-                input.type = 'text'; input.id = `edit-${field.key}`; input.name = field.key;
-                input.className = 'w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand themed-input focus:border-brand text-md font-semibold';
-                input.value = data[field.key] || '';
-                if (field.key === 'dateOfExpiry') {
-                    if (expiryStatus === 'expired') { input.classList.add('border-red-400', 'focus:ring-red-500', 'focus:border-red-500'); } 
-                    else if (expiryStatus === 'warning') { input.classList.add('border-yellow-400', 'focus:ring-yellow-500', 'focus:border-yellow-500'); }
+            if (base64Data) extractData(base64Data, 'image/jpeg');
+        }
+        
+        async function extractData(base64ImageData, mimeType) {
+            dom.loadingSpinner.classList.remove('hidden');
+            const apiKey=firebaseConfig.apiKey;
+            const model="gemini-1.5-flash-latest";
+            const url=`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            const sysPrompt=`You are an expert OCR system for passports. Extract the following information and return it as a valid JSON object: Issuing Country Code, Passport No., Surname, Given Name, Nationality, Sex, Date of Birth, Place of Birth, Date of Issue, Date of Expiry. Crucially, all dates must be formatted as YYYY-MM-DD. If a field is not present, use "N/A".`;
+            const payload={contents:[{parts:[{text:"Extract passport info."}, {inlineData:{mimeType, data:base64ImageData}}]}], systemInstruction:{parts:[{text:sysPrompt}]}, generationConfig:{responseMimeType:"application/json"}};
+            try {
+                const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                const result = await res.json();
+                if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
+                    extractedJson = JSON.parse(result.candidates[0].content.parts[0].text);
+                    displayExtractedData(extractedJson);
+                } else { 
+                    console.error("No data in Gemini response:", result); 
+                    displayError("Failed to extract info."); 
                 }
-                div.appendChild(input);
-                passportDataDisplay.appendChild(div);
+            } catch (e) { 
+                console.error("Gemini API error:", e); 
+                displayError("Error processing image."); 
+            } 
+            finally { 
+                dom.loadingSpinner.classList.add('hidden'); 
+            }
+        }
+
+        function displayExtractedData(data) {
+            dom.extractedDataEl.innerHTML = '';
+            checkAndDisplayExpiryWarning(data["Date of Expiry"], dom.extractedDataEl);
+            const map = { "First Name": data["Given Name"], "Last Name": data["Surname"], "Passport No.": data["Passport No."], "Issuing Country Code": data["Issuing Country Code"], "Nationality": data["Nationality"], "Sex": data["Sex"], "Date of Birth": data["Date of Birth"], "Place of Birth": data["Place of Birth"], "Date of Issue": data["Date of Issue"], "Date of Expiry": data["Date of Expiry"] };
+            for (const k in map) {
+                let v = map[k] || "N/A";
+                if (k.includes("Date")) {
+                    v = formatDateForDisplay(v);
+                }
+                const div = document.createElement('div');
+                div.innerHTML = `<label class="block text-xs font-medium text-[var(--text-secondary)]">${k}</label><input type="text" class="form-input mt-1 text-sm" value="${v}" data-key="${k}">`;
+                dom.extractedDataEl.appendChild(div);
+            }
+            dom.comparisonView.classList.remove('hidden');
+        }
+
+        // --- Firestore Database Operations ---
+        async function savePassportData() {
+            if (!userId) { showToast("Cannot save: Connection not ready.", "error"); return; }
+            if (!currentImageBase64Url) { showToast("Cannot save: No passport image is loaded.", "error"); return; }
+            try {
+                const dataToSave = { createdAt: new Date().toISOString(), imageData: currentImageBase64Url, lastUpdatedAt: new Date().toISOString() };
+                dom.extractedDataEl.querySelectorAll('input').forEach(i => {
+                    let value = i.value.trim() || "N/A";
+                    if (i.dataset.key.includes("Date")) {
+                        value = parseDateFromDisplay(value);
+                    }
+                    dataToSave[i.dataset.key] = value;
+                });
+                dataToSave.tags = dom.tagsInput.value.split(',').map(t => t.trim()).filter(Boolean);
+                const pNo = dataToSave["Passport No."];
+                if (pNo && pNo !== "N/A" && allPassports.some(p => p["Passport No."] == pNo)) {
+                    showToast("A passport with this number already exists.", "error");
+                    return;
+                }
+                await addDoc(collection(db, `users/${userId}/passports`), dataToSave);
+                showToast("Information saved successfully!");
+                setTimeout(resetUI, 1000);
+            } catch (e) {
+                console.error("Save error:", e);
+                showToast("Failed to save. Network or server issue.", "error");
+            }
+        }
+
+        function loadHistory() {
+            if(!userId) return;
+            const q = collection(db, `users/${userId}/passports`);
+            dataListenerUnsubscribe = onSnapshot(q, snap => {
+                allPassports = [];
+                snap.forEach(d => allPassports.push({id: d.id, ...d.data()}));
+                renderHistoryCards();
+                updateDashboardAnalytics();
+            }, (error) => {
+                console.error("Error listening to data:", error);
             });
         }
         
-        function resetResults() {
-            loader.classList.add('hidden');
-            errorDisplay.classList.add('hidden');
-            expiryWarning.classList.add('hidden');
-            extractionResultWrapper.classList.add('hidden');
-            passportDataDisplay.classList.add('hidden');
-            previewContainer.innerHTML = '';
-            passportDataDisplay.innerHTML = '';
-            saveButton.disabled = true;
-        }
-
-        function showError(message) { errorDisplay.textContent = message; errorDisplay.classList.remove('hidden'); loader.classList.add('hidden'); passportDataDisplay.innerHTML = ''; }
-
-        saveButton.addEventListener('click', async () => {
-            if (!db) return;
-            const inputs = passportDataDisplay.querySelectorAll('input');
-            const dataToSave = {};
-            inputs.forEach(input => { dataToSave[input.name] = input.value; });
-            if (Object.keys(dataToSave).length === 0) { showError("No data to save."); return; }
-            saveButton.disabled = true; saveButton.textContent = 'Saving...';
+        // --- Gemini LLM Call ---
+        async function getTravelAssistance(prompt, resultContainer) {
+            resultContainer.innerHTML = '<div class="flex justify-center items-center p-4"><div class="loader"></div></div>';
+            const apiKey=firebaseConfig.apiKey;
+            const model="gemini-1.5-flash-latest";
+            const url=`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            const payload = { contents: [{ parts: [{ text: prompt }] }], tools: [{ "google_search": {} }] };
             try {
-                const collectionPath = `artifacts/${typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'}/public/data/passports`;
-                await addDoc(collection(db, collectionPath), { ...dataToSave, createdAt: serverTimestamp() });
-            } catch(e) { showError(`Failed to save data: ${e.message}`); } 
-            finally { saveButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M7.5 2.5a.5.5 0 00-1 0v3.586l-1.293-1.293a.5.5 0 00-.707.707l2 2a.5.5 0 00.707 0l2-2a.5.5 0 00-.707-.707L7.5 6.086V2.5z" /><path d="M2 7a1 1 0 011-1h14a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V7z" /></svg> Save to Database`; }
-        });
-        
-        function listenForPassportData() {
-            if (!db) return;
-            const collectionPath = `artifacts/${typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'}/public/data/passports`;
-            const q = query(collection(db, collectionPath));
-            onSnapshot(q, (snapshot) => {
-                allRecords = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                allRecords.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
-                renderSavedRecords(allRecords);
-                savedRecordsLoader.classList.add('hidden');
-            }, (error) => { showError("Could not fetch records."); savedRecordsLoader.classList.add('hidden'); });
+                const res = await fetch(url, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+                if (!res.ok) throw new Error(`API call failed with status: ${res.status}`);
+                const result = await res.json();
+                if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
+                    let formattedText = result.candidates[0].content.parts[0].text;
+                    formattedText = formattedText
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>')
+                        .replace(/^(#{1,6}) (.*$)/gm, (m, h, c) => `<h${h.length+2}>${c}</h${h.length+2}>`).replace(/\n/g, '<br>');
+                    resultContainer.innerHTML = formattedText;
+                } else {
+                    console.error("No valid response from Gemini:", result);
+                    resultContainer.innerHTML = '<p class="text-red-500 text-sm">Sorry, I couldn\'t retrieve that information.</p>';
+                }
+            } catch (e) {
+                console.error("Gemini API error:", e);
+                resultContainer.innerHTML = `<p class="text-red-500 text-sm">An error occurred. Please check the console.</p>`;
+            }
         }
-
-        function renderSavedRecords(records) {
-            savedRecordsList.innerHTML = '';
-            noRecordsMessage.classList.toggle('hidden', records.length > 0);
+        
+        function createHistoryCard(data) {
+            const card=document.createElement('div');
+            card.className='bg-[var(--bg-tertiary)] p-4 rounded-xl border border-[var(--border-color)] space-y-3 passport-card shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300';
+            card.dataset.docId=data.id;
             
-            records.forEach(record => {
-                const name = `${record.givenName || ''} ${record.surname || ''}`.trim();
-                const expiryDate = parsePassportDate(record.dateOfExpiry);
-                let expiryIndicator = '';
-                if (expiryDate && !isNaN(expiryDate.getTime())) {
-                    const today = new Date(); today.setUTCHours(0, 0, 0, 0);
-                    const oneYearFromNow = new Date(today); oneYearFromNow.setUTCFullYear(today.getUTCFullYear() + 1);
-                    if (expiryDate < today) { expiryIndicator = `<div class="h-2.5 w-2.5 rounded-full bg-red-500 ml-2" title="Expired"></div>`; } 
-                    else if (expiryDate < oneYearFromNow) { expiryIndicator = `<div class="h-2.5 w-2.5 rounded-full bg-yellow-500 ml-2" title="Expires Soon"></div>`; }
-                }
+            const status=getExpiryStatus(data["Date of Expiry"]);
+            const statusClasses={Active:'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300',Soon:'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300',Expired:'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300'};
+            card.innerHTML=`<div class="flex justify-between items-start"><div class="font-semibold text-lg">${data["First Name"]||''} ${data["Last Name"]||''}</div><span class="text-xs font-medium px-2.5 py-0.5 rounded-full ${statusClasses[status]}">${status}</span></div>`;
 
-                const card = document.createElement('div');
-                card.className = 'themed-bg p-4 rounded-lg themed-border border shadow-sm';
-                card.innerHTML = `
-                    <div class="flex justify-between items-start">
-                        <div class="flex items-center"><p class="font-bold text-lg">${name || 'Unnamed'}</p>${expiryIndicator}</div>
-                        <p class="text-xs themed-text-secondary">${record.createdAt ? formatDateForDisplay(new Date(record.createdAt.seconds * 1000)) : ''}</p>
-                    </div>
-                    <p class="text-sm themed-text-secondary">Passport #: <span class="font-medium themed-text-primary">${record.passportNumber || 'N/A'}</span></p>
-                    <div class="mt-3 pt-3 border-t themed-border grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-                        <div><span class="themed-text-secondary">Nationality:</span><br><span class="font-medium">${record.nationality || 'N/A'}</span></div>
-                        <div><span class="themed-text-secondary">Sex:</span><br><span class="font-medium">${record.sex || 'N/A'}</span></div>
-                        <div><span class="themed-text-secondary">Date of Birth:</span><br><span class="font-medium">${record.dateOfBirth || 'N/A'}</span></div>
-                        <div><span class="themed-text-secondary">Date of Issue:</span><br><span class="font-medium">${record.dateOfIssue || 'N/A'}</span></div>
-                        <div class="col-span-2"><span class="themed-text-secondary">Expires:</span> <span class="font-medium text-red-600">${record.dateOfExpiry || 'N/A'}</span></div>
-                        <div class="col-span-2"><span class="themed-text-secondary">Issuing Country:</span> <span class="font-medium">${record.issuingCountry || 'N/A'}</span></div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t themed-border flex items-center justify-end gap-2">
-                        <button data-id="${record.id}" class="edit-btn text-sm font-semibold text-brand hover:text-brand-dark py-1 px-3 rounded-md bg-brand-light dark:bg-cyan-900/50 dark:hover:bg-cyan-900/80 dark:text-cyan-300 hover:bg-cyan-100 flex items-center gap-1"><svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" /></svg>Edit</button>
-                        <button data-id="${record.id}" class="delete-btn text-sm font-semibold text-red-600 hover:text-red-800 py-1 px-3 rounded-md bg-red-50 dark:bg-red-900/50 dark:text-red-300 dark:hover:bg-red-900/80 hover:bg-red-100 flex items-center gap-1"><svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.134-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.067-2.09.921-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>Delete</button>
-                    </div>
-                `;
-                savedRecordsList.appendChild(card);
+            const viewContainer=document.createElement('div');viewContainer.className='view-mode';
+            viewContainer.innerHTML=`<div class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">${createDetailItem('First Name',data["First Name"])}${createDetailItem('Last Name',data["Last Name"])}${createDetailItem('Passport No.',data["Passport No."])}${createDetailItem('Nationality',data["Nationality"])}${createDetailItem('Date of Birth',formatDateForDisplay(data["Date of Birth"]))}${createDetailItem('Place of Birth',data["Place of Birth"])}${createDetailItem('Date of Issue',formatDateForDisplay(data["Date of Issue"]))}${createDetailItem('Date of Expiry',formatDateForDisplay(data["Date of Expiry"]), (status==='Expired'?'text-red-500':status==='Soon'?'text-yellow-500':''))}</div>`;
+            if(data.tags&&data.tags.length){const tagsContainer=document.createElement('div');tagsContainer.className='mt-2 flex flex-wrap gap-1.5';data.tags.forEach(t=>{const tagEl=document.createElement('span');tagEl.className='inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded-full text-xs font-medium';tagEl.textContent=t;tagsContainer.appendChild(tagEl);});viewContainer.appendChild(tagsContainer);}
+
+            const editContainer=document.createElement('div');editContainer.className='edit-mode hidden space-y-2';
+            const fields=["First Name","Last Name","Passport No.","Nationality","Sex","Date of Birth","Place of Birth","Date of Issue","Date of Expiry","Issuing Country Code"];
+            fields.forEach(f=>{
+                let value = data[f] || '';
+                if (f.includes("Date")) {
+                    value = formatDateForDisplay(value);
+                }
+                editContainer.innerHTML+=`<div><label class="block text-xs font-medium text-[var(--text-secondary)]">${f}</label><input type="text" data-key="${f}" value="${value}" class="form-input text-sm mt-1"></div>`;
             });
+            editContainer.innerHTML+=`<div><label class="block text-xs font-medium text-[var(--text-secondary)]">Tags</label><input type="text" data-key="tags" value="${(data.tags||[]).join(', ')}" class="form-input text-sm mt-1"></div>`;
+
+            card.appendChild(viewContainer); card.appendChild(editContainer);
+            
+            const btnContainer=document.createElement('div');btnContainer.className='flex flex-wrap gap-2 pt-3 border-t border-[var(--border-color)]';
+            const btns={preview:createButton('Preview','btn-secondary'),edit:createButton('Edit','btn-secondary edit-btn'),del:createButton('Delete','btn-secondary delete-btn'),ai:createButton('✨ AI Assistant','btn-secondary'),save:createButton('Save','btn-primary save-changes-btn hidden'),cancel:createButton('Cancel','btn-secondary cancel-btn hidden')};
+            btnContainer.append(btns.preview,btns.edit,btns.del,btns.ai,btns.save,btns.cancel);
+            
+            const imgContainer=document.createElement('div');imgContainer.className='hidden mt-4';
+            if(data.imageData){imgContainer.innerHTML=`<img src="${data.imageData}" alt="Passport Preview" class="w-full h-auto rounded-md shadow border border-[var(--border-color)]">`;btns.preview.onclick=()=>{const isHidden=imgContainer.classList.toggle('hidden');btns.preview.textContent=isHidden?'Show Preview':'Hide Preview';};}else{btns.preview.disabled=true;btns.preview.textContent='No Preview';}
+            
+            const aiContainer = document.createElement('div');aiContainer.className = 'hidden mt-4 pt-4 border-t border-[var(--border-color)] space-y-3';
+            const destinationInput = document.createElement('input');destinationInput.type = 'text';destinationInput.placeholder = 'Enter Destination Country';destinationInput.className = 'form-input text-sm';
+            const aiButtons = document.createElement('div');aiButtons.className = 'grid grid-cols-2 gap-2';
+            const visaBtn = createButton('Check Visa', 'btn-secondary');const checklistBtn = createButton('Get Checklist', 'btn-secondary');aiButtons.append(visaBtn, checklistBtn);
+            const aiResult = document.createElement('div');aiResult.className = 'mt-2 p-3 rounded-lg bg-[var(--bg-secondary)] text-sm prose dark:prose-invert max-w-none';aiResult.innerHTML = '<p class="text-xs text-[var(--text-secondary)]">Enter a destination to get AI-powered travel assistance.</p>';
+            aiContainer.append(destinationInput, aiButtons, aiResult);
+            btns.ai.onclick = () => aiContainer.classList.toggle('hidden');
+
+            visaBtn.onclick = () => { const dest = destinationInput.value.trim(); if (!dest) { showToast('Please enter a destination.', 'error'); return; } getTravelAssistance(`Tourist visa requirements for a citizen from '${data.Nationality}' traveling to '${dest}'? Provide a concise summary.`, aiResult); };
+            checklistBtn.onclick = () => { const dest = destinationInput.value.trim(); if (!dest) { showToast('Please enter a destination.', 'error'); return; } getTravelAssistance(`Create a comprehensive pre-travel checklist for a tourist from '${data.Nationality}' traveling to '${dest}'. Use markdown for formatting.`, aiResult); };
+
+            card.appendChild(btnContainer); card.appendChild(imgContainer); card.appendChild(aiContainer);
+
+            btns.edit.onclick=()=>{[viewContainer,btns.edit,btns.del,btns.preview,btns.ai].forEach(el=>el.classList.add('hidden'));[editContainer,btns.save,btns.cancel].forEach(el=>el.classList.remove('hidden'));};
+            btns.cancel.onclick=()=>{[viewContainer,btns.edit,btns.del,btns.preview,btns.ai].forEach(el=>el.classList.remove('hidden'));[editContainer,btns.save,btns.cancel].forEach(el=>el.classList.add('hidden'));};
+            btns.save.onclick=async()=>{
+                const updatedData={lastUpdatedAt:new Date().toISOString()};
+                editContainer.querySelectorAll('input').forEach(i=>{
+                    if(i.dataset.key==='tags') updatedData.tags=i.value.split(',').map(t=>t.trim()).filter(Boolean);
+                    else if(i.dataset.key.includes("Date")) updatedData[i.dataset.key] = parseDateFromDisplay(i.value);
+                    else updatedData[i.dataset.key]=i.value;
+                });
+                await updateDoc(doc(db,`users/${userId}/passports`,data.id),updatedData);showToast('Record updated!');
+            };
+            btns.del.onclick=()=>{dom.deleteModal.classList.remove('hidden');dom.confirmDeleteBtn.onclick=async()=>{await deleteDoc(doc(db,`users/${userId}/passports`,data.id));dom.deleteModal.classList.add('hidden');showToast('Record deleted.','error');};};
+            return card;
+        }
+
+        // --- UI Helper Functions ---
+        function createDetailItem(label, value, valueClass = '') { return `<div><div class="text-xs text-[var(--text-secondary)]">${label}</div><div class="text-[var(--text-primary)] font-medium ${valueClass}">${value || 'N/A'}</div></div>`; }
+        function createButton(text, className) { const btn=document.createElement('button');btn.className=`btn text-sm flex-1 ${className}`;btn.textContent=text; return btn; }
+        
+        function getExpiryStatus(expiryDateString) {
+            if(!expiryDateString||expiryDateString==="N/A")return'Active';const expiryDate=new Date(expiryDateString),now=new Date(),oneYearFromNow=new Date();oneYearFromNow.setFullYear(now.getFullYear()+1);
+            if(isNaN(expiryDate))return'Active';if(expiryDate<now)return'Expired';if(expiryDate<oneYearFromNow)return'Soon';return'Active';
         }
         
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredRecords = allRecords.filter(r => `${r.givenName||''} ${r.surname||''}`.toLowerCase().includes(searchTerm) || (r.passportNumber||'').toLowerCase().includes(searchTerm));
-            renderSavedRecords(searchTerm ? filteredRecords : allRecords);
-        });
+        function renderHistoryCards() {
+            let filtered=[...allPassports]; const term=dom.searchBar.value.toLowerCase(),filter=dom.filterExpiryEl.value;
+            if(term)filtered=filtered.filter(p=>`${p["First Name"]||''} ${p["Last Name"]||''}`.toLowerCase().includes(term)||(p.tags||[]).join(' ').toLowerCase().includes(term));
+            
+            const now = new Date();
+            if (filter === '6m') { const sixM = new Date(); sixM.setMonth(now.getMonth() + 6); filtered = filtered.filter(p => { const exp = new Date(p["Date of Expiry"]); return !isNaN(exp) && exp > now && exp < sixM; }); }
+            else if (filter === '1y') { const oneY = new Date(); oneY.setFullYear(now.getFullYear() + 1); filtered = filtered.filter(p => { const exp = new Date(p["Date of Expiry"]); return !isNaN(exp) && exp > now && exp < oneY; }); }
 
-        savedRecordsList.addEventListener('click', (e) => {
-            const target = e.target.closest('button');
-            if (!target) return;
-            const docId = target.dataset.id;
-            if (!docId) return;
-            if (target.classList.contains('edit-btn')) handleEdit(docId);
-            else if (target.classList.contains('delete-btn')) handleDelete(docId);
-        });
+            filtered.sort((a,b)=>{const sort=dom.sortByEl.value;if(sort==='createdAt')return new Date(b.createdAt)-new Date(a.createdAt);if(sort==='LastName')return(a["Last Name"]||'').localeCompare(b["Last Name"]||'');if(sort==='DateofExpiry')return new Date(a["Date of Expiry"])-new Date(b["Date of Expiry"]);return 0;});
+            dom.historyContainer.innerHTML='';
+            if(allPassports.length === 0) dom.historyContainer.innerHTML = `<div class="text-center py-10 px-4"><svg class="mx-auto h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 11c0 3.517-1.009 6.789-2.756 9.348m-2.28-2.28A9.961 9.961 0 0112 11c0-5.523 4.477-10 10-10 4.386 0 8.217 2.783 9.575 6.75M12 11c-3.517 0-6.789-1.009-9.348-2.756m2.28 2.28A9.961 9.961 0 0112 11z"/></svg><h3 class="mt-2 text-lg font-medium">No Passports Saved</h3><p class="mt-1 text-sm">Upload your first passport to get started.</p></div>`;
+            else if(filtered.length === 0) dom.historyContainer.innerHTML = `<p class="text-center py-4">No records match your filter.</p>`;
+            else filtered.forEach(p=>dom.historyContainer.appendChild(createHistoryCard(p)));
 
-        function handleEdit(docId) {
-            const record = allRecords.find(r => r.id === docId);
-            if (!record) return;
-            editFormFields.innerHTML = '';
-            const fields = [ { key: 'givenName', label: 'Given Name' }, { key: 'surname', label: 'Surname' }, { key: 'passportNumber', label: 'Passport No.' }, { key: 'nationality', label: 'Nationality' }, { key: 'dateOfBirth', label: 'Date of Birth' }, { key: 'sex', label: 'Sex' }, { key: 'dateOfIssue', label: 'Date of Issue' }, { key: 'dateOfExpiry', label: 'Expiry Date' }, { key: 'issuingCountry', label: 'Issuing Country' } ];
-            fields.forEach(field => {
-                const div = document.createElement('div');
-                div.innerHTML = `<label for="modal-edit-${field.key}" class="block text-sm font-medium themed-text-secondary">${field.label}</label>`;
-                const input = document.createElement('input');
-                input.type = 'text'; input.id = `modal-edit-${field.key}`; input.name = field.key;
-                input.className = 'w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand themed-input focus:border-brand';
-                input.value = record[field.key] || '';
-                div.appendChild(input);
-                editFormFields.appendChild(div);
-            });
-            saveEditButton.dataset.id = docId;
-            editModal.classList.remove('hidden'); editModal.classList.add('flex');
+            updateDashboardHighlights();
+        }
+        
+        function updateDashboardHighlights() {
+            const filter = dom.filterExpiryEl.value, searchTerm = dom.searchBar.value;
+            dom.dashboardTotal.classList.remove('active-dashboard-filter'); dom.dashboardExpiringSoon.classList.remove('active-dashboard-filter'); dom.dashboardExpiring6m.classList.remove('active-dashboard-filter');
+            if (searchTerm) return; 
+            if (filter === 'all') { dom.dashboardTotal.classList.add('active-dashboard-filter'); } 
+            else if (filter === '1y') { dom.dashboardExpiringSoon.classList.add('active-dashboard-filter'); } 
+            else if (filter === '6m') { dom.dashboardExpiring6m.classList.add('active-dashboard-filter'); }
+        }
+        
+        function updateDashboardAnalytics() {
+            document.getElementById('total-records').textContent = allPassports.length;
+            const now=new Date(),oneYr=new Date();oneYr.setFullYear(now.getFullYear()+1);const sixMo=new Date();sixMo.setMonth(now.getMonth()+6);
+            let soon=0,six=0;
+            allPassports.forEach(p=>{const exp=new Date(p["Date of Expiry"]);if(!isNaN(exp) && exp > now){if(exp<oneYr)soon++;if(exp<sixMo)six++;}});
+            document.getElementById('expiring-soon').textContent=soon;
+            document.getElementById('expiring-6m').textContent=six;
         }
 
-        function handleDelete(docId) {
-            confirmDeleteButton.dataset.id = docId;
-            deleteModal.classList.remove('hidden'); deleteModal.classList.add('flex');
+        function checkAndDisplayExpiryWarning(expiryDateString, container) {
+            const status=getExpiryStatus(expiryDateString);if(status==='Active')return;
+            const expiryDate=new Date(expiryDateString);const isExpired=status==='Expired';
+            const warning=document.createElement('div');warning.className=`p-3 rounded-lg mb-4 ${isExpired?'bg-red-100 dark:bg-red-900/50 border-l-4 border-red-500 text-red-700 dark:text-red-300':'bg-yellow-100 dark:bg-yellow-900/50 border-l-4 border-yellow-500 text-yellow-700 dark:text-yellow-300'}`;
+            warning.innerHTML=`<p class="font-bold">${isExpired?'Passport Expired':'Expiry Warning'}</p><p class="text-sm">${isExpired?`This passport expired on ${formatDateForDisplay(expiryDateString)}.`:`This passport expires soon: ${formatDateForDisplay(expiryDateString)}.`}</p>`;
+            container.prepend(warning);
         }
 
-        function closeEditModal() { editModal.classList.add('hidden'); editModal.classList.remove('flex'); }
-        cancelEdit.addEventListener('click', closeEditModal);
-        cancelEditBtn.addEventListener('click', closeEditModal);
+        function exportToCSV() {
+            if(allPassports.length===0){showToast("No records to export.","error");return;}
+            const headers=["First Name","Last Name","Passport No.","Issuing Country Code","Nationality","Sex","Date of Birth","Place of Birth","Date of Issue","Date of Expiry","Tags"];
+            const csvRows=[headers.join(',')];
+            allPassports.forEach(p=>{const row=headers.map(h=>{let v=p[h]||'';if(h.includes('Date'))v=formatDateForDisplay(v);if(h==='Tags')v=(p.tags||[]).join('; ');return`"${v.toString().replace(/"/g,'""')}"`;});csvRows.push(row.join(','));});
+            const blob=new Blob([csvRows.join('\n')],{type:'text/csv;charset=utf-8;'});const link=document.createElement('a'),url=URL.createObjectURL(blob);
+            link.setAttribute('href',url);link.setAttribute('download','passport_records.csv');link.style.visibility='hidden';document.body.appendChild(link);link.click();document.body.removeChild(link);
+        }
 
-        function closeDeleteModal() { deleteModal.classList.add('hidden'); deleteModal.classList.remove('flex'); }
-        cancelDeleteBtn.addEventListener('click', closeDeleteModal);
-
-        confirmDeleteButton.addEventListener('click', async (e) => {
-            const docId = e.currentTarget.dataset.id;
-            if (!docId) return;
-            try {
-                const docRef = doc(db, `artifacts/${typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'}/public/data/passports`, docId);
-                await deleteDoc(docRef);
-                closeDeleteModal();
-            } catch (e) { showError("Failed to delete the record."); }
-        });
-
-        editForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const docId = saveEditButton.dataset.id;
-            if (!docId) return;
-            const inputs = editFormFields.querySelectorAll('input');
-            const updatedData = {};
-            inputs.forEach(input => { updatedData[input.name] = input.value; });
-            saveEditButton.disabled = true; saveEditButton.textContent = 'Saving...';
-            try {
-                const docRef = doc(db, `artifacts/${typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'}/public/data/passports`, docId);
-                await updateDoc(docRef, updatedData);
-                closeEditModal();
-            } catch (e) { alert("Failed to update record."); } 
-            finally { saveEditButton.disabled = false; saveEditButton.textContent = 'Save Changes'; }
-        });
+        function resetUI() { 
+            dom.passportUpload.value=''; dom.uploadContainer.classList.remove('hidden'); dom.comparisonView.classList.add('hidden');
+            dom.imagePreview.src='#'; dom.loadingSpinner.classList.add('hidden'); dom.extractedDataEl.innerHTML=''; dom.tagsInput.value='';
+            extractedJson=null; currentImageBase64Url=null;
+        }
+        function displayError(message) { 
+            dom.extractedDataEl.innerHTML=`<p class="text-red-500 text-center">${message}</p>`;
+            dom.comparisonView.classList.remove('hidden');
+        }
     </script>
-
-
-
-</body></html>
+</body>
+</html>
+```
