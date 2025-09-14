@@ -242,7 +242,7 @@
         let allPassports = [];
         let dataListenerUnsubscribe = null; 
 
-        // --- Helper functions for Date Formatting ---
+        // --- Helper Functions ---
         function formatDateForDisplay(isoDate) {
             if (!isoDate || isoDate === "N/A" || !/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return isoDate;
             const [y, m, d] = isoDate.split('-');
@@ -253,6 +253,20 @@
             if (!displayDate || displayDate === "N/A" || !/^\d{2}-\d{2}-\d{4}$/.test(displayDate)) return displayDate;
             const [d, m, y] = displayDate.split('-');
             return `${y}-${m}-${d}`;
+        }
+
+        function calculateAge(isoDate) {
+            if (!isoDate || isoDate === "N/A" || !/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) {
+                return "N/A";
+            }
+            const birthDate = new Date(isoDate);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDifference = today.getMonth() - birthDate.getMonth();
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age >= 0 ? age : "N/A";
         }
         
         // --- DOM Elements ---
@@ -273,22 +287,15 @@
         function startApp() {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
-                    // A user is signed in (either returning or just signed in anonymously).
                     console.log("Authentication successful. User ID:", user.uid);
                     userId = user.uid;
-                    
-                    // FIX: Re-enable the save button and set its text on successful auth
                     dom.saveButton.disabled = false;
                     dom.saveButton.querySelector('span').textContent = 'Save Information';
-                    
-                    // Detach any old listener before attaching a new one.
                     if (dataListenerUnsubscribe) {
                         dataListenerUnsubscribe();
                     }
                     loadHistory();
-
                 } else {
-                    // No user is signed in. This will be triggered on first load.
                     console.log("No user found. Attempting anonymous sign-in...");
                     dom.saveButton.querySelector('span').textContent = 'Connecting...';
                     signInAnonymously(auth).catch((error) => {
@@ -296,7 +303,6 @@
                         dom.saveButton.querySelector('span').textContent = 'Auth Failed';
                         showToast('Authentication failed. Please check Firebase settings.', 'error');
                     });
-                    // After successful sign-in, onAuthStateChanged will fire again and run the `if (user)` block.
                 }
             });
         }
@@ -380,6 +386,7 @@
             dom.extractedDataEl.innerHTML = '';
             checkAndDisplayExpiryWarning(data["Date of Expiry"], dom.extractedDataEl);
             const map = { "First Name": data["Given Name"], "Last Name": data["Surname"], "Passport No.": data["Passport No."], "Issuing Country Code": data["Issuing Country Code"], "Nationality": data["Nationality"], "Sex": data["Sex"], "Date of Birth": data["Date of Birth"], "Place of Birth": data["Place of Birth"], "Date of Issue": data["Date of Issue"], "Date of Expiry": data["Date of Expiry"] };
+            
             for (const k in map) {
                 let v = map[k] || "N/A";
                 if (k.includes("Date")) {
@@ -389,6 +396,12 @@
                 div.innerHTML = `<label class="block text-xs font-medium text-[var(--text-secondary)]">${k}</label><input type="text" class="form-input mt-1 text-sm" value="${v}" data-key="${k}">`;
                 dom.extractedDataEl.appendChild(div);
             }
+            
+            const age = calculateAge(data["Date of Birth"]);
+            const ageDiv = document.createElement('div');
+            ageDiv.innerHTML = `<label class="block text-xs font-medium text-[var(--text-secondary)]">Current Age</label><input type="text" class="form-input mt-1 text-sm font-medium" value="${age}" readonly style="background-color: var(--bg-primary); border-color: transparent; padding-left:0; cursor: default;">`;
+            dom.extractedDataEl.appendChild(ageDiv);
+
             dom.comparisonView.classList.remove('hidden');
         }
 
@@ -399,19 +412,24 @@
             try {
                 const dataToSave = { createdAt: new Date().toISOString(), imageData: currentImageBase64Url, lastUpdatedAt: new Date().toISOString() };
                 dom.extractedDataEl.querySelectorAll('input').forEach(i => {
-                    let value = i.value.trim() || "N/A";
-                    if (i.dataset.key.includes("Date")) {
-                        value = parseDateFromDisplay(value);
+                    if (i.dataset.key) { // Exclude age input which has no data-key
+                        let value = i.value.trim() || "N/A";
+                        if (i.dataset.key.includes("Date")) {
+                            value = parseDateFromDisplay(value);
+                        }
+                        dataToSave[i.dataset.key] = value;
                     }
-                    dataToSave[i.dataset.key] = value;
                 });
+                
                 dataToSave.tags = dom.tagsInput.value.split(',').map(t => t.trim()).filter(Boolean);
+                dataToSave.age = calculateAge(dataToSave["Date of Birth"]); // Calculate and add age
+                
                 const pNo = dataToSave["Passport No."];
                 if (pNo && pNo !== "N/A" && allPassports.some(p => p["Passport No."] == pNo)) {
                     showToast("A passport with this number already exists.", "error");
                     return;
                 }
-                // CORRECTED PATH:
+                
                 await addDoc(collection(db, `artifacts/${firebaseConfig.projectId}/users/${userId}/passports`), dataToSave);
                 
                 showToast("Information saved successfully!");
@@ -424,7 +442,6 @@
 
         function loadHistory() {
             if(!userId) return;
-            // CORRECTED PATH:
             const q = collection(db, `artifacts/${firebaseConfig.projectId}/users/${userId}/passports`);
             dataListenerUnsubscribe = onSnapshot(q, snap => {
                 allPassports = [];
@@ -473,7 +490,8 @@
             card.innerHTML=`<div class="flex justify-between items-start"><div class="font-semibold text-lg">${data["First Name"]||''} ${data["Last Name"]||''}</div><span class="text-xs font-medium px-2.5 py-0.5 rounded-full ${statusClasses[status]}">${status}</span></div>`;
 
             const viewContainer=document.createElement('div');viewContainer.className='view-mode';
-            viewContainer.innerHTML=`<div class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">${createDetailItem('First Name',data["First Name"])}${createDetailItem('Last Name',data["Last Name"])}${createDetailItem('Passport No.',data["Passport No."])}${createDetailItem('Nationality',data["Nationality"])}${createDetailItem('Date of Birth',formatDateForDisplay(data["Date of Birth"]))}${createDetailItem('Place of Birth',data["Place of Birth"])}${createDetailItem('Date of Issue',formatDateForDisplay(data["Date of Issue"]))}${createDetailItem('Date of Expiry',formatDateForDisplay(data["Date of Expiry"]), (status==='Expired'?'text-red-500':status==='Soon'?'text-yellow-500':''))}</div>`;
+            const age = calculateAge(data["Date of Birth"]);
+            viewContainer.innerHTML=`<div class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">${createDetailItem('Passport No.',data["Passport No."])}${createDetailItem('Nationality',data["Nationality"])}${createDetailItem('Date of Birth',formatDateForDisplay(data["Date of Birth"]))}${createDetailItem('Current Age', age)}${createDetailItem('Date of Issue',formatDateForDisplay(data["Date of Issue"]))}${createDetailItem('Date of Expiry',formatDateForDisplay(data["Date of Expiry"]), (status==='Expired'?'text-red-500':status==='Soon'?'text-yellow-500':''))}</div>`;
             if(data.tags&&data.tags.length){const tagsContainer=document.createElement('div');tagsContainer.className='mt-2 flex flex-wrap gap-1.5';data.tags.forEach(t=>{const tagEl=document.createElement('span');tagEl.className='inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded-full text-xs font-medium';tagEl.textContent=t;tagsContainer.appendChild(tagEl);});viewContainer.appendChild(tagsContainer);}
 
             const editContainer=document.createElement('div');editContainer.className='edit-mode hidden space-y-2';
@@ -485,6 +503,7 @@
                 }
                 editContainer.innerHTML+=`<div><label class="block text-xs font-medium text-[var(--text-secondary)]">${f}</label><input type="text" data-key="${f}" value="${value}" class="form-input text-sm mt-1"></div>`;
             });
+            editContainer.innerHTML+=`<div><label class="block text-xs font-medium text-[var(--text-secondary)]">Current Age</label><input type="text" value="${age}" class="form-input text-sm mt-1" readonly style="background-color: var(--bg-primary); cursor: default;"></div>`;
             editContainer.innerHTML+=`<div><label class="block text-xs font-medium text-[var(--text-secondary)]">Tags</label><input type="text" data-key="tags" value="${(data.tags||[]).join(', ')}" class="form-input text-sm mt-1"></div>`;
 
             card.appendChild(viewContainer); card.appendChild(editContainer);
@@ -513,19 +532,18 @@
             btns.cancel.onclick=()=>{[viewContainer,btns.edit,btns.del,btns.preview,btns.ai].forEach(el=>el.classList.remove('hidden'));[editContainer,btns.save,btns.cancel].forEach(el=>el.classList.add('hidden'));};
             btns.save.onclick=async()=>{
                 const updatedData={lastUpdatedAt:new Date().toISOString()};
-                editContainer.querySelectorAll('input').forEach(i=>{
+                editContainer.querySelectorAll('input[data-key]').forEach(i=>{
                     if(i.dataset.key==='tags') updatedData.tags=i.value.split(',').map(t=>t.trim()).filter(Boolean);
                     else if(i.dataset.key.includes("Date")) updatedData[i.dataset.key] = parseDateFromDisplay(i.value);
                     else updatedData[i.dataset.key]=i.value;
                 });
-                // CORRECTED PATH:
+                updatedData.age = calculateAge(updatedData["Date of Birth"]); // Recalculate and add age
                 await updateDoc(doc(db,`artifacts/${firebaseConfig.projectId}/users/${userId}/passports`,data.id),updatedData);
                 showToast('Record updated!');
             };
             btns.del.onclick=()=>{
                 dom.deleteModal.classList.remove('hidden');
                 dom.confirmDeleteBtn.onclick=async()=>{
-                    // CORRECTED PATH:
                     await deleteDoc(doc(db,`artifacts/${firebaseConfig.projectId}/users/${userId}/passports`,data.id));
                     dom.deleteModal.classList.add('hidden');
                     showToast('Record deleted.','error');
@@ -588,9 +606,18 @@
 
         function exportToCSV() {
             if(allPassports.length===0){showToast("No records to export.","error");return;}
-            const headers=["First Name","Last Name","Passport No.","Issuing Country Code","Nationality","Sex","Date of Birth","Place of Birth","Date of Issue","Date of Expiry","Tags"];
+            const headers=["First Name","Last Name","Passport No.","Issuing Country Code","Nationality","Sex","Date of Birth","Current Age","Place of Birth","Date of Issue","Date of Expiry","Tags"];
             const csvRows=[headers.join(',')];
-            allPassports.forEach(p=>{const row=headers.map(h=>{let v=p[h]||'';if(h.includes('Date'))v=formatDateForDisplay(v);if(h==='Tags')v=(p.tags||[]).join('; ');return`"${v.toString().replace(/"/g,'""')}"`;});csvRows.push(row.join(','));});
+            allPassports.forEach(p=>{
+                const pWithAge = {...p, "Current Age": calculateAge(p["Date of Birth"])};
+                const row=headers.map(h=>{
+                    let v=pWithAge[h]||'';
+                    if(h.includes('Date'))v=formatDateForDisplay(v);
+                    if(h==='Tags')v=(pWithAge.tags||[]).join('; ');
+                    return`"${v.toString().replace(/"/g,'""')}"`;
+                });
+                csvRows.push(row.join(','));
+            });
             const blob=new Blob([csvRows.join('\n')],{type:'text/csv;charset=utf-8;'});const link=document.createElement('a'),url=URL.createObjectURL(blob);
             link.setAttribute('href',url);link.setAttribute('download','passport_records.csv');link.style.visibility='hidden';document.body.appendChild(link);link.click();document.body.removeChild(link);
         }
