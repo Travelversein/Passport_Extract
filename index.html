@@ -411,7 +411,9 @@
                     showToast("A passport with this number already exists.", "error");
                     return;
                 }
-                await addDoc(collection(db, `users/${userId}/passports`), dataToSave);
+                // CORRECTED PATH:
+                await addDoc(collection(db, `artifacts/${firebaseConfig.projectId}/users/${userId}/passports`), dataToSave);
+                
                 showToast("Information saved successfully!");
                 setTimeout(resetUI, 1000);
             } catch (e) {
@@ -422,7 +424,8 @@
 
         function loadHistory() {
             if(!userId) return;
-            const q = collection(db, `users/${userId}/passports`);
+            // CORRECTED PATH:
+            const q = collection(db, `artifacts/${firebaseConfig.projectId}/users/${userId}/passports`);
             dataListenerUnsubscribe = onSnapshot(q, snap => {
                 allPassports = [];
                 snap.forEach(d => allPassports.push({id: d.id, ...d.data()}));
@@ -515,9 +518,19 @@
                     else if(i.dataset.key.includes("Date")) updatedData[i.dataset.key] = parseDateFromDisplay(i.value);
                     else updatedData[i.dataset.key]=i.value;
                 });
-                await updateDoc(doc(db,`users/${userId}/passports`,data.id),updatedData);showToast('Record updated!');
+                // CORRECTED PATH:
+                await updateDoc(doc(db,`artifacts/${firebaseConfig.projectId}/users/${userId}/passports`,data.id),updatedData);
+                showToast('Record updated!');
             };
-            btns.del.onclick=()=>{dom.deleteModal.classList.remove('hidden');dom.confirmDeleteBtn.onclick=async()=>{await deleteDoc(doc(db,`users/${userId}/passports`,data.id));dom.deleteModal.classList.add('hidden');showToast('Record deleted.','error');};};
+            btns.del.onclick=()=>{
+                dom.deleteModal.classList.remove('hidden');
+                dom.confirmDeleteBtn.onclick=async()=>{
+                    // CORRECTED PATH:
+                    await deleteDoc(doc(db,`artifacts/${firebaseConfig.projectId}/users/${userId}/passports`,data.id));
+                    dom.deleteModal.classList.add('hidden');
+                    showToast('Record deleted.','error');
+                };
+            };
             return card;
         }
 
