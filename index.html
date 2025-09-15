@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" class="">
-<head>
+<html lang="en" class="dark"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passport Information Extractor</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script>
-        // Set theme on initial load
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        // Theme script is kept for toggling, but defaults to dark now.
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage))) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
@@ -19,34 +20,37 @@
         }
     </script>
     <style>
+        /* --- NEW UI STYLE DEFINITIONS --- */
         :root {
+            /* Light theme colors (kept for toggle functionality) */
             --bg-primary: #ffffff;
-            --bg-secondary: #f5f5f7;
+            --bg-secondary: #f0f0f0;
             --bg-tertiary: #ffffff;
-            --text-primary: #1d1d1f;
-            --text-secondary: #6e6e73;
-            --border-color: #d2d2d7;
-            --accent-color: #007aff;
+            --text-primary: #000000;
+            --text-secondary: #555555;
+            --border-color: #d1d1d1;
+            --accent-color: #000000;
             --shadow-color: rgba(0, 0, 0, 0.05);
-            --btn-primary-bg: #007aff;
+            --btn-primary-bg: #000000;
             --btn-primary-text: #ffffff;
-            --btn-secondary-bg: #e8e8ea;
-            --btn-secondary-text: #1d1d1f;
+            --btn-secondary-bg: #e5e5e5;
+            --btn-secondary-text: #000000;
         }
 
         .dark {
-            --bg-primary: #1d1d1f;
+            /* Dark theme inspired by narrativeco.in */
+            --bg-primary: #0a0a0a;
             --bg-secondary: #000000;
-            --bg-tertiary: #161617;
-            --text-primary: #f5f5f7;
-            --text-secondary: #86868b;
-            --border-color: #3a3a3c;
-            --accent-color: #0a84ff;
+            --bg-tertiary: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-color: #333333;
+            --accent-color: #ffffff;
             --shadow-color: rgba(0, 0, 0, 0.2);
-            --btn-primary-bg: #0a84ff;
-            --btn-primary-text: #ffffff;
-            --btn-secondary-bg: #2c2c2e;
-            --btn-secondary-text: #f5f5f7;
+            --btn-primary-bg: #ffffff;
+            --btn-primary-text: #000000;
+            --btn-secondary-bg: #1f1f1f;
+            --btn-secondary-text: #ffffff;
         }
 
         body {
@@ -56,56 +60,96 @@
             transition: background-color 0.3s, color 0.3s;
         }
         
+        /* Main panels with sharp corners */
         .main-panel {
             background-color: var(--bg-tertiary);
-            border-radius: 18px;
+            border-radius: 0; /* Sharp corners */
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 12px var(--shadow-color);
+            box-shadow: none; /* Removed shadow for a flatter look */
             transition: background-color 0.3s, border-color 0.3s;
         }
 
-        h2 { font-size: 1.75rem; font-weight: 600; color: var(--text-primary); }
+        /* Bold, uppercase headings with new font */
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+        h2 { 
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem; 
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            line-height: 1.1;
+            color: var(--text-primary); 
+        }
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
         p { color: var(--text-secondary); }
 
+        /* Redesigned buttons */
         .btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            border: none;
+            gap: 0.75rem;
+            padding: 12px 20px;
+            border-radius: 0; /* Sharp corners */
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 2px solid transparent;
             cursor: pointer;
-            transition: transform 0.1s ease, background-color 0.2s ease, opacity 0.2s ease;
+            transition: all 0.2s ease;
         }
-        .btn:active { transform: scale(0.97); }
+        .btn:active { transform: scale(0.98); }
         .btn:disabled {
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
         }
 
-        .btn-primary { background-color: var(--btn-primary-bg); color: var(--btn-primary-text); }
-        .btn-primary:hover:not(:disabled) { filter: brightness(1.1); }
-        
-        .btn-secondary { background-color: var(--btn-secondary-bg); color: var(--btn-secondary-text); }
-        .btn-secondary:hover:not(:disabled) { filter: brightness(0.95); }
-        .dark .btn-secondary:hover:not(:disabled) { filter: brightness(1.15); }
+        /* Outlined primary button style */
+        .btn-primary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+        .dark .btn-primary:hover:not(:disabled) { background-color: var(--text-primary); color: var(--bg-primary); }
+        .light .btn-primary:hover:not(:disabled) { background-color: var(--text-primary); color: var(--bg-primary); }
 
+        /* Solid secondary button style */
+        .btn-secondary { 
+            background-color: var(--btn-secondary-bg); 
+            color: var(--btn-secondary-text);
+            border-color: var(--btn-secondary-bg);
+        }
+        .btn-secondary:hover:not(:disabled) { filter: brightness(1.2); }
+        .dark .btn-secondary:hover:not(:disabled) { filter: brightness(1.2); }
+
+
+        /* Redesigned form inputs */
         .form-input, .form-select {
             width: 100%;
             background-color: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
+            border-radius: 0;
             padding: 10px 14px;
             color: var(--text-primary);
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
+        }
+        .dark .form-input, .dark .form-select {
+             background-color: #000;
         }
         .form-input:focus, .form-select:focus {
             outline: none;
             border-color: var(--accent-color);
-            box-shadow: 0 0 0 2px var(--accent-color-translucent, rgba(0, 122, 255, 0.2));
+            background-color: var(--bg-tertiary);
+            box-shadow: none;
         }
 
         .loader {
@@ -131,7 +175,7 @@
     <div class="container mx-auto p-4 md:p-8">
         <header class="flex justify-between items-center mb-10">
             <div class="text-left">
-                <h1 class="text-3xl md:text-4xl font-bold tracking-tighter text-[var(--text-primary)]">Travelverse Passport Extractor</h1>
+                <h1 class="text-[var(--text-primary)]">Travelverse Passport Extractor</h1>
                 <p class="max-w-2xl mt-2">Upload a passport image to automatically extract and save traveler information.</p>
             </div>
              <div class="flex items-center gap-2">
@@ -144,8 +188,8 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div class="main-panel p-6">
-                <h2 class="text-2xl font-semibold mb-4">Upload Passport</h2>
-                <div id="upload-container" class="border-2 border-dashed border-[var(--border-color)] rounded-lg p-8 text-center cursor-pointer hover:bg-[var(--bg-secondary)] transition-colors">
+                <h2 class="mb-4">Upload Passport</h2>
+                <div id="upload-container" class="border-2 border-dashed border-[var(--border-color)] p-8 text-center cursor-pointer hover:bg-[var(--bg-secondary)] transition-colors">
                     <input type="file" id="passport-upload" class="hidden" accept=".pdf,.png,.jpeg,.jpg">
                     <svg class="mx-auto h-12 w-12 text-[var(--text-secondary)]" stroke="currentColor" fill="none" viewBox="0 0 48 48"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
                     <p class="mt-2 text-sm"><span class="font-medium text-[var(--accent-color)]">Click to upload</span> or drag and drop</p>
@@ -155,9 +199,9 @@
                  <div id="loading-spinner" class="mt-6 hidden text-center"><div class="loader mx-auto"></div><p class="mt-4">Extracting information, please wait...</p></div>
 
                 <div id="comparison-view" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 items-start">
-                    <div><img id="image-preview" src="#" alt="Passport Preview" class="w-full rounded-lg shadow-md border border-[var(--border-color)]"></div>
+                    <div><img id="image-preview" src="#" alt="Passport Preview" class="w-full border border-[var(--border-color)]"></div>
                     <div>
-                        <h3 class="text-xl font-semibold mb-4">Extracted Information</h3>
+                        <h3 class="mb-4">Extracted Information</h3>
                         <div id="extracted-data" class="space-y-3"></div>
                         <div class="mt-4">
                             <label for="tags-input" class="block text-sm font-medium mb-1">Tags (comma-separated)</label>
@@ -172,11 +216,11 @@
             </div>
 
             <div class="main-panel p-6">
-                <h2 class="text-2xl font-semibold mb-4">Saved Records</h2>
+                <h2 class="mb-4">Saved Records</h2>
                 <div class="flex items-center space-x-2 md:space-x-4 mb-6 text-center">
-                    <div id="dashboard-total" class="flex-1 p-2 rounded-lg cursor-pointer transition-colors"><p class="text-3xl font-bold" id="total-records">0</p><p class="text-sm">Total</p></div>
-                    <div id="dashboard-expiring-soon" class="flex-1 p-2 rounded-lg cursor-pointer transition-colors"><p class="text-3xl font-bold text-yellow-500" id="expiring-soon">0</p><p class="text-sm">Expiring &lt; 1 Yr</p></div>
-                    <div id="dashboard-expiring-6m" class="flex-1 p-2 rounded-lg cursor-pointer transition-colors"><p class="text-3xl font-bold text-red-500" id="expiring-6m">0</p><p class="text-sm">Expiring &lt; 6 Mo</p></div>
+                    <div id="dashboard-total" class="flex-1 p-2 cursor-pointer transition-colors"><p class="text-3xl font-bold" id="total-records">0</p><p class="text-sm">Total</p></div>
+                    <div id="dashboard-expiring-soon" class="flex-1 p-2 cursor-pointer transition-colors"><p class="text-3xl font-bold text-yellow-500" id="expiring-soon">0</p><p class="text-sm">Expiring &lt; 1 Yr</p></div>
+                    <div id="dashboard-expiring-6m" class="flex-1 p-2 cursor-pointer transition-colors"><p class="text-3xl font-bold text-red-500" id="expiring-6m">0</p><p class="text-sm">Expiring &lt; 6 Mo</p></div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -197,14 +241,14 @@
     </div>
     
     <div id="delete-modal" class="fixed inset-0 bg-black bg-opacity-60 overflow-y-auto h-full w-full hidden z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-2xl bg-[var(--bg-tertiary)]">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg bg-[var(--bg-tertiary)] border-[var(--border-color)]">
             <div class="mt-3 text-center">
-                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L1D 732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
                 <h3 class="text-lg leading-6 font-medium mt-2">Delete Record</h3>
                 <div class="mt-2 px-7 py-3"><p class="text-sm">Are you sure? This action cannot be undone.</p></div>
                 <div class="flex gap-2 items-center px-4 py-3">
                     <button id="cancel-delete-btn" class="btn btn-secondary w-full">Cancel</button>
-                    <button id="confirm-delete-btn" class="btn btn-primary w-full bg-red-600 hover:bg-red-700">Delete</button>
+                    <button id="confirm-delete-btn" class="btn btn-primary w-full bg-red-600 hover:bg-red-700 border-red-600 hover:border-red-700">Delete</button>
                 </div>
             </div>
         </div>
@@ -480,7 +524,7 @@
         
         function createHistoryCard(data) {
             const card=document.createElement('div');
-            card.className='bg-[var(--bg-tertiary)] p-4 rounded-xl border border-[var(--border-color)] space-y-3 passport-card shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300';
+            card.className='bg-[var(--bg-tertiary)] p-4 border border-[var(--border-color)] space-y-3 passport-card transition-all duration-300';
             card.dataset.docId=data.id;
             
             const status=getExpiryStatus(data["Date of Expiry"]);
@@ -512,13 +556,13 @@
             btnContainer.append(btns.preview,btns.edit,btns.del,btns.ai,btns.save,btns.cancel);
         
             const imgContainer=document.createElement('div');imgContainer.className='hidden mt-4';
-            if(data.imageData){imgContainer.innerHTML=`<img src="${data.imageData}" alt="Passport Preview" class="w-full h-auto rounded-md shadow border border-[var(--border-color)]">`;btns.preview.onclick=()=>{const isHidden=imgContainer.classList.toggle('hidden');btns.preview.textContent=isHidden?'Show Preview':'Hide Preview';};}else{btns.preview.disabled=true;btns.preview.textContent='No Preview';}
+            if(data.imageData){imgContainer.innerHTML=`<img src="${data.imageData}" alt="Passport Preview" class="w-full border border-[var(--border-color)]">`;btns.preview.onclick=()=>{const isHidden=imgContainer.classList.toggle('hidden');btns.preview.textContent=isHidden?'Show Preview':'Hide Preview';};}else{btns.preview.disabled=true;btns.preview.textContent='No Preview';}
             
             const aiContainer = document.createElement('div');aiContainer.className = 'hidden mt-4 pt-4 border-t border-[var(--border-color)] space-y-3';
             const destinationInput = document.createElement('input');destinationInput.type = 'text';destinationInput.placeholder = 'Enter Destination Country';destinationInput.className = 'form-input text-sm';
             const aiButtons = document.createElement('div');aiButtons.className = 'grid grid-cols-2 gap-2';
             const visaBtn = createButton('Check Visa', 'btn-secondary');const checklistBtn = createButton('Get Checklist', 'btn-secondary');aiButtons.append(visaBtn, checklistBtn);
-            const aiResult = document.createElement('div');aiResult.className = 'mt-2 p-3 rounded-lg bg-[var(--bg-secondary)] text-sm prose dark:prose-invert max-w-none';aiResult.innerHTML = '<p class="text-xs text-[var(--text-secondary)]">Enter a destination to get AI-powered travel assistance.</p>';
+            const aiResult = document.createElement('div');aiResult.className = 'mt-2 p-3 bg-[var(--bg-secondary)] text-sm prose dark:prose-invert max-w-none';aiResult.innerHTML = '<p class="text-xs text-[var(--text-secondary)]">Enter a destination to get AI-powered travel assistance.</p>';
             aiContainer.append(destinationInput, aiButtons, aiResult);
             btns.ai.onclick = () => aiContainer.classList.toggle('hidden');
 
