@@ -411,14 +411,12 @@
             if (!currentImageBase64Url) { showToast("Cannot save: No passport image is loaded.", "error"); return; }
             try {
                 const dataToSave = { createdAt: new Date().toISOString(), imageData: currentImageBase64Url, lastUpdatedAt: new Date().toISOString() };
-                dom.extractedDataEl.querySelectorAll('input').forEach(i => {
-                    if (i.dataset.key) { // Exclude age input which has no data-key
-                        let value = i.value.trim() || "N/A";
-                        if (i.dataset.key.includes("Date")) {
-                            value = parseDateFromDisplay(value);
-                        }
-                        dataToSave[i.dataset.key] = value;
+                dom.extractedDataEl.querySelectorAll('input[data-key]').forEach(i => {
+                    let value = i.value.trim() || "N/A";
+                    if (i.dataset.key.includes("Date")) {
+                        value = parseDateFromDisplay(value);
                     }
+                    dataToSave[i.dataset.key] = value;
                 });
                 
                 dataToSave.tags = dom.tagsInput.value.split(',').map(t => t.trim()).filter(Boolean);
@@ -491,7 +489,8 @@
 
             const viewContainer=document.createElement('div');viewContainer.className='view-mode';
             const age = calculateAge(data["Date of Birth"]);
-            viewContainer.innerHTML=`<div class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">${createDetailItem('Passport No.',data["Passport No."])}${createDetailItem('Nationality',data["Nationality"])}${createDetailItem('Date of Birth',formatDateForDisplay(data["Date of Birth"]))}${createDetailItem('Current Age', age)}${createDetailItem('Date of Issue',formatDateForDisplay(data["Date of Issue"]))}${createDetailItem('Date of Expiry',formatDateForDisplay(data["Date of Expiry"]), (status==='Expired'?'text-red-500':status==='Soon'?'text-yellow-500':''))}</div>`;
+            viewContainer.innerHTML=`<div class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">${createDetailItem('Passport No.',data["Passport No."])}${createDetailItem('Nationality',data["Nationality"])}${createDetailItem('Place of Birth', data["Place of Birth"])}${createDetailItem('Sex', data["Sex"])}${createDetailItem('Date of Birth',formatDateForDisplay(data["Date of Birth"]))}${createDetailItem('Current Age', age)}${createDetailItem('Date of Issue',formatDateForDisplay(data["Date of Issue"]))}${createDetailItem('Date of Expiry',formatDateForDisplay(data["Date of Expiry"]), (status==='Expired'?'text-red-500':status==='Soon'?'text-yellow-500':''))}</div>`;
+            
             if(data.tags&&data.tags.length){const tagsContainer=document.createElement('div');tagsContainer.className='mt-2 flex flex-wrap gap-1.5';data.tags.forEach(t=>{const tagEl=document.createElement('span');tagEl.className='inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded-full text-xs font-medium';tagEl.textContent=t;tagsContainer.appendChild(tagEl);});viewContainer.appendChild(tagsContainer);}
 
             const editContainer=document.createElement('div');editContainer.className='edit-mode hidden space-y-2';
