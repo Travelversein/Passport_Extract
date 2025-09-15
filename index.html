@@ -159,6 +159,17 @@
             color: var(--text-secondary);
         }
 
+        /* Improved styling for date inputs to ensure calendar icon is visible */
+        .dark input[type="date"] { color-scheme: dark; }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            filter: brightness(0.8);
+        }
+        .dark input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1) brightness(0.8);
+        }
+
+
         .loader {
             width: 24px;
             height: 24px;
@@ -263,11 +274,11 @@
     
     <div id="toast-container" class="fixed top-5 right-5 z-50 space-y-2"></div>
 
-    <div id="travel-history-modal" class="fixed inset-0 bg-black bg-opacity-80  h-full w-full hidden z-50 flex items-center justify-center">
+    <div id="travel-history-modal" class="fixed inset-0 bg-black bg-opacity-80  h-full w-full hidden z-50 flex items-center justify-center p-4">
         <div class="w-full max-w-3xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-6 space-y-4">
             <div class="flex justify-between items-center">
                 <h2 class="title-section !mb-0 !pb-0 !border-none" id="travel-history-title">Travel History</h2>
-                <button id="close-travel-history-modal" class="text-2xl">&times;</button>
+                <button id="close-travel-history-modal" class="text-2xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">&times;</button>
             </div>
 
             <div class="max-h-[300px] overflow-y-auto">
@@ -289,7 +300,7 @@
             <div class="add-entry-form space-y-3 border-t border-[var(--border-color)] pt-4">
                 <h3 class="!text-lg">Add New Entry</h3>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
-                    <input type="text" id="th-country" placeholder="Country" class="form-input">
+                    <select id="th-country" class="form-input"></select>
                     <input type="date" id="th-entry-date" class="form-input">
                     <input type="date" id="th-exit-date" class="form-input">
                     <button id="th-add-btn" class="btn btn-secondary">Add</button>
@@ -340,6 +351,8 @@
             { key: "dateOfIssue", label: "Date of Issue" }, { key: "dateOfExpiry", label: "Date of Expiry" }
         ];
 
+        const countryList = ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo, Democratic Republic of the","Congo, Republic of the","Costa Rica","Cote d'Ivoire","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar (Burma)","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
+
         // --- Helper Functions ---
         function formatDateForDisplay(isoDate) {
             if (!isoDate || isoDate === "N/A" || !/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return isoDate;
@@ -388,7 +401,6 @@
             dashboardTotal: document.getElementById('dashboard-total'),
             dashboardExpiringSoon: document.getElementById('dashboard-expiring-soon'),
             dashboardExpiring6m: document.getElementById('dashboard-expiring-6m'),
-            // Travel History Modal Elements
             travelHistoryModal: document.getElementById('travel-history-modal'),
             closeTravelHistoryModalBtn: document.getElementById('close-travel-history-modal'),
             travelHistoryTitle: document.getElementById('travel-history-title'),
@@ -432,14 +444,26 @@
         dom.dashboardTotal.onclick = () => { dom.filterExpiryEl.value = 'all'; dom.searchBar.value = ''; renderHistoryCards(); };
         dom.dashboardExpiringSoon.onclick = () => { dom.filterExpiryEl.value = '1y'; renderHistoryCards(); };
         dom.dashboardExpiring6m.onclick = () => { dom.filterExpiryEl.value = '6m'; renderHistoryCards(); };
-        
-        // Travel History Listeners
         dom.closeTravelHistoryModalBtn.onclick = () => dom.travelHistoryModal.classList.add('hidden');
         dom.thAddBtn.onclick = addNewTravelHistoryRow;
         dom.thSaveBtn.onclick = saveTravelHistory;
 
+        function populateCountryDropdown() {
+            const selectElement = dom.thCountryInput;
+            if (selectElement) {
+                selectElement.innerHTML = '<option value="" disabled selected>Select a country</option>';
+                countryList.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country;
+                    option.textContent = country;
+                    selectElement.appendChild(option);
+                });
+            }
+        }
+
         startApp();
         updateThemeIcons();
+        populateCountryDropdown();
 
         // --- UI & Theme ---
         function updateThemeIcons() { dom.darkIcon.classList.toggle('hidden', !document.documentElement.classList.contains('dark')); dom.lightIcon.classList.toggle('hidden', document.documentElement.classList.contains('dark')); }
@@ -613,14 +637,14 @@
             btnContainer.className = 'flex flex-wrap gap-2 pt-4 mt-4 border-t border-[var(--border-color)]';
             const btns = { 
                 preview: createButton('Preview', 'btn-secondary'), 
-                edit: createButton('Edit', 'btn-secondary edit-btn'), 
-                del: createButton('Delete', 'btn-secondary delete-btn'), 
-                ai: createButton('✨ AI Asst', 'btn-secondary'),
-                travel: createButton('History', 'btn-secondary'),
-                save: createButton('Save', 'btn-primary save-changes-btn hidden'), 
-                cancel: createButton('Cancel', 'btn-secondary cancel-btn hidden') 
+                edit: createButton('Edit', 'btn-secondary'), 
+                del: createButton('Delete', 'btn-secondary'), 
+                ai: createButton('AI Asst', 'btn-secondary'),
+                travel: createButton('Travel History', 'btn-secondary'),
+                save: createButton('Save', 'btn-primary hidden'), 
+                cancel: createButton('Cancel', 'btn-secondary hidden') 
             };
-            btnContainer.append(btns.preview, btns.edit, btns.del, btns.travel, btns.ai, btns.save, btns.cancel);
+            btnContainer.append(btns.preview, btns.edit, btns.travel, btns.ai, btns.del, btns.save, btns.cancel);
             card.appendChild(btnContainer);
 
             const imgContainer = document.createElement('div');
@@ -692,7 +716,7 @@
         }
 
         function addNewTravelHistoryRow() {
-            const country = dom.thCountryInput.value.trim();
+            const country = dom.thCountryInput.value;
             const entryDate = dom.thEntryDateInput.value;
             const exitDate = dom.thExitDateInput.value;
 
@@ -709,7 +733,7 @@
             dom.travelHistoryTableBody.appendChild(row);
             
             // Clear inputs
-            dom.thCountryInput.value = '';
+            dom.thCountryInput.selectedIndex = 0;
             dom.thEntryDateInput.value = '';
             dom.thExitDateInput.value = '';
         }
