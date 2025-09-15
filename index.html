@@ -639,12 +639,11 @@
                 preview: createButton('Preview', 'btn-secondary'), 
                 edit: createButton('Edit', 'btn-secondary'), 
                 del: createButton('Delete', 'btn-secondary'), 
-                ai: createButton('AI Asst', 'btn-secondary'),
-                travel: createButton('Travel History', 'btn-secondary'),
+                travel: createButton('History', 'btn-secondary'),
                 save: createButton('Save', 'btn-primary hidden'), 
                 cancel: createButton('Cancel', 'btn-secondary hidden') 
             };
-            btnContainer.append(btns.preview, btns.edit, btns.travel, btns.ai, btns.del, btns.save, btns.cancel);
+            btnContainer.append(btns.preview, btns.edit, btns.travel, btns.del, btns.save, btns.cancel);
             card.appendChild(btnContainer);
 
             const imgContainer = document.createElement('div');
@@ -658,14 +657,9 @@
             }
             card.appendChild(imgContainer);
 
-            const aiContainer = document.createElement('div');
-            aiContainer.className = 'hidden mt-4 pt-4 border-t border-[var(--border-color)] space-y-3';
-            // ... (AI container setup remains the same)
-            card.appendChild(aiContainer);
-
             // Button Event Listeners
-            btns.edit.onclick = () => { [viewContainer, btns.edit, btns.del, btns.preview, btns.ai, btns.travel].forEach(el => el.classList.add('hidden'));[editContainer, btns.save, btns.cancel].forEach(el => el.classList.remove('hidden')); };
-            btns.cancel.onclick = () => { [viewContainer, btns.edit, btns.del, btns.preview, btns.ai, btns.travel].forEach(el => el.classList.remove('hidden'));[editContainer, btns.save, btns.cancel].forEach(el => el.classList.add('hidden')); };
+            btns.edit.onclick = () => { [viewContainer, btns.edit, btns.del, btns.preview, btns.travel].forEach(el => el.classList.add('hidden'));[editContainer, btns.save, btns.cancel].forEach(el => el.classList.remove('hidden')); };
+            btns.cancel.onclick = () => { [viewContainer, btns.edit, btns.del, btns.preview, btns.travel].forEach(el => el.classList.remove('hidden'));[editContainer, btns.save, btns.cancel].forEach(el => el.classList.add('hidden')); };
             btns.travel.onclick = () => openTravelHistoryModal(data);
             btns.save.onclick = async () => {
                 try {
@@ -681,7 +675,7 @@
                     updatedData.age = calculateAge(updatedData.dateOfBirth);
                     await updateDoc(doc(db, `artifacts/${firebaseConfig.projectId}/users/${userId}/passports`, data.id), updatedData);
                     
-                    btns.cancel.onclick(); // Reuse cancel logic to switch view
+                    btns.cancel.onclick();
                     showToast('Record updated!');
                 } catch (error) {
                     console.error("Update failed:", error);
@@ -732,7 +726,6 @@
             const row = createTravelHistoryRow(country, entryDate, exitDate);
             dom.travelHistoryTableBody.appendChild(row);
             
-            // Clear inputs
             dom.thCountryInput.selectedIndex = 0;
             dom.thEntryDateInput.value = '';
             dom.thExitDateInput.value = '';
@@ -753,7 +746,6 @@
             
             tr.querySelector('.delete-th-row').onclick = (e) => e.target.closest('tr').remove();
             
-            // Store raw data for saving
             tr.dataset.country = country;
             tr.dataset.entryDate = entryDate;
             tr.dataset.exitDate = exitDate;
