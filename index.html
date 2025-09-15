@@ -291,6 +291,15 @@
         let allPassports = [];
         let dataListenerUnsubscribe = null; 
 
+        // --- Data Definitions ---
+        const passportFields = [
+            { key: "givenName", label: "First Name" }, { key: "surname", label: "Last Name" },
+            { key: "passportNo", label: "Passport No." }, { key: "issuingCountryCode", label: "Issuing Country Code" },
+            { key: "nationality", label: "Nationality" }, { key: "sex", label: "Sex" },
+            { key: "dateOfBirth", label: "Date of Birth" }, { key: "placeOfBirth", label: "Place of Birth" },
+            { key: "dateOfIssue", label: "Date of Issue" }, { key: "dateOfExpiry", label: "Date of Expiry" }
+        ];
+
         // --- Helper Functions ---
         function formatDateForDisplay(isoDate) {
             if (!isoDate || isoDate === "N/A" || !/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return isoDate;
@@ -418,7 +427,7 @@
             const apiKey=firebaseConfig.apiKey;
             const model="gemini-1.5-flash-latest";
             const url=`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-            const sysPrompt=`You are an expert OCR system for passports. Extract the following information and return it as a valid JSON object: Issuing Country Code, Passport No., Surname, Given Name, Nationality, Sex, Date of Birth, Place of Birth, Date of Issue, Date of Expiry. Crucially, all dates must be formatted as YYYY-MM-DD. If a field is not present, use "N/A".`;
+            const sysPrompt = `You are an expert OCR system for passports. Extract the following information and return it as a valid JSON object with camelCase keys: ${passportFields.map(f => f.key).join(', ')}. Crucially, all dates must be formatted as YYYY-MM-DD. If a field is not present, use "N/A".`;
             const payload={contents:[{parts:[{text:"Extract passport info."}, {inlineData:{mimeType, data:base64ImageData}}]}], systemInstruction:{parts:[{text:sysPrompt}]}, generationConfig:{responseMimeType:"application/json"}};
             try {
                 const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
@@ -440,18 +449,19 @@
 
         function displayExtractedData(data) {
             dom.extractedDataEl.innerHTML = '';
-            checkAndDisplayExpiryWarning(data["Date of Expiry"], dom.extractedDataEl);
-            const map = { "First Name": data["Given Name"], "Last Name": data["Surname"], "Passport No.": data["Passport No."], "Issuing Country Code": data["Issuing Country Code"], "Nationality": data["Nationality"], "Sex": data["Sex"], "Date of Birth": data["Date of Birth"], "Place of Birth": data["Place of Birth"], "Date of Issue": data["Date of Issue"], "Date of Expiry": data["Date of Expiry"] };
+            checkAndDisplayExpiryWarning(data.dateOfExpiry, dom.extractedDataEl);
             
-            for (const k in map) {
-                let v = map[k] || "N/A";
-                if (k.includes("Date")) v = formatDateForDisplay(v);
+            passportFields.forEach(field => {
+                let value = data[field.key] || "N/A";
+                if (field.key.toLowerCase().includes("date")) {
+                    value = formatDateForDisplay(value);
+                }
                 const div = document.createElement('div');
-                div.innerHTML = `<label class="form-label mb-1 block">${k}</label><input type="text" class="form-input text-sm" value="${v}" data-key="${k}">`;
+                div.innerHTML = `<label class="form-label mb-1 block">${field.label}</label><input type="text" class="form-input text-sm" value="${value}" data-key="${field.key}">`;
                 dom.extractedDataEl.appendChild(div);
-            }
+            });
             
-            const age = calculateAge(data["Date of Birth"]);
+            const age = calculateAge(data.dateOfBirth);
             const ageDiv = document.createElement('div');
             ageDiv.innerHTML = `<label class="form-label mb-1 block">Current Age</label><div class="text-sm text-[var(--text-primary)] mt-1 h-[42px] flex items-center">${age}</div>`;
             dom.extractedDataEl.appendChild(ageDiv);
@@ -462,15 +472,17 @@
         async function savePassportData() {
             if (!userId) { showToast("Cannot save: Connection not ready.", "error"); return; }
             const dataToSave = { createdAt: new Date().toISOString(), imageData: dom.imagePreview.src, lastUpdatedAt: new Date().toISOString() };
+            
             dom.extractedDataEl.querySelectorAll('input[data-key]').forEach(i => {
                 let value = i.value.trim() || "N/A";
-                if (i.dataset.key.includes("Date")) value = parseDateFromDisplay(value);
+                if (i.dataset.key.toLowerCase().includes("date")) value = parseDateFromDisplay(value);
                 dataToSave[i.dataset.key] = value;
             });
+
             dataToSave.tags = dom.tagsInput.value.split(',').map(t => t.trim()).filter(Boolean);
-            dataToSave.age = calculateAge(dataToSave["Date of Birth"]);
-            const pNo = dataToSave["Passport No."];
-            if (pNo && pNo !== "N/A" && allPassports.some(p => p["Passport No."] == pNo)) {
+            dataToSave.age = calculateAge(dataToSave.dateOfBirth);
+            
+            if (dataToSave.passportNo && dataToSave.passportNo !== "N/A" && allPassports.some(p => p.passportNo == dataToSave.passportNo)) {
                 showToast("A passport with this number already exists.", "error");
                 return;
             }
@@ -499,14 +511,14 @@
             card.className = 'bg-[var(--bg-tertiary)] p-4 border border-[var(--border-color)] space-y-3 passport-card transition-all duration-300';
             card.dataset.docId = data.id;
 
-            const status = getExpiryStatus(data["Date of Expiry"]);
+            const status = getExpiryStatus(data.dateOfExpiry);
             const statusClasses = { Active: 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300', Soon: 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300', Expired: 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300' };
-            card.innerHTML = `<div class="flex justify-between items-start"><div class="font-semibold text-base">${data["First Name"] || ''} ${data["Last Name"] || ''}</div><span class="text-xs font-medium px-2.5 py-0.5 rounded-full ${statusClasses[status]}">${status}</span></div>`;
+            card.innerHTML = `<div class="flex justify-between items-start"><div class="font-semibold text-base">${data.givenName || ''} ${data.surname || ''}</div><span class="text-xs font-medium px-2.5 py-0.5 rounded-full ${statusClasses[status]}">${status}</span></div>`;
 
             const viewContainer = document.createElement('div');
             viewContainer.className = 'view-mode';
-            const age = calculateAge(data["Date of Birth"]);
-            viewContainer.innerHTML = `<div class="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">${createDetailItem('Passport No.', data["Passport No."])}${createDetailItem('Nationality', data["Nationality"])}${createDetailItem('Place of Birth', data["Place of Birth"])}${createDetailItem('Sex', data["Sex"])}${createDetailItem('Date of Birth', formatDateForDisplay(data["Date of Birth"]))}${createDetailItem('Current Age', age)}${createDetailItem('Date of Issue', formatDateForDisplay(data["Date of Issue"]))}${createDetailItem('Date of Expiry', formatDateForDisplay(data["Date of Expiry"]), (status === 'Expired' ? 'text-red-500' : status === 'Soon' ? 'text-yellow-500' : ''))}</div>`;
+            const age = calculateAge(data.dateOfBirth);
+            viewContainer.innerHTML = `<div class="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">${createDetailItem('Passport No.', data.passportNo)}${createDetailItem('Nationality', data.nationality)}${createDetailItem('Place of Birth', data.placeOfBirth)}${createDetailItem('Sex', data.sex)}${createDetailItem('Date of Birth', formatDateForDisplay(data.dateOfBirth))}${createDetailItem('Current Age', age)}${createDetailItem('Date of Issue', formatDateForDisplay(data.dateOfIssue))}${createDetailItem('Date of Expiry', formatDateForDisplay(data.dateOfExpiry), (status === 'Expired' ? 'text-red-500' : status === 'Soon' ? 'text-yellow-500' : ''))}</div>`;
 
             if (data.tags && data.tags.length) {
                 const tagsContainer = document.createElement('div');
@@ -523,13 +535,12 @@
 
             const editContainer = document.createElement('div');
             editContainer.className = 'edit-mode hidden space-y-4';
-            const fields = ["First Name", "Last Name", "Passport No.", "Nationality", "Sex", "Date of Birth", "Place of Birth", "Date of Issue", "Date of Expiry", "Issuing Country Code"];
-            fields.forEach(f => {
-                let value = data[f] || '';
-                if (f.includes("Date")) {
+            passportFields.forEach(field => {
+                let value = data[field.key] || '';
+                if (field.key.toLowerCase().includes("date")) {
                     value = formatDateForDisplay(value);
                 }
-                editContainer.innerHTML += `<div><label class="form-label mb-1 block">${f}</label><input type="text" data-key="${f}" value="${value}" class="form-input text-sm mt-1"></div>`;
+                editContainer.innerHTML += `<div><label class="form-label mb-1 block">${field.label}</label><input type="text" data-key="${field.key}" value="${value}" class="form-input text-sm mt-1"></div>`;
             });
             editContainer.innerHTML += `<div><label class="form-label mb-1 block">Current Age</label><input type="text" value="${age}" class="form-input text-sm mt-1" readonly style="background-color: var(--bg-primary); cursor: default;"></div>`;
             editContainer.innerHTML += `<div><label class="form-label mb-1 block">Tags</label><input type="text" data-key="tags" value="${(data.tags || []).join(', ')}" class="form-input text-sm mt-1"></div>`;
@@ -566,8 +577,8 @@
             aiResult.innerHTML = '<p class="text-xs text-[var(--text-secondary)]">Enter a destination to get AI-powered travel assistance.</p>';
             aiContainer.append(destinationInput, aiButtons, aiResult);
             btns.ai.onclick = () => aiContainer.classList.toggle('hidden');
-            visaBtn.onclick = () => { const dest = destinationInput.value.trim(); if (!dest) { showToast('Please enter a destination.', 'error'); return; } getTravelAssistance(`Tourist visa requirements for a citizen from '${data.Nationality}' traveling to '${dest}'? Provide a concise summary.`, aiResult); };
-            checklistBtn.onclick = () => { const dest = destinationInput.value.trim(); if (!dest) { showToast('Please enter a destination.', 'error'); return; } getTravelAssistance(`Create a comprehensive pre-travel checklist for a tourist from '${data.Nationality}' traveling to '${dest}'. Use markdown for formatting.`, aiResult); };
+            visaBtn.onclick = () => { const dest = destinationInput.value.trim(); if (!dest) { showToast('Please enter a destination.', 'error'); return; } getTravelAssistance(`Tourist visa requirements for a citizen from '${data.nationality}' traveling to '${dest}'? Provide a concise summary.`, aiResult); };
+            checklistBtn.onclick = () => { const dest = destinationInput.value.trim(); if (!dest) { showToast('Please enter a destination.', 'error'); return; } getTravelAssistance(`Create a comprehensive pre-travel checklist for a tourist from '${data.nationality}' traveling to '${dest}'. Use markdown for formatting.`, aiResult); };
             card.appendChild(aiContainer);
 
             btns.edit.onclick = () => { [viewContainer, btns.edit, btns.del, btns.preview, btns.ai].forEach(el => el.classList.add('hidden'));[editContainer, btns.save, btns.cancel].forEach(el => el.classList.remove('hidden')); };
@@ -576,11 +587,14 @@
                 try {
                     const updatedData = { lastUpdatedAt: new Date().toISOString() };
                     editContainer.querySelectorAll('input[data-key]').forEach(i => {
-                        if (i.dataset.key === 'tags') updatedData.tags = i.value.split(',').map(t => t.trim()).filter(Boolean);
-                        else if (i.dataset.key.includes("Date")) updatedData[i.dataset.key] = parseDateFromDisplay(i.value);
-                        else updatedData[i.dataset.key] = i.value;
+                        const key = i.dataset.key;
+                        if (key === 'tags') {
+                            updatedData.tags = i.value.split(',').map(t => t.trim()).filter(Boolean);
+                        } else {
+                            updatedData[key] = key.toLowerCase().includes("date") ? parseDateFromDisplay(i.value) : i.value;
+                        }
                     });
-                    updatedData.age = calculateAge(updatedData["Date of Birth"]);
+                    updatedData.age = calculateAge(updatedData.dateOfBirth);
                     await updateDoc(doc(db, `artifacts/${firebaseConfig.projectId}/users/${userId}/passports`, data.id), updatedData);
                     
                     [viewContainer, btns.edit, btns.del, btns.preview, btns.ai].forEach(el => el.classList.remove('hidden'));
@@ -624,11 +638,11 @@
         
         function renderHistoryCards() {
             let filtered=[...allPassports]; const term=dom.searchBar.value.toLowerCase(),filter=dom.filterExpiryEl.value;
-            if(term)filtered=filtered.filter(p=>`${p["First Name"]||''} ${p["Last Name"]||''}`.toLowerCase().includes(term)||(p.tags||[]).join(' ').toLowerCase().includes(term));
+            if(term)filtered=filtered.filter(p=>`${p.givenName||''} ${p.surname||''}`.toLowerCase().includes(term)||(p.tags||[]).join(' ').toLowerCase().includes(term));
             const now = new Date();
-            if (filter === '6m') { const sixM = new Date(); sixM.setMonth(now.getMonth() + 6); filtered = filtered.filter(p => { const exp = new Date(p["Date of Expiry"]); return !isNaN(exp) && exp > now && exp < sixM; }); }
-            else if (filter === '1y') { const oneY = new Date(); oneY.setFullYear(now.getFullYear() + 1); filtered = filtered.filter(p => { const exp = new Date(p["Date of Expiry"]); return !isNaN(exp) && exp > now && exp < oneY; }); }
-            filtered.sort((a,b)=>{const sort=dom.sortByEl.value;if(sort==='createdAt')return new Date(b.createdAt)-new Date(a.createdAt);if(sort==='LastName')return(a["Last Name"]||'').localeCompare(b["Last Name"]||'');if(sort==='DateofExpiry')return new Date(a["Date of Expiry"])-new Date(b["Date of Expiry"]);return 0;});
+            if (filter === '6m') { const sixM = new Date(); sixM.setMonth(now.getMonth() + 6); filtered = filtered.filter(p => { const exp = new Date(p.dateOfExpiry); return !isNaN(exp) && exp > now && exp < sixM; }); }
+            else if (filter === '1y') { const oneY = new Date(); oneY.setFullYear(now.getFullYear() + 1); filtered = filtered.filter(p => { const exp = new Date(p.dateOfExpiry); return !isNaN(exp) && exp > now && exp < oneY; }); }
+            filtered.sort((a,b)=>{const sort=dom.sortByEl.value;if(sort==='createdAt')return new Date(b.createdAt)-new Date(a.createdAt);if(sort==='LastName')return(a.surname||'').localeCompare(b.surname||'');if(sort==='DateofExpiry')return new Date(a.dateOfExpiry)-new Date(b.dateOfExpiry);return 0;});
             dom.historyContainer.innerHTML='';
             if(allPassports.length === 0) dom.historyContainer.innerHTML = `<div class="text-center py-10 px-4"><svg class="mx-auto h-12 w-12 text-[var(--text-secondary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7m-4 4h.01M7 11h.01M11 11h.01M15 11h.01M3 7l-2 4h22l-2-4M3 7l4-4M21 7l-4-4m-4 4l-2-4m4 4l2-4"/></svg><h3 class="mt-2 text-base font-medium">No Passports Saved</h3><p class="mt-1 text-sm text-[var(--text-secondary)]">Upload your first passport to get started.</p></div>`;
             else if(filtered.length === 0) dom.historyContainer.innerHTML = `<p class="text-center py-4">No records match your filter.</p>`;
@@ -649,7 +663,7 @@
             document.getElementById('total-records').textContent = allPassports.length;
             const now=new Date(),oneYr=new Date();oneYr.setFullYear(now.getFullYear()+1);const sixMo=new Date();sixMo.setMonth(now.getMonth()+6);
             let soon=0,six=0;
-            allPassports.forEach(p=>{const exp=new Date(p["Date of Expiry"]);if(!isNaN(exp) && exp > now){if(exp<oneYr)soon++;if(exp<sixMo)six++;}});
+            allPassports.forEach(p=>{const exp=new Date(p.dateOfExpiry);if(!isNaN(exp) && exp > now){if(exp<oneYr)soon++;if(exp<sixMo)six++;}});
             document.getElementById('expiring-soon').textContent=soon;
             document.getElementById('expiring-6m').textContent=six;
         }
@@ -664,16 +678,19 @@
 
         function exportToCSV() {
             if(allPassports.length===0){showToast("No records to export.","error");return;}
-            const headers=["First Name","Last Name","Passport No.","Issuing Country Code","Nationality","Sex","Date of Birth","Current Age","Place of Birth","Date of Issue","Date of Expiry","Tags"];
-            const csvRows=[headers.join(',')];
+            const csvHeaders = passportFields.map(f => f.label);
+            csvHeaders.push("Current Age", "Tags");
+
+            const csvRows=[csvHeaders.join(',')];
             allPassports.forEach(p=>{
-                const pWithAge = {...p, "Current Age": calculateAge(p["Date of Birth"])};
-                const row=headers.map(h=>{
-                    let v=pWithAge[h]||'';
-                    if(h.includes('Date'))v=formatDateForDisplay(v);
-                    if(h==='Tags')v=(pWithAge.tags||[]).join('; ');
-                    return`"${v.toString().replace(/"/g,'""')}"`;
+                const pWithAge = {...p, "age": calculateAge(p.dateOfBirth)};
+                const row = passportFields.map(field => {
+                    let value = pWithAge[field.key] || '';
+                    if (field.key.toLowerCase().includes('date')) value = formatDateForDisplay(value);
+                    return `"${value.toString().replace(/"/g, '""')}"`;
                 });
+                row.push(`"${pWithAge.age}"`);
+                row.push(`"${(pWithAge.tags || []).join('; ')}"`);
                 csvRows.push(row.join(','));
             });
             const blob=new Blob([csvRows.join('\n')],{type:'text/csv;charset=utf-8;'});const link=document.createElement('a'),url=URL.createObjectURL(blob);
