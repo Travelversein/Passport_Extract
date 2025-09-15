@@ -69,25 +69,29 @@
             transition: background-color 0.3s, border-color 0.3s;
         }
 
-        /* Bold, uppercase headings with new font */
+        /* --- REFINED TYPOGRAPHY HIERARCHY --- */
         h1 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
-            letter-spacing: 1.5px;
+            font-size: 4.5rem; /* Increased size */
+            letter-spacing: 2px;
             text-transform: uppercase;
             line-height: 1;
         }
         h2 { 
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5rem; 
-            letter-spacing: 1px;
+            font-size: 2.75rem; 
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             line-height: 1.1;
             color: var(--text-primary); 
+            margin-bottom: 1.5rem;
         }
         h3 {
-            font-size: 1.5rem;
-            font-weight: 500;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
         }
         p { color: var(--text-secondary); }
 
@@ -151,6 +155,14 @@
             background-color: var(--bg-tertiary);
             box-shadow: none;
         }
+        
+        .form-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
 
         .loader {
             width: 24px;
@@ -173,10 +185,10 @@
 <body class="antialiased">
 
     <div class="container mx-auto p-4 md:p-8">
-        <header class="flex justify-between items-center mb-10">
+        <header class="flex justify-between items-center mb-12">
             <div class="text-left">
                 <h1 class="text-[var(--text-primary)]">Travelverse Passport Extractor</h1>
-                <p class="max-w-2xl mt-2">Upload a passport image to automatically extract and save traveler information.</p>
+                <p class="max-w-2xl mt-4">Upload a passport image to automatically extract and save traveler information.</p>
             </div>
              <div class="flex items-center gap-2">
                 <button id="theme-toggle" type="button" class="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700/50 focus:outline-none transition-colors">
@@ -188,7 +200,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div class="main-panel p-6">
-                <h2 class="mb-4">Upload Passport</h2>
+                <h2>Upload Passport</h2>
                 <div id="upload-container" class="border-2 border-dashed border-[var(--border-color)] p-8 text-center cursor-pointer hover:bg-[var(--bg-secondary)] transition-colors">
                     <input type="file" id="passport-upload" class="hidden" accept=".pdf,.png,.jpeg,.jpg">
                     <svg class="mx-auto h-12 w-12 text-[var(--text-secondary)]" stroke="currentColor" fill="none" viewBox="0 0 48 48"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
@@ -201,10 +213,10 @@
                 <div id="comparison-view" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 items-start">
                     <div><img id="image-preview" src="#" alt="Passport Preview" class="w-full border border-[var(--border-color)]"></div>
                     <div>
-                        <h3 class="mb-4">Extracted Information</h3>
-                        <div id="extracted-data" class="space-y-3"></div>
+                        <h3>Extracted Information</h3>
+                        <div id="extracted-data" class="space-y-4"></div>
                         <div class="mt-4">
-                            <label for="tags-input" class="block text-sm font-medium mb-1">Tags (comma-separated)</label>
+                            <label for="tags-input" class="form-label mb-1 block">Tags (comma-separated)</label>
                             <input type="text" id="tags-input" placeholder="e.g. Family Trip, VIP" class="form-input text-sm">
                         </div>
                         <button id="save-button" class="btn btn-primary mt-6 w-full" disabled>
@@ -216,11 +228,11 @@
             </div>
 
             <div class="main-panel p-6">
-                <h2 class="mb-4">Saved Records</h2>
+                <h2>Saved Records</h2>
                 <div class="flex items-center space-x-2 md:space-x-4 mb-6 text-center">
-                    <div id="dashboard-total" class="flex-1 p-2 cursor-pointer transition-colors"><p class="text-3xl font-bold" id="total-records">0</p><p class="text-sm">Total</p></div>
-                    <div id="dashboard-expiring-soon" class="flex-1 p-2 cursor-pointer transition-colors"><p class="text-3xl font-bold text-yellow-500" id="expiring-soon">0</p><p class="text-sm">Expiring &lt; 1 Yr</p></div>
-                    <div id="dashboard-expiring-6m" class="flex-1 p-2 cursor-pointer transition-colors"><p class="text-3xl font-bold text-red-500" id="expiring-6m">0</p><p class="text-sm">Expiring &lt; 6 Mo</p></div>
+                    <div id="dashboard-total" class="flex-1 p-2 cursor-pointer transition-colors"><p class="text-3xl font-bold font-sans" id="total-records">0</p><p class="text-sm uppercase tracking-wider">Total</p></div>
+                    <div id="dashboard-expiring-soon" class="flex-1 p-2 cursor-pointer transition-colors"><p class="text-3xl font-bold font-sans text-yellow-500" id="expiring-soon">0</p><p class="text-sm uppercase tracking-wider">Expiring &lt; 1 Yr</p></div>
+                    <div id="dashboard-expiring-6m" class="flex-1 p-2 cursor-pointer transition-colors"><p class="text-3xl font-bold font-sans text-red-500" id="expiring-6m">0</p><p class="text-sm uppercase tracking-wider">Expiring &lt; 6 Mo</p></div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -241,9 +253,9 @@
     </div>
     
     <div id="delete-modal" class="fixed inset-0 bg-black bg-opacity-60 overflow-y-auto h-full w-full hidden z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg bg-[var(--bg-tertiary)] border-[var(--border-color)]">
+        <div class="relative top-20 mx-auto p-5 border w-96 bg-[var(--bg-tertiary)] border-[var(--border-color)]">
             <div class="mt-3 text-center">
-                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L1D 732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
+                <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100"><svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
                 <h3 class="text-lg leading-6 font-medium mt-2">Delete Record</h3>
                 <div class="mt-2 px-7 py-3"><p class="text-sm">Are you sure? This action cannot be undone.</p></div>
                 <div class="flex gap-2 items-center px-4 py-3">
@@ -375,8 +387,8 @@
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             const colors = type === 'success' ? 'bg-green-500' : 'bg-red-500';
-            toast.className = `p-4 rounded-xl shadow-lg text-white ${colors} toast-in`;
-            toast.textContent = message;
+            toast.className = `p-4 text-white ${colors} toast-in`;
+            toast.style.borderRadius = "0px";
             container.appendChild(toast);
             setTimeout(() => { toast.classList.replace('toast-in', 'toast-out'); toast.addEventListener('animationend', () => toast.remove()); }, 3000);
         }
@@ -437,13 +449,13 @@
                     v = formatDateForDisplay(v);
                 }
                 const div = document.createElement('div');
-                div.innerHTML = `<label class="block text-xs font-medium text-[var(--text-secondary)]">${k}</label><input type="text" class="form-input mt-1 text-sm" value="${v}" data-key="${k}">`;
+                div.innerHTML = `<label class="form-label mb-1 block">${k}</label><input type="text" class="form-input text-sm" value="${v}" data-key="${k}">`;
                 dom.extractedDataEl.appendChild(div);
             }
             
             const age = calculateAge(data["Date of Birth"]);
             const ageDiv = document.createElement('div');
-            ageDiv.innerHTML = `<label class="block text-xs font-medium text-[var(--text-secondary)]">Current Age</label><input type="text" class="form-input mt-1 text-sm font-medium" value="${age}" readonly style="background-color: var(--bg-primary); border-color: transparent; padding-left:0; cursor: default;">`;
+            ageDiv.innerHTML = `<label class="form-label mb-1 block">Current Age</label><input type="text" class="form-input text-sm font-medium" value="${age}" readonly style="background-color: var(--bg-primary); border-color: transparent; padding-left:0; cursor: default;">`;
             dom.extractedDataEl.appendChild(ageDiv);
 
             dom.comparisonView.classList.remove('hidden');
@@ -464,7 +476,7 @@
                 });
                 
                 dataToSave.tags = dom.tagsInput.value.split(',').map(t => t.trim()).filter(Boolean);
-                dataToSave.age = calculateAge(dataToSave["Date of Birth"]); // Calculate and add age
+                dataToSave.age = calculateAge(dataToSave["Date of Birth"]);
                 
                 const pNo = dataToSave["Passport No."];
                 if (pNo && pNo !== "N/A" && allPassports.some(p => p["Passport No."] == pNo)) {
@@ -529,29 +541,29 @@
             
             const status=getExpiryStatus(data["Date of Expiry"]);
             const statusClasses={Active:'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300',Soon:'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300',Expired:'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300'};
-            card.innerHTML=`<div class="flex justify-between items-start"><div class="font-semibold text-lg">${data["First Name"]||''} ${data["Last Name"]||''}</div><span class="text-xs font-medium px-2.5 py-0.5 rounded-full ${statusClasses[status]}">${status}</span></div>`;
+            card.innerHTML=`<div class="flex justify-between items-start"><div class="font-bold text-base">${data["First Name"]||''} ${data["Last Name"]||''}</div><span class="text-xs font-medium px-2.5 py-0.5 rounded-full ${statusClasses[status]}">${status}</span></div>`;
 
             const viewContainer=document.createElement('div');viewContainer.className='view-mode';
             const age = calculateAge(data["Date of Birth"]);
-            viewContainer.innerHTML=`<div class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">${createDetailItem('Passport No.',data["Passport No."])}${createDetailItem('Nationality',data["Nationality"])}${createDetailItem('Place of Birth', data["Place of Birth"])}${createDetailItem('Sex', data["Sex"])}${createDetailItem('Date of Birth',formatDateForDisplay(data["Date of Birth"]))}${createDetailItem('Current Age', age)}${createDetailItem('Date of Issue',formatDateForDisplay(data["Date of Issue"]))}${createDetailItem('Date of Expiry',formatDateForDisplay(data["Date of Expiry"]), (status==='Expired'?'text-red-500':status==='Soon'?'text-yellow-500':''))}</div>`;
+            viewContainer.innerHTML=`<div class="grid grid-cols-2 gap-x-4 gap-y-3 text-sm">${createDetailItem('Passport No.',data["Passport No."])}${createDetailItem('Nationality',data["Nationality"])}${createDetailItem('Place of Birth', data["Place of Birth"])}${createDetailItem('Sex', data["Sex"])}${createDetailItem('Date of Birth',formatDateForDisplay(data["Date of Birth"]))}${createDetailItem('Current Age', age)}${createDetailItem('Date of Issue',formatDateForDisplay(data["Date of Issue"]))}${createDetailItem('Date of Expiry',formatDateForDisplay(data["Date of Expiry"]), (status==='Expired'?'text-red-500':status==='Soon'?'text-yellow-500':''))}</div>`;
             
-            if(data.tags&&data.tags.length){const tagsContainer=document.createElement('div');tagsContainer.className='mt-2 flex flex-wrap gap-1.5';data.tags.forEach(t=>{const tagEl=document.createElement('span');tagEl.className='inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded-full text-xs font-medium';tagEl.textContent=t;tagsContainer.appendChild(tagEl);});viewContainer.appendChild(tagsContainer);}
+            if(data.tags&&data.tags.length){const tagsContainer=document.createElement('div');tagsContainer.className='mt-3 flex flex-wrap gap-1.5';data.tags.forEach(t=>{const tagEl=document.createElement('span');tagEl.className='inline-block bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 px-2 py-0.5 rounded text-xs font-medium';tagEl.textContent=t;tagsContainer.appendChild(tagEl);});viewContainer.appendChild(tagsContainer);}
 
-            const editContainer=document.createElement('div');editContainer.className='edit-mode hidden space-y-2';
+            const editContainer=document.createElement('div');editContainer.className='edit-mode hidden space-y-4';
             const fields=["First Name","Last Name","Passport No.","Nationality","Sex","Date of Birth","Place of Birth","Date of Issue","Date of Expiry","Issuing Country Code"];
             fields.forEach(f=>{
                 let value = data[f] || '';
                 if (f.includes("Date")) {
                     value = formatDateForDisplay(value);
                 }
-                editContainer.innerHTML+=`<div><label class="block text-xs font-medium text-[var(--text-secondary)]">${f}</label><input type="text" data-key="${f}" value="${value}" class="form-input text-sm mt-1"></div>`;
+                editContainer.innerHTML+=`<div><label class="form-label mb-1 block">${f}</label><input type="text" data-key="${f}" value="${value}" class="form-input text-sm mt-1"></div>`;
             });
-            editContainer.innerHTML+=`<div><label class="block text-xs font-medium text-[var(--text-secondary)]">Current Age</label><input type="text" value="${age}" class="form-input text-sm mt-1" readonly style="background-color: var(--bg-primary); cursor: default;"></div>`;
-            editContainer.innerHTML+=`<div><label class="block text-xs font-medium text-[var(--text-secondary)]">Tags</label><input type="text" data-key="tags" value="${(data.tags||[]).join(', ')}" class="form-input text-sm mt-1"></div>`;
+            editContainer.innerHTML+=`<div><label class="form-label mb-1 block">Current Age</label><input type="text" value="${age}" class="form-input text-sm mt-1" readonly style="background-color: var(--bg-primary); cursor: default;"></div>`;
+            editContainer.innerHTML+=`<div><label class="form-label mb-1 block">Tags</label><input type="text" data-key="tags" value="${(data.tags||[]).join(', ')}" class="form-input text-sm mt-1"></div>`;
 
             card.appendChild(viewContainer); card.appendChild(editContainer);
             
-            const btnContainer=document.createElement('div');btnContainer.className='flex flex-wrap gap-2 pt-3 border-t border-[var(--border-color)]';
+            const btnContainer=document.createElement('div');btnContainer.className='flex flex-wrap gap-2 pt-4 mt-4 border-t border-[var(--border-color)]';
             const btns={preview:createButton('Preview','btn-secondary'),edit:createButton('Edit','btn-secondary edit-btn'),del:createButton('Delete','btn-secondary delete-btn'),ai:createButton('✨ AI Assistant','btn-secondary'),save:createButton('Save','btn-primary save-changes-btn hidden'),cancel:createButton('Cancel','btn-secondary cancel-btn hidden')};
             btnContainer.append(btns.preview,btns.edit,btns.del,btns.ai,btns.save,btns.cancel);
         
@@ -596,7 +608,9 @@
         }
 
         // --- UI Helper Functions ---
-        function createDetailItem(label, value, valueClass = '') { return `<div><div class="text-xs text-[var(--text-secondary)]">${label}</div><div class="text-[var(--text-primary)] font-medium ${valueClass}">${value || 'N/A'}</div></div>`; }
+        function createDetailItem(label, value, valueClass = '') { 
+            return `<div><div class="form-label">${label}</div><div class="text-sm text-[var(--text-primary)] mt-1 ${valueClass}">${value || 'N/A'}</div></div>`; 
+        }
         function createButton(text, className) { const btn=document.createElement('button');btn.className=`btn text-sm flex-1 ${className}`;btn.textContent=text; return btn; }
         
         function getExpiryStatus(expiryDateString) {
@@ -642,7 +656,7 @@
         function checkAndDisplayExpiryWarning(expiryDateString, container) {
             const status=getExpiryStatus(expiryDateString);if(status==='Active')return;
             const expiryDate=new Date(expiryDateString);const isExpired=status==='Expired';
-            const warning=document.createElement('div');warning.className=`p-3 rounded-lg mb-4 ${isExpired?'bg-red-100 dark:bg-red-900/50 border-l-4 border-red-500 text-red-700 dark:text-red-300':'bg-yellow-100 dark:bg-yellow-900/50 border-l-4 border-yellow-500 text-yellow-700 dark:text-yellow-300'}`;
+            const warning=document.createElement('div');warning.className=`p-3 ${isExpired?'bg-red-100 dark:bg-red-900/50 border-l-4 border-red-500 text-red-700 dark:text-red-300':'bg-yellow-100 dark:bg-yellow-900/50 border-l-4 border-yellow-500 text-yellow-700 dark:text-yellow-300'}`;
             warning.innerHTML=`<p class="font-bold">${isExpired?'Passport Expired':'Expiry Warning'}</p><p class="text-sm">${isExpired?`This passport expired on ${formatDateForDisplay(expiryDateString)}.`:`This passport expires soon: ${formatDateForDisplay(expiryDateString)}.`}</p>`;
             container.prepend(warning);
         }
