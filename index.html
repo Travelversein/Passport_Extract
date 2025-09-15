@@ -379,6 +379,7 @@
             const colors = type === 'success' ? 'bg-green-500' : 'bg-red-500';
             toast.className = `p-4 text-white ${colors} toast-in`;
             toast.style.borderRadius = "0px";
+            toast.textContent = message;
             container.appendChild(toast);
             setTimeout(() => { toast.classList.replace('toast-in', 'toast-out'); toast.addEventListener('animationend', () => toast.remove()); }, 3000);
         }
@@ -572,15 +573,24 @@
             btns.edit.onclick = () => { [viewContainer, btns.edit, btns.del, btns.preview, btns.ai].forEach(el => el.classList.add('hidden'));[editContainer, btns.save, btns.cancel].forEach(el => el.classList.remove('hidden')); };
             btns.cancel.onclick = () => { [viewContainer, btns.edit, btns.del, btns.preview, btns.ai].forEach(el => el.classList.remove('hidden'));[editContainer, btns.save, btns.cancel].forEach(el => el.classList.add('hidden')); };
             btns.save.onclick = async () => {
-                const updatedData = { lastUpdatedAt: new Date().toISOString() };
-                editContainer.querySelectorAll('input[data-key]').forEach(i => {
-                    if (i.dataset.key === 'tags') updatedData.tags = i.value.split(',').map(t => t.trim()).filter(Boolean);
-                    else if (i.dataset.key.includes("Date")) updatedData[i.dataset.key] = parseDateFromDisplay(i.value);
-                    else updatedData[i.dataset.key] = i.value;
-                });
-                updatedData.age = calculateAge(updatedData["Date of Birth"]);
-                await updateDoc(doc(db, `artifacts/${firebaseConfig.projectId}/users/${userId}/passports`, data.id), updatedData);
-                showToast('Record updated!');
+                try {
+                    const updatedData = { lastUpdatedAt: new Date().toISOString() };
+                    editContainer.querySelectorAll('input[data-key]').forEach(i => {
+                        if (i.dataset.key === 'tags') updatedData.tags = i.value.split(',').map(t => t.trim()).filter(Boolean);
+                        else if (i.dataset.key.includes("Date")) updatedData[i.dataset.key] = parseDateFromDisplay(i.value);
+                        else updatedData[i.dataset.key] = i.value;
+                    });
+                    updatedData.age = calculateAge(updatedData["Date of Birth"]);
+                    await updateDoc(doc(db, `artifacts/${firebaseConfig.projectId}/users/${userId}/passports`, data.id), updatedData);
+                    
+                    [viewContainer, btns.edit, btns.del, btns.preview, btns.ai].forEach(el => el.classList.remove('hidden'));
+                    [editContainer, btns.save, btns.cancel].forEach(el => el.classList.add('hidden'));
+
+                    showToast('Record updated!');
+                } catch (error) {
+                    console.error("Update failed:", error);
+                    showToast("Failed to update record.", "error");
+                }
             };
             btns.del.onclick = () => {
                 dom.deleteModal.classList.remove('hidden');
