@@ -276,9 +276,9 @@
     <div id="toast-container" class="fixed top-5 right-5 z-50 space-y-2"></div>
 
     <div id="travel-history-modal" class="fixed inset-0 bg-black bg-opacity-80  h-full w-full hidden z-50 flex items-center justify-center p-4">
-        <div class="w-full max-w-3xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-6 space-y-4">
-            <div id="th-content-to-export" class="p-4">
-                <h2 class="title-section !mb-4 !pb-2" id="travel-history-title">Travel History</h2>
+        <div class="w-full max-w-3xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-6 space-y-4 relative">
+            <div id="th-content-to-export">
+                <h2 class="title-section !mb-4 !pb-2 !border-none" id="travel-history-title">Travel History</h2>
                 <div class="max-h-[300px] overflow-y-auto">
                     <table class="w-full text-left text-sm">
                         <thead class="border-b border-[var(--border-color)]">
@@ -318,9 +318,9 @@
     </div>
 
     <div id="visa-modal" class="fixed inset-0 bg-black bg-opacity-80 h-full w-full hidden z-50 flex items-center justify-center p-4">
-        <div class="w-full max-w-4xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-6 space-y-4">
-             <div id="visa-content-to-export" class="p-4">
-                <h2 class="title-section !mb-4 !pb-2" id="visa-modal-title">Secured Visas</h2>
+        <div class="w-full max-w-4xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-6 space-y-4 relative">
+             <div id="visa-content-to-export">
+                <h2 class="title-section !mb-4 !pb-2 !border-none" id="visa-modal-title">Secured Visas</h2>
                 <div class="max-h-[300px] overflow-y-auto">
                     <table class="w-full text-left text-sm">
                         <thead class="border-b border-[var(--border-color)]">
@@ -375,7 +375,7 @@
                 </div>
                 <button id="visa-save-btn" class="btn btn-primary">Save and Close</button>
             </div>
-            <button id="close-visa-modal" class="absolute top-4 right-4 text-2xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">&times;</button>
+             <button id="close-visa-modal" class="absolute top-4 right-4 text-2xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">&times;</button>
         </div>
     </div>
 
@@ -961,21 +961,31 @@
         }
         
         function exportContentToPDF(elementId, fileName) {
-            const element = document.getElementById(elementId);
-            const elementToPrint = element.cloneNode(true);
+            const originalElement = document.getElementById(elementId);
+            if (!originalElement) return;
+            const elementToPrint = originalElement.cloneNode(true);
+
+            // Create a wrapper for styling purposes that will be passed to html2pdf
+            const printWrapper = document.createElement('div');
+            const isDarkMode = document.documentElement.classList.contains('dark');
+            printWrapper.className = isDarkMode ? 'dark p-4' : 'p-4';
+            printWrapper.style.backgroundColor = `var(--bg-tertiary)`;
+            printWrapper.style.color = `var(--text-primary)`;
             
             // Remove the "Actions" column for a cleaner PDF
             elementToPrint.querySelectorAll('.actions-col').forEach(el => el.remove());
             elementToPrint.querySelectorAll('.delete-row').forEach(el => el.closest('td').remove());
 
+            printWrapper.appendChild(elementToPrint);
+
             const options = {
                 margin:       0.5,
                 filename:     fileName,
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, backgroundColor: document.documentElement.classList.contains('dark') ? '#0a0a0a' : '#ffffff' },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+                html2canvas:  { scale: 2, useCORS: true, backgroundColor: isDarkMode ? '#000000' : '#ffffff' },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
             };
-            html2pdf().set(options).from(elementToPrint).save();
+            html2pdf().set(options).from(printWrapper).save();
         }
 
         function exportTravelHistoryToCSV() {
