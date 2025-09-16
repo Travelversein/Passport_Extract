@@ -310,7 +310,6 @@
                 <div class="flex gap-2">
                     <button id="th-export-csv-btn" class="btn btn-secondary">Export CSV</button>
                     <button id="th-export-pdf-btn" class="btn btn-secondary">Export PDF</button>
-                    <button id="th-share-btn" class="btn btn-secondary">Share Email</button>
                 </div>
                 <button id="th-save-btn" class="btn btn-primary">Save and Close</button>
             </div>
@@ -373,7 +372,6 @@
                 <div class="flex gap-2">
                     <button id="visa-export-csv-btn" class="btn btn-secondary">Export CSV</button>
                     <button id="visa-export-pdf-btn" class="btn btn-secondary">Export PDF</button>
-                    <button id="visa-share-btn" class="btn btn-secondary">Share Email</button>
                 </div>
                 <button id="visa-save-btn" class="btn btn-primary">Save and Close</button>
             </div>
@@ -494,7 +492,6 @@
             thSaveBtn: document.getElementById('th-save-btn'),
             thExportCsvBtn: document.getElementById('th-export-csv-btn'),
             thExportPdfBtn: document.getElementById('th-export-pdf-btn'),
-            thShareBtn: document.getElementById('th-share-btn'),
             visaModal: document.getElementById('visa-modal'),
             closeVisaModalBtn: document.getElementById('close-visa-modal'),
             visaModalTitle: document.getElementById('visa-modal-title'),
@@ -508,7 +505,6 @@
             visaSaveBtn: document.getElementById('visa-save-btn'),
             visaExportCsvBtn: document.getElementById('visa-export-csv-btn'),
             visaExportPdfBtn: document.getElementById('visa-export-pdf-btn'),
-            visaShareBtn: document.getElementById('visa-share-btn'),
         };
         
         // --- App Initialization ---
@@ -550,13 +546,11 @@
         dom.thSaveBtn.onclick = saveTravelHistory;
         dom.thExportCsvBtn.onclick = exportTravelHistoryToCSV;
         dom.thExportPdfBtn.onclick = exportTravelHistoryToPDF;
-        dom.thShareBtn.onclick = shareTravelHistoryViaEmail;
         dom.closeVisaModalBtn.onclick = () => dom.visaModal.classList.add('hidden');
         dom.visaAddBtn.onclick = addNewVisaRow;
         dom.visaSaveBtn.onclick = saveVisas;
         dom.visaExportCsvBtn.onclick = exportVisaInfoToCSV;
         dom.visaExportPdfBtn.onclick = exportVisaInfoToPDF;
-        dom.visaShareBtn.onclick = shareVisaInfoViaEmail;
 
         function populateCountryDropdowns() {
             const dropdowns = [dom.thCountryInput, dom.visaCountryInput];
@@ -953,49 +947,6 @@
             }
         }
         
-        // --- Email Functions ---
-        function shareTravelHistoryViaEmail() {
-            if (!currentEditingPassportId) return;
-            const passportData = allPassports.find(p => p.id === currentEditingPassportId);
-            if (!passportData) return;
-            
-            const subject = `Travel History for ${passportData.givenName} ${passportData.surname}`;
-            let body = `Hello,\n\nPlease find the travel history summary for ${passportData.givenName} ${passportData.surname} below.\n\n`;
-            
-            if (passportData.travelHistory && passportData.travelHistory.length > 0) {
-                passportData.travelHistory.forEach(entry => {
-                    const days = calculateDays(entry.entryDate, entry.exitDate);
-                    body += `- ${entry.country}: ${formatDateForDisplay(entry.entryDate)} to ${formatDateForDisplay(entry.exitDate)} (${days} days)\n`;
-                });
-            } else {
-                body += "No travel history recorded.\n";
-            }
-            body += `\nIMPORTANT: Please export the PDF from the portal and attach it to this email before sending.\n\nBest regards,`;
-            
-            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        }
-
-        function shareVisaInfoViaEmail() {
-            if (!currentEditingPassportId) return;
-            const passportData = allPassports.find(p => p.id === currentEditingPassportId);
-            if (!passportData) return;
-
-            const subject = `Visa Information for ${passportData.givenName} ${passportData.surname}`;
-            let body = `Hello,\n\nPlease find the visa summary for ${passportData.givenName} ${passportData.surname} below.\n\n`;
-
-            if (passportData.securedVisas && passportData.securedVisas.length > 0) {
-                 passportData.securedVisas.forEach(visa => {
-                    const status = getVisaStatus(visa.validFrom, visa.validUntil);
-                    body += `- ${visa.country} Visa (${status.text}): Valid from ${formatDateForDisplay(visa.validFrom)} to ${formatDateForDisplay(visa.validUntil)}\n`;
-                });
-            } else {
-                body += "No visa information recorded.\n";
-            }
-            body += `\nIMPORTANT: Please export the PDF from the portal and attach it to this email before sending.\n\nBest regards,`;
-
-            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        }
-
         // --- CSV & PDF Export Functions ---
         function exportDataToCSV(headers, rows, fileName) {
             const sanitizedRows = rows.map(row => row.map(item => `"${(item || '').toString().replace(/"/g, '""')}"`));
