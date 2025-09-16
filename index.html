@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         // Theme script is kept for toggling, but defaults to dark now.
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage))) {
@@ -276,25 +277,23 @@
 
     <div id="travel-history-modal" class="fixed inset-0 bg-black bg-opacity-80  h-full w-full hidden z-50 flex items-center justify-center p-4">
         <div class="w-full max-w-3xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-6 space-y-4">
-            <div class="flex justify-between items-center">
-                <h2 class="title-section !mb-0 !pb-0 !border-none" id="travel-history-title">Travel History</h2>
-                <button id="close-travel-history-modal" class="text-2xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">&times;</button>
-            </div>
-
-            <div class="max-h-[300px] overflow-y-auto">
-                <table class="w-full text-left text-sm">
-                    <thead class="border-b border-[var(--border-color)]">
-                        <tr>
-                            <th class="p-2 form-label">Country</th>
-                            <th class="p-2 form-label">Date of Entry</th>
-                            <th class="p-2 form-label">Date of Exit</th>
-                            <th class="p-2 form-label"># of Days</th>
-                            <th class="p-2 form-label">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="travel-history-table-body">
-                        </tbody>
-                </table>
+            <div id="th-content-to-export" class="p-4">
+                <h2 class="title-section !mb-4 !pb-2" id="travel-history-title">Travel History</h2>
+                <div class="max-h-[300px] overflow-y-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="border-b border-[var(--border-color)]">
+                            <tr>
+                                <th class="p-2 form-label">Country</th>
+                                <th class="p-2 form-label">Date of Entry</th>
+                                <th class="p-2 form-label">Date of Exit</th>
+                                <th class="p-2 form-label"># of Days</th>
+                                <th class="p-2 form-label actions-col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="travel-history-table-body">
+                            </tbody>
+                    </table>
+                </div>
             </div>
             
             <div class="add-entry-form space-y-3 border-t border-[var(--border-color)] pt-4">
@@ -308,48 +307,75 @@
             </div>
             
             <div class="flex justify-between items-center pt-4">
-                <button id="th-export-btn" class="btn btn-secondary">Export CSV</button>
+                <div class="flex gap-2">
+                    <button id="th-export-csv-btn" class="btn btn-secondary">Export CSV</button>
+                    <button id="th-export-pdf-btn" class="btn btn-secondary">Export PDF</button>
+                </div>
                 <button id="th-save-btn" class="btn btn-primary">Save and Close</button>
             </div>
+            <button id="close-travel-history-modal" class="absolute top-4 right-4 text-2xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">&times;</button>
         </div>
     </div>
 
     <div id="visa-modal" class="fixed inset-0 bg-black bg-opacity-80 h-full w-full hidden z-50 flex items-center justify-center p-4">
-        <div class="w-full max-w-3xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-6 space-y-4">
-            <div class="flex justify-between items-center">
-                <h2 class="title-section !mb-0 !pb-0 !border-none" id="visa-modal-title">Secured Visas</h2>
-                <button id="close-visa-modal" class="text-2xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">&times;</button>
-            </div>
-
-            <div class="max-h-[300px] overflow-y-auto">
-                <table class="w-full text-left text-sm">
-                    <thead class="border-b border-[var(--border-color)]">
-                        <tr>
-                            <th class="p-2 form-label">Country</th>
-                            <th class="p-2 form-label">Valid From</th>
-                            <th class="p-2 form-label">Valid Until</th>
-                            <th class="p-2 form-label">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="visa-table-body">
-                        </tbody>
-                </table>
+        <div class="w-full max-w-4xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] p-6 space-y-4">
+             <div id="visa-content-to-export" class="p-4">
+                <h2 class="title-section !mb-4 !pb-2" id="visa-modal-title">Secured Visas</h2>
+                <div class="max-h-[300px] overflow-y-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="border-b border-[var(--border-color)]">
+                            <tr>
+                                <th class="p-2 form-label">Country & Status</th>
+                                <th class="p-2 form-label">Applied Date</th>
+                                <th class="p-2 form-label">Approved Date</th>
+                                <th class="p-2 form-label">Valid From</th>
+                                <th class="p-2 form-label">Valid Until</th>
+                                <th class="p-2 form-label actions-col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="visa-table-body">
+                            </tbody>
+                    </table>
+                </div>
             </div>
             
             <div class="add-entry-form space-y-3 border-t border-[var(--border-color)] pt-4">
                 <h3 class="!text-lg">Add New Visa</h3>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
-                    <select id="visa-country" class="form-input"></select>
-                    <input type="date" id="visa-valid-from" class="form-input">
-                    <input type="date" id="visa-valid-until" class="form-input">
-                    <button id="visa-add-btn" class="btn btn-secondary">Add</button>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="form-label mb-1 block">Country</label>
+                        <select id="visa-country" class="form-input"></select>
+                    </div>
+                     <div>
+                        <label class="form-label mb-1 block">Applied Date</label>
+                        <input type="date" id="visa-applied-date" class="form-input">
+                    </div>
+                     <div>
+                        <label class="form-label mb-1 block">Approved Date</label>
+                        <input type="date" id="visa-approved-date" class="form-input">
+                    </div>
+                     <div>
+                        <label class="form-label mb-1 block">Valid From</label>
+                        <input type="date" id="visa-valid-from" class="form-input">
+                    </div>
+                     <div>
+                        <label class="form-label mb-1 block">Valid Until</label>
+                        <input type="date" id="visa-valid-until" class="form-input">
+                    </div>
+                    <div class="flex items-end">
+                        <button id="visa-add-btn" class="btn btn-secondary w-full">Add</button>
+                    </div>
                 </div>
             </div>
             
             <div class="flex justify-between items-center pt-4">
-                <button id="visa-export-btn" class="btn btn-secondary">Export CSV</button>
+                <div class="flex gap-2">
+                    <button id="visa-export-csv-btn" class="btn btn-secondary">Export CSV</button>
+                    <button id="visa-export-pdf-btn" class="btn btn-secondary">Export PDF</button>
+                </div>
                 <button id="visa-save-btn" class="btn btn-primary">Save and Close</button>
             </div>
+            <button id="close-visa-modal" class="absolute top-4 right-4 text-2xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">&times;</button>
         </div>
     </div>
 
@@ -429,6 +455,19 @@
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // Inclusive
             return diffDays;
         }
+
+        function getVisaStatus(validFromStr, validUntilStr) {
+            if (!validFromStr || !validUntilStr) return { text: "Unknown", color: "gray" };
+            const today = new Date();
+            today.setHours(0,0,0,0); // Normalize to start of day
+            const from = new Date(validFromStr);
+            const until = new Date(validUntilStr);
+            if (isNaN(from.getTime()) || isNaN(until.getTime())) return { text: "Unknown", color: "gray" };
+
+            if (today > until) return { text: "Expired", color: "red" };
+            if (today < from) return { text: "Upcoming", color: "yellow" };
+            return { text: "Active", color: "green" };
+        }
         
         // --- DOM Elements ---
         const dom = { 
@@ -451,17 +490,21 @@
             thExitDateInput: document.getElementById('th-exit-date'),
             thAddBtn: document.getElementById('th-add-btn'),
             thSaveBtn: document.getElementById('th-save-btn'),
-            thExportBtn: document.getElementById('th-export-btn'),
+            thExportCsvBtn: document.getElementById('th-export-csv-btn'),
+            thExportPdfBtn: document.getElementById('th-export-pdf-btn'),
             visaModal: document.getElementById('visa-modal'),
             closeVisaModalBtn: document.getElementById('close-visa-modal'),
             visaModalTitle: document.getElementById('visa-modal-title'),
             visaTableBody: document.getElementById('visa-table-body'),
             visaCountryInput: document.getElementById('visa-country'),
+            visaAppliedDateInput: document.getElementById('visa-applied-date'),
+            visaApprovedDateInput: document.getElementById('visa-approved-date'),
             visaValidFromInput: document.getElementById('visa-valid-from'),
             visaValidUntilInput: document.getElementById('visa-valid-until'),
             visaAddBtn: document.getElementById('visa-add-btn'),
             visaSaveBtn: document.getElementById('visa-save-btn'),
-            visaExportBtn: document.getElementById('visa-export-btn'),
+            visaExportCsvBtn: document.getElementById('visa-export-csv-btn'),
+            visaExportPdfBtn: document.getElementById('visa-export-pdf-btn'),
         };
         
         // --- App Initialization ---
@@ -501,11 +544,13 @@
         dom.closeTravelHistoryModalBtn.onclick = () => dom.travelHistoryModal.classList.add('hidden');
         dom.thAddBtn.onclick = addNewTravelHistoryRow;
         dom.thSaveBtn.onclick = saveTravelHistory;
-        dom.thExportBtn.onclick = exportTravelHistory;
+        dom.thExportCsvBtn.onclick = exportTravelHistoryToCSV;
+        dom.thExportPdfBtn.onclick = exportTravelHistoryToPDF;
         dom.closeVisaModalBtn.onclick = () => dom.visaModal.classList.add('hidden');
         dom.visaAddBtn.onclick = addNewVisaRow;
         dom.visaSaveBtn.onclick = saveVisas;
-        dom.visaExportBtn.onclick = exportVisaInfo;
+        dom.visaExportCsvBtn.onclick = exportVisaInfoToCSV;
+        dom.visaExportPdfBtn.onclick = exportVisaInfoToPDF;
 
         function populateCountryDropdowns() {
             const dropdowns = [dom.thCountryInput, dom.visaCountryInput];
@@ -669,13 +714,16 @@
             const visaContainer = document.createElement('div');
             visaContainer.className = 'flex flex-wrap gap-1.5 -mt-1';
             if (data.securedVisas && data.securedVisas.length > 0) {
-                const today = new Date();
+                const visaStatusColors = {
+                    Active: 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300',
+                    Upcoming: 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300'
+                };
                 data.securedVisas.forEach(visa => {
-                    const validUntil = new Date(visa.validUntil);
-                    if (!isNaN(validUntil.getTime()) && validUntil >= today) {
+                    const visaStatus = getVisaStatus(visa.validFrom, visa.validUntil);
+                    if (visaStatus.text === 'Active' || visaStatus.text === 'Upcoming') {
                         const visaTag = document.createElement('span');
-                        visaTag.className = 'text-xs font-medium px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300';
-                        visaTag.textContent = `Visa: ${visa.country}`;
+                        visaTag.className = `text-xs font-medium px-2 py-0.5 rounded-full ${visaStatusColors[visaStatus.text]}`;
+                        visaTag.textContent = `Visa: ${visa.country} (${visaStatus.text})`;
                         visaContainer.appendChild(visaTag);
                     }
                 });
@@ -737,8 +785,8 @@
             card.appendChild(imgContainer);
 
             // Button Event Listeners
-            btns.edit.onclick = () => { [viewContainer, btns.edit, btns.del, btns.preview, btns.travel, btns.visas, visaContainer].forEach(el => el.classList.add('hidden'));[editContainer, btns.save, btns.cancel].forEach(el => el.classList.remove('hidden')); };
-            btns.cancel.onclick = () => { [viewContainer, btns.edit, btns.del, btns.preview, btns.travel, btns.visas, visaContainer].forEach(el => el.classList.remove('hidden'));[editContainer, btns.save, btns.cancel].forEach(el => el.classList.add('hidden')); };
+            btns.edit.onclick = () => { [viewContainer, visaContainer, btns.edit, btns.del, btns.preview, btns.travel, btns.visas].forEach(el => el.classList.add('hidden'));[editContainer, btns.save, btns.cancel].forEach(el => el.classList.remove('hidden')); };
+            btns.cancel.onclick = () => { [viewContainer, visaContainer, btns.edit, btns.del, btns.preview, btns.travel, btns.visas].forEach(el => el.classList.remove('hidden'));[editContainer, btns.save, btns.cancel].forEach(el => el.classList.add('hidden')); };
             btns.travel.onclick = () => openTravelHistoryModal(data);
             btns.visas.onclick = () => openVisaModal(data);
             btns.save.onclick = async () => {
@@ -803,7 +851,7 @@
                 <td class="p-2">${formatDateForDisplay(entryDate)}</td>
                 <td class="p-2">${formatDateForDisplay(exitDate)}</td>
                 <td class="p-2">${calculateDays(entryDate, exitDate)}</td>
-                <td class="p-2"><button class="text-red-500 delete-row">Delete</button></td>
+                <td class="p-2 actions-col"><button class="text-red-500 delete-row">Delete</button></td>
             `;
             tr.querySelector('.delete-row').onclick = (e) => e.target.closest('tr').remove();
             tr.dataset.country = country;
@@ -833,34 +881,46 @@
             dom.visaModalTitle.textContent = `Secured Visas for ${passportData.givenName || ''} ${passportData.surname || ''}`;
             dom.visaTableBody.innerHTML = '';
             if (passportData.securedVisas && passportData.securedVisas.length > 0) {
-                passportData.securedVisas.forEach(visa => dom.visaTableBody.appendChild(createVisaRow(visa.country, visa.validFrom, visa.validUntil)));
+                passportData.securedVisas.forEach(visa => dom.visaTableBody.appendChild(createVisaRow(visa.country, visa.appliedDate, visa.approvedDate, visa.validFrom, visa.validUntil)));
             }
             dom.visaModal.classList.remove('hidden');
         }
         
         function addNewVisaRow() {
             const country = dom.visaCountryInput.value;
+            const appliedDate = dom.visaAppliedDateInput.value;
+            const approvedDate = dom.visaApprovedDateInput.value;
             const validFrom = dom.visaValidFromInput.value;
             const validUntil = dom.visaValidUntilInput.value;
-            if (!country || !validFrom || !validUntil) { showToast("All fields are required.", "error"); return; }
+            if (!country || !validFrom || !validUntil || !appliedDate || !approvedDate) { showToast("All fields are required.", "error"); return; }
             if (new Date(validUntil) < new Date(validFrom)) { showToast("Valid until date cannot be before valid from date.", "error"); return; }
-            dom.visaTableBody.appendChild(createVisaRow(country, validFrom, validUntil));
+            if (new Date(approvedDate) < new Date(appliedDate)) { showToast("Approved date cannot be before applied date.", "error"); return; }
+
+            dom.visaTableBody.appendChild(createVisaRow(country, appliedDate, approvedDate, validFrom, validUntil));
             dom.visaCountryInput.selectedIndex = 0;
+            dom.visaAppliedDateInput.value = '';
+            dom.visaApprovedDateInput.value = '';
             dom.visaValidFromInput.value = '';
             dom.visaValidUntilInput.value = '';
         }
 
-        function createVisaRow(country, validFrom, validUntil) {
+        function createVisaRow(country, appliedDate, approvedDate, validFrom, validUntil) {
             const tr = document.createElement('tr');
             tr.className = "border-b border-[var(--border-color)]";
+            const status = getVisaStatus(validFrom, validUntil);
+            const statusColors = { Active: "text-green-500", Upcoming: "text-yellow-500", Expired: "text-red-500", Unknown: "text-gray-500" };
             tr.innerHTML = `
-                <td class="p-2">${country}</td>
+                <td class="p-2">${country} <span class="font-bold ${statusColors[status.text]}">(${status.text})</span></td>
+                <td class="p-2">${formatDateForDisplay(appliedDate)}</td>
+                <td class="p-2">${formatDateForDisplay(approvedDate)}</td>
                 <td class="p-2">${formatDateForDisplay(validFrom)}</td>
                 <td class="p-2">${formatDateForDisplay(validUntil)}</td>
-                <td class="p-2"><button class="text-red-500 delete-row">Delete</button></td>
+                <td class="p-2 actions-col"><button class="text-red-500 delete-row">Delete</button></td>
             `;
             tr.querySelector('.delete-row').onclick = (e) => e.target.closest('tr').remove();
             tr.dataset.country = country;
+            tr.dataset.appliedDate = appliedDate;
+            tr.dataset.approvedDate = approvedDate;
             tr.dataset.validFrom = validFrom;
             tr.dataset.validUntil = validUntil;
             return tr;
@@ -869,7 +929,13 @@
         async function saveVisas() {
             if (!currentEditingPassportId) return;
             const rows = dom.visaTableBody.querySelectorAll('tr');
-            const newVisas = Array.from(rows).map(row => ({ country: row.dataset.country, validFrom: row.dataset.validFrom, validUntil: row.dataset.validUntil }));
+            const newVisas = Array.from(rows).map(row => ({ 
+                country: row.dataset.country, 
+                appliedDate: row.dataset.appliedDate,
+                approvedDate: row.dataset.approvedDate,
+                validFrom: row.dataset.validFrom, 
+                validUntil: row.dataset.validUntil 
+            }));
             try {
                 const docRef = doc(db, `artifacts/${firebaseConfig.projectId}/users/${userId}/passports`, currentEditingPassportId);
                 await updateDoc(docRef, { securedVisas: newVisas });
@@ -881,9 +947,10 @@
             }
         }
         
-        // --- CSV Export Functions ---
+        // --- CSV & PDF Export Functions ---
         function exportDataToCSV(headers, rows, fileName) {
-            const csvContent = [ headers.join(','), ...rows.map(row => row.join(',')) ].join('\n');
+            const sanitizedRows = rows.map(row => row.map(item => `"${(item || '').toString().replace(/"/g, '""')}"`));
+            const csvContent = [ headers.join(','), ...sanitizedRows.map(row => row.join(',')) ].join('\n');
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
@@ -892,8 +959,26 @@
             link.click();
             document.body.removeChild(link);
         }
+        
+        function exportContentToPDF(elementId, fileName) {
+            const element = document.getElementById(elementId);
+            const elementToPrint = element.cloneNode(true);
+            
+            // Remove the "Actions" column for a cleaner PDF
+            elementToPrint.querySelectorAll('.actions-col').forEach(el => el.remove());
+            elementToPrint.querySelectorAll('.delete-row').forEach(el => el.closest('td').remove());
 
-        function exportTravelHistory() {
+            const options = {
+                margin:       0.5,
+                filename:     fileName,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, backgroundColor: document.documentElement.classList.contains('dark') ? '#0a0a0a' : '#ffffff' },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().set(options).from(elementToPrint).save();
+        }
+
+        function exportTravelHistoryToCSV() {
             if (!currentEditingPassportId) return;
             const passportData = allPassports.find(p => p.id === currentEditingPassportId);
             if (!passportData || !passportData.travelHistory || passportData.travelHistory.length === 0) {
@@ -901,29 +986,42 @@
             }
             const headers = ["Country", "Date of Entry", "Date of Exit", "Number of Days"];
             const rows = passportData.travelHistory.map(entry => [
-                `"${entry.country}"`,
-                `"${formatDateForDisplay(entry.entryDate)}"`,
-                `"${formatDateForDisplay(entry.exitDate)}"`,
+                entry.country,
+                formatDateForDisplay(entry.entryDate),
+                formatDateForDisplay(entry.exitDate),
                 calculateDays(entry.entryDate, entry.exitDate)
             ]);
             const fileName = `Travel_History_${passportData.givenName}_${passportData.surname}.csv`;
             exportDataToCSV(headers, rows, fileName);
         }
 
-        function exportVisaInfo() {
+        function exportTravelHistoryToPDF() {
+             if (!currentEditingPassportId) return;
+            const passportData = allPassports.find(p => p.id === currentEditingPassportId);
+            const fileName = `Travel_History_${passportData.givenName}_${passportData.surname}.pdf`;
+            exportContentToPDF('th-content-to-export', fileName);
+        }
+
+        function exportVisaInfoToCSV() {
             if (!currentEditingPassportId) return;
             const passportData = allPassports.find(p => p.id === currentEditingPassportId);
             if (!passportData || !passportData.securedVisas || passportData.securedVisas.length === 0) {
                 showToast("No visa information to export.", "error"); return;
             }
-            const headers = ["Country", "Valid From", "Valid Until"];
-            const rows = passportData.securedVisas.map(visa => [
-                `"${visa.country}"`,
-                `"${formatDateForDisplay(visa.validFrom)}"`,
-                `"${formatDateForDisplay(visa.validUntil)}"`
-            ]);
+            const headers = ["Country", "Status", "Applied Date", "Approved Date", "Valid From", "Valid Until"];
+            const rows = passportData.securedVisas.map(visa => {
+                const status = getVisaStatus(visa.validFrom, visa.validUntil);
+                return [ visa.country, status.text, formatDateForDisplay(visa.appliedDate), formatDateForDisplay(visa.approvedDate), formatDateForDisplay(visa.validFrom), formatDateForDisplay(visa.validUntil) ];
+            });
             const fileName = `Visa_Info_${passportData.givenName}_${passportData.surname}.csv`;
             exportDataToCSV(headers, rows, fileName);
+        }
+        
+        function exportVisaInfoToPDF() {
+            if (!currentEditingPassportId) return;
+            const passportData = allPassports.find(p => p.id === currentEditingPassportId);
+            const fileName = `Visa_Info_${passportData.givenName}_${passportData.surname}.pdf`;
+            exportContentToPDF('visa-content-to-export', fileName);
         }
 
         function exportAllPassportsToCSV() {
@@ -934,10 +1032,10 @@
                 const rowData = passportFields.map(field => {
                     let value = p[field.key] || '';
                     if (field.key.toLowerCase().includes('date')) value = formatDateForDisplay(value);
-                    return `"${value.toString().replace(/"/g, '""')}"`;
+                    return value;
                 });
-                rowData.push(`"${calculateAge(p.dateOfBirth)}"`);
-                rowData.push(`"${(p.tags || []).join('; ')}"`);
+                rowData.push(calculateAge(p.dateOfBirth));
+                rowData.push((p.tags || []).join('; '));
                 return rowData;
             });
             exportDataToCSV(headers, rows, "passport_records.csv");
@@ -1001,7 +1099,7 @@
             warning.innerHTML=`<p class="font-bold">${isExpired?'Passport Expired':'Expiry Warning'}</p><p class="text-sm">${isExpired?`This passport expired on ${formatDateForDisplay(expiryDateString)}.`:`This passport expires soon: ${formatDateForDisplay(expiryDateString)}.`}</p>`;
             container.prepend(warning);
         }
-
+        
         function resetUI() { 
             dom.uploadContainer.classList.remove('hidden'); 
             dom.comparisonView.classList.add('hidden');
