@@ -310,6 +310,7 @@
                 <div class="flex gap-2">
                     <button id="th-export-csv-btn" class="btn btn-secondary">Export CSV</button>
                     <button id="th-export-pdf-btn" class="btn btn-secondary">Export PDF</button>
+                    <button id="th-share-btn" class="btn btn-secondary">Share via Email</button>
                 </div>
                 <button id="th-save-btn" class="btn btn-primary">Save and Close</button>
             </div>
@@ -372,6 +373,7 @@
                 <div class="flex gap-2">
                     <button id="visa-export-csv-btn" class="btn btn-secondary">Export CSV</button>
                     <button id="visa-export-pdf-btn" class="btn btn-secondary">Export PDF</button>
+                    <button id="visa-share-btn" class="btn btn-secondary">Share via Email</button>
                 </div>
                 <button id="visa-save-btn" class="btn btn-primary">Save and Close</button>
             </div>
@@ -492,6 +494,7 @@
             thSaveBtn: document.getElementById('th-save-btn'),
             thExportCsvBtn: document.getElementById('th-export-csv-btn'),
             thExportPdfBtn: document.getElementById('th-export-pdf-btn'),
+            thShareBtn: document.getElementById('th-share-btn'),
             visaModal: document.getElementById('visa-modal'),
             closeVisaModalBtn: document.getElementById('close-visa-modal'),
             visaModalTitle: document.getElementById('visa-modal-title'),
@@ -505,6 +508,7 @@
             visaSaveBtn: document.getElementById('visa-save-btn'),
             visaExportCsvBtn: document.getElementById('visa-export-csv-btn'),
             visaExportPdfBtn: document.getElementById('visa-export-pdf-btn'),
+            visaShareBtn: document.getElementById('visa-share-btn'),
         };
         
         // --- App Initialization ---
@@ -546,11 +550,13 @@
         dom.thSaveBtn.onclick = saveTravelHistory;
         dom.thExportCsvBtn.onclick = exportTravelHistoryToCSV;
         dom.thExportPdfBtn.onclick = exportTravelHistoryToPDF;
+        dom.thShareBtn.onclick = shareTravelHistoryViaEmail;
         dom.closeVisaModalBtn.onclick = () => dom.visaModal.classList.add('hidden');
         dom.visaAddBtn.onclick = addNewVisaRow;
         dom.visaSaveBtn.onclick = saveVisas;
         dom.visaExportCsvBtn.onclick = exportVisaInfoToCSV;
         dom.visaExportPdfBtn.onclick = exportVisaInfoToPDF;
+        dom.visaShareBtn.onclick = shareVisaInfoViaEmail;
 
         function populateCountryDropdowns() {
             const dropdowns = [dom.thCountryInput, dom.visaCountryInput];
@@ -962,21 +968,21 @@
         
         function exportContentToPDF(elementId, fileName) {
             const originalElement = document.getElementById(elementId);
-            if (!originalElement) return;
+            if (!originalElement) { console.error("Element not found for PDF export:", elementId); return; }
             const elementToPrint = originalElement.cloneNode(true);
-
-            // Create a wrapper for styling purposes that will be passed to html2pdf
+            
             const printWrapper = document.createElement('div');
             const isDarkMode = document.documentElement.classList.contains('dark');
-            printWrapper.className = isDarkMode ? 'dark p-4' : 'p-4';
+            printWrapper.className = isDarkMode ? 'dark' : '';
+            printWrapper.style.padding = '1rem';
             printWrapper.style.backgroundColor = `var(--bg-tertiary)`;
             printWrapper.style.color = `var(--text-primary)`;
-            
-            // Remove the "Actions" column for a cleaner PDF
+
             elementToPrint.querySelectorAll('.actions-col').forEach(el => el.remove());
             elementToPrint.querySelectorAll('.delete-row').forEach(el => el.closest('td').remove());
-
+            
             printWrapper.appendChild(elementToPrint);
+            document.body.appendChild(printWrapper); // Must be in DOM for html2canvas to see styles
 
             const options = {
                 margin:       0.5,
@@ -985,7 +991,10 @@
                 html2canvas:  { scale: 2, useCORS: true, backgroundColor: isDarkMode ? '#000000' : '#ffffff' },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
             };
-            html2pdf().set(options).from(printWrapper).save();
+
+            html2pdf().set(options).from(printWrapper).save().then(() => {
+                document.body.removeChild(printWrapper);
+            });
         }
 
         function exportTravelHistoryToCSV() {
