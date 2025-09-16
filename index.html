@@ -825,8 +825,10 @@
             currentEditingPassportId = passportData.id;
             dom.travelHistoryTitle.textContent = `Travel History for ${passportData.givenName || ''} ${passportData.surname || ''}`;
             dom.travelHistoryTableBody.innerHTML = '';
-            if (passportData.travelHistory && passportData.travelHistory.length > 0) {
-                passportData.travelHistory.forEach(entry => dom.travelHistoryTableBody.appendChild(createTravelHistoryRow(entry.country, entry.entryDate, entry.exitDate)));
+            const history = passportData.travelHistory || [];
+            history.sort((a, b) => new Date(b.entryDate) - new Date(a.entryDate));
+            if (history.length > 0) {
+                history.forEach(entry => dom.travelHistoryTableBody.appendChild(createTravelHistoryRow(entry.country, entry.entryDate, entry.exitDate)));
             }
             dom.travelHistoryModal.classList.remove('hidden');
         }
@@ -837,7 +839,15 @@
             const exitDate = dom.thExitDateInput.value;
             if (!country || !entryDate || !exitDate) { showToast("All fields are required.", "error"); return; }
             if (new Date(exitDate) < new Date(entryDate)) { showToast("Exit date cannot be before entry date.", "error"); return; }
-            dom.travelHistoryTableBody.appendChild(createTravelHistoryRow(country, entryDate, exitDate));
+            const newRow = createTravelHistoryRow(country, entryDate, exitDate);
+            const newEntryDate = new Date(entryDate);
+            const rows = Array.from(dom.travelHistoryTableBody.querySelectorAll('tr'));
+            const insertionPoint = rows.find(row => new Date(row.dataset.entryDate) < newEntryDate);
+            if (insertionPoint) {
+                dom.travelHistoryTableBody.insertBefore(newRow, insertionPoint);
+            } else {
+                dom.travelHistoryTableBody.appendChild(newRow);
+            }
             dom.thCountryInput.selectedIndex = 0;
             dom.thEntryDateInput.value = '';
             dom.thExitDateInput.value = '';
@@ -880,8 +890,10 @@
             currentEditingPassportId = passportData.id;
             dom.visaModalTitle.textContent = `Secured Visas for ${passportData.givenName || ''} ${passportData.surname || ''}`;
             dom.visaTableBody.innerHTML = '';
-            if (passportData.securedVisas && passportData.securedVisas.length > 0) {
-                passportData.securedVisas.forEach(visa => dom.visaTableBody.appendChild(createVisaRow(visa.country, visa.appliedDate, visa.approvedDate, visa.validFrom, visa.validUntil)));
+            const visas = passportData.securedVisas || [];
+            visas.sort((a, b) => new Date(b.validFrom) - new Date(a.validFrom));
+            if (visas.length > 0) {
+                visas.forEach(visa => dom.visaTableBody.appendChild(createVisaRow(visa.country, visa.appliedDate, visa.approvedDate, visa.validFrom, visa.validUntil)));
             }
             dom.visaModal.classList.remove('hidden');
         }
@@ -896,7 +908,16 @@
             if (new Date(validUntil) < new Date(validFrom)) { showToast("Valid until date cannot be before valid from date.", "error"); return; }
             if (new Date(approvedDate) < new Date(appliedDate)) { showToast("Approved date cannot be before applied date.", "error"); return; }
 
-            dom.visaTableBody.appendChild(createVisaRow(country, appliedDate, approvedDate, validFrom, validUntil));
+            const newRow = createVisaRow(country, appliedDate, approvedDate, validFrom, validUntil);
+            const newValidFromDate = new Date(validFrom);
+            const rows = Array.from(dom.visaTableBody.querySelectorAll('tr'));
+            const insertionPoint = rows.find(row => new Date(row.dataset.validFrom) < newValidFromDate);
+            if (insertionPoint) {
+                dom.visaTableBody.insertBefore(newRow, insertionPoint);
+            } else {
+                dom.visaTableBody.appendChild(newRow);
+            }
+
             dom.visaCountryInput.selectedIndex = 0;
             dom.visaAppliedDateInput.value = '';
             dom.visaApprovedDateInput.value = '';
@@ -968,8 +989,9 @@
             const isDarkMode = document.documentElement.classList.contains('dark');
             printWrapper.className = isDarkMode ? 'dark' : '';
             printWrapper.style.padding = '1rem';
-            printWrapper.style.backgroundColor = `var(--bg-tertiary)`;
-            printWrapper.style.color = `var(--text-primary)`;
+            printWrapper.style.fontFamily = `'Inter', sans-serif`;
+            printWrapper.style.backgroundColor = isDarkMode ? '#0a0a0a' : '#ffffff';
+            printWrapper.style.color = isDarkMode ? '#ffffff' : '#000000';
             
             const elementToPrint = originalElement.cloneNode(true);
             elementToPrint.querySelectorAll('.actions-col').forEach(el => el.remove());
@@ -981,7 +1003,7 @@
                 margin:       0.5,
                 filename:     fileName,
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, backgroundColor: isDarkMode ? '#0a0a0a' : '#ffffff' },
+                html2canvas:  { scale: 2, useCORS: true },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
             };
 
